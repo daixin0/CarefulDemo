@@ -1,0 +1,135 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2050
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mrihf", "Mrihf", "{396E2D23-0514-40F7-841F-FA31D27361FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonLib", "Mrihf\CommonLib\CommonLib.csproj", "{A0B5A0B9-22EC-47CD-8F1E-8E8E403DF76C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LanguagePackResource", "Mrihf\LanguagePackResource\LanguagePackResource.csproj", "{6D5901C2-4945-4D9B-BAC1-14C2E4A7D70C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrismCommonLib", "Mrihf\PrismCommonLib\PrismCommonLib.csproj", "{B06B5B64-06CA-45BE-A70B-45C27A69C3B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFCommonLib", "Mrihf\WPFCommonLib\WPFCommonLib.csproj", "{FBE456BE-22C5-444D-8C39-0BFD24E49EB9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demo1", "Demo1", "{FFF09559-0869-4029-A4D1-64AABA5FC0AD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demo2", "Demo2", "{B257D30C-C2E8-44FF-A76C-EFC9E9A13180}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ControlLibrary", "ControlLibrary", "{D565A2BB-D2C5-490E-951F-1AB6757E0FA9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ThemeLibrary", "ThemeLibrary", "{21DE6774-0034-4AEB-B8F0-A9EFC7C6EB2E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThemeResources", "ThemeLibrary\ThemeResources\ThemeResources.csproj", "{89429601-7DCC-47C6-8CB0-5F04F66AF36C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlResource", "ControlLibrary\ControlResource\ControlResource.csproj", "{96E0CF6A-E9CC-470B-8E07-32E1D3250499}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModularityIDEDemo", "Demo1\ModularityIDEDemo\ModularityIDEDemo.csproj", "{9DAB7CD6-1A77-4E3B-BBE3-CE04EA81D5D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModularityNavigationDemo", "Demo2\ModularityNavigationDemo\ModularityNavigationDemo.csproj", "{1FF3CC22-47D4-440F-8719-9D62B03BCF96}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libs", "Libs", "{7B600CAB-42EA-46EB-A788-8B8C612C3729}"
+	ProjectSection(SolutionItems) = preProject
+		Libs\JetBrains.Annotations.dll = Libs\JetBrains.Annotations.dll
+		Libs\Microsoft.Expression.Drawing.dll = Libs\Microsoft.Expression.Drawing.dll
+		Libs\Microsoft.Expression.Effects.dll = Libs\Microsoft.Expression.Effects.dll
+		Libs\Microsoft.Expression.Interactions.dll = Libs\Microsoft.Expression.Interactions.dll
+		Libs\Microsoft.Practices.ServiceLocation.dll = Libs\Microsoft.Practices.ServiceLocation.dll
+		Libs\System.Windows.Interactivity.dll = Libs\System.Windows.Interactivity.dll
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A0B5A0B9-22EC-47CD-8F1E-8E8E403DF76C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0B5A0B9-22EC-47CD-8F1E-8E8E403DF76C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0B5A0B9-22EC-47CD-8F1E-8E8E403DF76C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0B5A0B9-22EC-47CD-8F1E-8E8E403DF76C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D5901C2-4945-4D9B-BAC1-14C2E4A7D70C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D5901C2-4945-4D9B-BAC1-14C2E4A7D70C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D5901C2-4945-4D9B-BAC1-14C2E4A7D70C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D5901C2-4945-4D9B-BAC1-14C2E4A7D70C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B06B5B64-06CA-45BE-A70B-45C27A69C3B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B06B5B64-06CA-45BE-A70B-45C27A69C3B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B06B5B64-06CA-45BE-A70B-45C27A69C3B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B06B5B64-06CA-45BE-A70B-45C27A69C3B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBE456BE-22C5-444D-8C39-0BFD24E49EB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBE456BE-22C5-444D-8C39-0BFD24E49EB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBE456BE-22C5-444D-8C39-0BFD24E49EB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBE456BE-22C5-444D-8C39-0BFD24E49EB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89429601-7DCC-47C6-8CB0-5F04F66AF36C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89429601-7DCC-47C6-8CB0-5F04F66AF36C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89429601-7DCC-47C6-8CB0-5F04F66AF36C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89429601-7DCC-47C6-8CB0-5F04F66AF36C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96E0CF6A-E9CC-470B-8E07-32E1D3250499}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96E0CF6A-E9CC-470B-8E07-32E1D3250499}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96E0CF6A-E9CC-470B-8E07-32E1D3250499}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96E0CF6A-E9CC-470B-8E07-32E1D3250499}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DAB7CD6-1A77-4E3B-BBE3-CE04EA81D5D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DAB7CD6-1A77-4E3B-BBE3-CE04EA81D5D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DAB7CD6-1A77-4E3B-BBE3-CE04EA81D5D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DAB7CD6-1A77-4E3B-BBE3-CE04EA81D5D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FF3CC22-47D4-440F-8719-9D62B03BCF96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FF3CC22-47D4-440F-8719-9D62B03BCF96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FF3CC22-47D4-440F-8719-9D62B03BCF96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FF3CC22-47D4-440F-8719-9D62B03BCF96}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A0B5A0B9-22EC-47CD-8F1E-8E8E403DF76C} = {396E2D23-0514-40F7-841F-FA31D27361FD}
+		{6D5901C2-4945-4D9B-BAC1-14C2E4A7D70C} = {396E2D23-0514-40F7-841F-FA31D27361FD}
+		{B06B5B64-06CA-45BE-A70B-45C27A69C3B5} = {396E2D23-0514-40F7-841F-FA31D27361FD}
+		{FBE456BE-22C5-444D-8C39-0BFD24E49EB9} = {396E2D23-0514-40F7-841F-FA31D27361FD}
+		{89429601-7DCC-47C6-8CB0-5F04F66AF36C} = {21DE6774-0034-4AEB-B8F0-A9EFC7C6EB2E}
+		{96E0CF6A-E9CC-470B-8E07-32E1D3250499} = {D565A2BB-D2C5-490E-951F-1AB6757E0FA9}
+		{9DAB7CD6-1A77-4E3B-BBE3-CE04EA81D5D4} = {FFF09559-0869-4029-A4D1-64AABA5FC0AD}
+		{1FF3CC22-47D4-440F-8719-9D62B03BCF96} = {B257D30C-C2E8-44FF-A76C-EFC9E9A13180}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F712A359-A09E-462F-9796-B9461201B22F}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 9
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://netseandai.visualstudio.com/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = ControlLibrary\\ControlResource\\ControlResource.csproj
+		SccProjectTopLevelParentUniqueName1 = MrihfDemo.sln
+		SccProjectName1 = ControlLibrary/ControlResource
+		SccLocalPath1 = ControlLibrary\\ControlResource
+		SccProjectUniqueName2 = Demo1\\ModularityIDEDemo\\ModularityIDEDemo.csproj
+		SccProjectTopLevelParentUniqueName2 = MrihfDemo.sln
+		SccProjectName2 = Demo1/ModularityIDEDemo
+		SccLocalPath2 = Demo1\\ModularityIDEDemo
+		SccProjectUniqueName3 = Demo2\\ModularityNavigationDemo\\ModularityNavigationDemo.csproj
+		SccProjectTopLevelParentUniqueName3 = MrihfDemo.sln
+		SccProjectName3 = Demo2/ModularityNavigationDemo
+		SccLocalPath3 = Demo2\\ModularityNavigationDemo
+		SccProjectUniqueName4 = Mrihf\\CommonLib\\CommonLib.csproj
+		SccProjectTopLevelParentUniqueName4 = MrihfDemo.sln
+		SccProjectName4 = Mrihf/CommonLib
+		SccLocalPath4 = Mrihf\\CommonLib
+		SccProjectUniqueName5 = Mrihf\\LanguagePackResource\\LanguagePackResource.csproj
+		SccProjectTopLevelParentUniqueName5 = MrihfDemo.sln
+		SccProjectName5 = Mrihf/LanguagePackResource
+		SccLocalPath5 = Mrihf\\LanguagePackResource
+		SccProjectUniqueName6 = Mrihf\\PrismCommonLib\\PrismCommonLib.csproj
+		SccProjectTopLevelParentUniqueName6 = MrihfDemo.sln
+		SccProjectName6 = Mrihf/PrismCommonLib
+		SccLocalPath6 = Mrihf\\PrismCommonLib
+		SccProjectUniqueName7 = Mrihf\\WPFCommonLib\\WPFCommonLib.csproj
+		SccProjectTopLevelParentUniqueName7 = MrihfDemo.sln
+		SccProjectName7 = Mrihf/WPFCommonLib
+		SccLocalPath7 = Mrihf\\WPFCommonLib
+		SccProjectUniqueName8 = ThemeLibrary\\ThemeResources\\ThemeResources.csproj
+		SccProjectTopLevelParentUniqueName8 = MrihfDemo.sln
+		SccProjectName8 = ThemeLibrary/ThemeResources
+		SccLocalPath8 = ThemeLibrary\\ThemeResources
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,276 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{96E0CF6A-E9CC-470B-8E07-32E1D3250499}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ControlResource</RootNamespace>
+    <AssemblyName>ControlResource</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Output\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="JetBrains.Annotations">
+      <HintPath>..\..\Libs\JetBrains.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="PresentationFramework.Aero" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Libs\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CustomControls\MessageBoxControl\MessageBoxButton.cs" />
+    <Compile Include="CustomControls\MessageBoxControl\MessageBoxEventArgs.cs" />
+    <Compile Include="CustomControls\MessageBoxControl\MessageBoxShow.cs" />
+    <Compile Include="CustomControls\MessageBoxControl\MessageBoxView.xaml.cs">
+      <DependentUpon>MessageBoxView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CustomControls\MessageBoxControl\MessageBoxViewModel.cs" />
+    <Compile Include="CustomControls\MessageBoxControl\MessageBoxWindow.xaml.cs">
+      <DependentUpon>MessageBoxWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CustomControls\MessageBoxControl\MessageWindow.cs" />
+    <Compile Include="CustomControls\MessageBoxControl\VisibilityConverter.cs" />
+    <Compile Include="CustomControls\CircleProgressRingControl\ModernProgressRing.cs" />
+    <Compile Include="CustomControls\RadioButtonControl\UserControlRadioBtn.xaml.cs">
+      <DependentUpon>UserControlRadioBtn.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CustomControls\ValueToProcessConverter.cs" />
+    <Compile Include="ExtendControls\DataGrid\BoolAsVisiableConverter.cs" />
+    <Compile Include="ExtendControls\DataGrid\CancelableFilterChangedEventArgs.cs" />
+    <Compile Include="ExtendControls\DataGrid\CheckboxComboItem.cs" />
+    <Compile Include="ExtendControls\DataGrid\CheckSelectedEventArgs.cs" />
+    <Compile Include="ExtendControls\DataGrid\ColumnConfiguration.cs" />
+    <Compile Include="ExtendControls\DataGrid\ColumnFilterControl.xaml.cs">
+      <DependentUpon>ColumnFilterControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ExtendControls\DataGrid\ColumnOptionControl.xaml.cs">
+      <DependentUpon>ColumnOptionControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ExtendControls\DataGrid\ConvertStringToLambda\AbstractDynamicLinqCustomTypeProvider.cs" />
+    <Compile Include="ExtendControls\DataGrid\ConvertStringToLambda\AssemblyBuilderFactory.cs" />
+    <Compile Include="ExtendControls\DataGrid\ConvertStringToLambda\Check.cs" />
+    <Compile Include="ExtendControls\DataGrid\ConvertStringToLambda\CompareConversionType.cs" />
+    <Compile Include="ExtendControls\DataGrid\ConvertStringToLambda\ConstantExpressionHelper.cs" />
+    <Compile Include="ExtendControls\DataGrid\ConvertStringToLambda\Constants.cs" />
+    <Compile Include="ExtendControls\DataGrid\ConvertStringToLambda\ConvertTo.cs" />
+    <Compile Include="ExtendControls\DataGrid\ConvertStringToLambda\CoreStrings.cs" />
+    <Compile Include="ExtendControls\DataGrid\ConvertStringToLambda\CustomIntrospectionExtensions.cs" />
+    <Compile Include="ExtendControls\DataGrid\ConvertStringToLambda\DefaultAssemblyHelper.cs" />
+    <Compile Include="ExtendControls\DataGrid\ConvertStringToLambda\DefaultDynamicLinqCustomTypeProvider.cs" />
+    <Compile Include="ExtendControls\DataGrid\ConvertStringToLambda\DynamicClass.cs" />
+    <Compile Include="ExtendControls\DataGrid\ConvertStringToLambda\DynamicClassFactory.cs" />
+    <Compile Include="ExtendControls\DataGrid\ConvertStringToLambda\DynamicExpressionParser.cs" />
+    <Compile Include="ExtendControls\DataGrid\ConvertStringToLambda\DynamicGetMemberBinder.cs" />
+    <Compile Include="ExtendControls\DataGrid\ConvertStringToLambda\DynamicLinqTypeAttribute.cs" />
+    <Compile Include="ExtendControls\DataGrid\ConvertStringToLambda\DynamicOrdering.cs" />
+    <Compile Include="ExtendControls\DataGrid\ConvertStringToLambda\DynamicProperty.cs" />
+    <Compile Include="ExtendControls\DataGrid\ConvertStringToLambda\ExpressionHelper.cs" />
+    <Compile Include="ExtendControls\DataGrid\ConvertStringToLambda\ExpressionParser.cs" />
+    <Compile Include="ExtendControls\DataGrid\ConvertStringToLambda\ExpressionPromoter.cs" />
+    <Compile Include="ExtendControls\DataGrid\ConvertStringToLambda\ExtensibilityPoint.cs" />
+    <Compile Include="ExtendControls\DataGrid\ConvertStringToLambda\IAddSignatures.cs" />
+    <Compile Include="ExtendControls\DataGrid\ConvertStringToLambda\IArithmeticSignatures.cs" />
+    <Compile Include="ExtendControls\DataGrid\ConvertStringToLambda\IAssemblyHelper.cs" />
+    <Compile Include="ExtendControls\DataGrid\ConvertStringToLambda\IDynamicLinkTypeProvider.cs" />
+    <Compile Include="ExtendControls\DataGrid\ConvertStringToLambda\IEnumerableSignatures.cs" />
+    <Compile Include="ExtendControls\DataGrid\ConvertStringToLambda\IEqualitySignatures.cs" />
+    <Compile Include="ExtendControls\DataGrid\ConvertStringToLambda\ILogicalSignatures.cs" />
+    <Compile Include="ExtendControls\DataGrid\ConvertStringToLambda\INegationSignatures.cs" />
+    <Compile Include="ExtendControls\DataGrid\ConvertStringToLambda\INotSignatures.cs" />
+    <Compile Include="ExtendControls\DataGrid\ConvertStringToLambda\IQueryableSignatures.cs" />
+    <Compile Include="ExtendControls\DataGrid\ConvertStringToLambda\IRelationalSignatures.cs" />
+    <Compile Include="ExtendControls\DataGrid\ConvertStringToLambda\IShiftSignatures.cs" />
+    <Compile Include="ExtendControls\DataGrid\ConvertStringToLambda\ISubtractSignatures.cs" />
+    <Compile Include="ExtendControls\DataGrid\ConvertStringToLambda\KeywordsHelper.cs" />
+    <Compile Include="ExtendControls\DataGrid\ConvertStringToLambda\LinqProviderExtensions.cs" />
+    <Compile Include="ExtendControls\DataGrid\ConvertStringToLambda\MethodData.cs" />
+    <Compile Include="ExtendControls\DataGrid\ConvertStringToLambda\MethodFinder.cs" />
+    <Compile Include="ExtendControls\DataGrid\ConvertStringToLambda\ParameterExpressionHelper.cs" />
+    <Compile Include="ExtendControls\DataGrid\ConvertStringToLambda\ParseException.cs" />
+    <Compile Include="ExtendControls\DataGrid\ConvertStringToLambda\ParsingConfig.cs" />
+    <Compile Include="ExtendControls\DataGrid\ConvertStringToLambda\PredefinedTypesHelper.cs" />
+    <Compile Include="ExtendControls\DataGrid\ConvertStringToLambda\Res.cs" />
+    <Compile Include="ExtendControls\DataGrid\ConvertStringToLambda\TextParser.cs" />
+    <Compile Include="ExtendControls\DataGrid\ConvertStringToLambda\Token.cs" />
+    <Compile Include="ExtendControls\DataGrid\ConvertStringToLambda\TokenId.cs" />
+    <Compile Include="ExtendControls\DataGrid\ConvertStringToLambda\TypeConverterFactory.cs" />
+    <Compile Include="ExtendControls\DataGrid\ConvertStringToLambda\TypeHelper.cs" />
+    <Compile Include="ExtendControls\DataGrid\DataGridExtend.cs" />
+    <Compile Include="ExtendControls\DataGrid\DataGridExtensions.cs" />
+    <Compile Include="ExtendControls\DataGrid\Enums.cs" />
+    <Compile Include="ExtendControls\DataGrid\ExpressionHelper.cs" />
+    <Compile Include="ExtendControls\DataGrid\FilterChangedEventArgs.cs" />
+    <Compile Include="ExtendControls\DataGrid\FilterDataViewModel.cs" />
+    <Compile Include="ExtendControls\DataGrid\FilterDataWindow.xaml.cs">
+      <DependentUpon>FilterDataWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ExtendControls\DataGrid\FilterModel.cs" />
+    <Compile Include="ExtendControls\DataGrid\FilterOperationItem.cs" />
+    <Compile Include="ExtendControls\DataGrid\FilterSelectedContorl.xaml.cs">
+      <DependentUpon>FilterSelectedContorl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ExtendControls\DataGrid\IAllSelectedPropertyChanged.cs" />
+    <Compile Include="ExtendControls\DataGrid\OptionColumnInfo.cs" />
+    <Compile Include="ExtendControls\DataGrid\PredicateExtensions.cs" />
+    <Compile Include="ExtendControls\MultiComboBox\ControlAttachProperty.cs" />
+    <Compile Include="ExtendControls\MultiComboBox\MultiComboBox.cs" />
+    <Compile Include="ExtendControls\MultiComboBox\ThicknessToDoubleConverter.cs" />
+    <Compile Include="ExtendControls\MultiComboBox\TreeViewMarginConverter.cs" />
+    <Compile Include="ExtendControls\MultiComboBox\TrueToFalseConverter.cs" />
+    <Compile Include="ExtendControls\NumericBox\NumericBoxControl.cs" />
+    <Compile Include="ExtendControls\TabControl3D\AnimatedTabControl.cs" />
+    <Compile Include="ExtendControls\TabControl3D\RoundedBox.xaml.cs">
+      <DependentUpon>RoundedBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ExtendControls\TreeListView\GridViewColumnVisibilityManager.cs" />
+    <Compile Include="ExtendControls\TreeListView\LevelToIndentConverter.cs" />
+    <Compile Include="ExtendControls\TreeListView\ScrollViewerHelper.cs" />
+    <Compile Include="ExtendControls\TreeListView\TreeListView.cs" />
+    <Compile Include="ExtendControls\TreeListView\TreeViewExtensions.cs" />
+    <Compile Include="ExtendControls\WaterTextBox\WaterTextBoxControl.cs" />
+    <Compile Include="ExtendControls\WebBrowserControl\BrowserEmulationVersion.cs" />
+    <Compile Include="ExtendControls\WebBrowserControl\InternetExplorerBrowserEmulation.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="CommonStyle\Styles\MenuItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CustomControls\MessageBoxControl\MessageBoxPath.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CustomControls\MessageBoxControl\MessageBoxView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CustomControls\MessageBoxControl\MessageBoxWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CustomControls\RadioButtonControl\UserControlRadioBtn.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CustomControls\CircleProgressRingControl\CircleProgressRingStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DefaultTheme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExtendControls\DataGrid\ColumnFilterControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExtendControls\DataGrid\ColumnOptionControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExtendControls\DataGrid\DataGridExtendStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExtendControls\DataGrid\FilterDataWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExtendControls\DataGrid\FilterSelectedContorl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExtendControls\MultiComboBox\Colors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExtendControls\MultiComboBox\MultiComboBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExtendControls\MultiComboBox\Share.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExtendControls\MultiComboBox\ToggleButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExtendControls\NumericBox\NumericBoxControlStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExtendControls\TabControl3D\RoundedBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExtendControls\TabControl3D\TabControlStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExtendControls\TreeListView\GridViewColumnHeader.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExtendControls\TreeListView\TreeExpandToggle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExtendControls\TreeListView\TreeListViewStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExtendControls\WaterTextBox\WaterTextBoxStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Mrihf\WPFCommonLib\WPFCommonLib.csproj">
+      <Project>{fbe456be-22c5-444d-8c39-0bfd24e49eb9}</Project>
+      <Name>WPFCommonLib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

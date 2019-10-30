@@ -1,0 +1,91 @@
+﻿<Window x:Class="ControlResource.ExtendControlStyle.DataGrid.FilterDataWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:lib="http://GFramework.org"
+                 xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                 xmlns:converter="clr-namespace:WPFCommonLib.Converters;assembly=WPFCommonLib"
+        xmlns:local="clr-namespace:ControlResource.ExtendControlStyle.DataGrid"
+                  Background="#FFFEFEFE" WindowStartupLocation="CenterScreen"
+        Height="260" Width="709">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding WindowLoadCmd}"></i:InvokeCommandAction>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Window.Resources>
+        <converter:BoolAsVisiableConverter x:Key="conBoolAsVisiable"></converter:BoolAsVisiableConverter>
+    </Window.Resources>
+    <Grid x:Name="LayoutRoot" SnapsToDevicePixels="True">
+        <Border BorderBrush="{DynamicResource AccentBrush}" BorderThickness="2,0,2,2">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="28.8" />
+                    <RowDefinition />
+                    <RowDefinition Height="44" />
+                </Grid.RowDefinitions>
+                <Border Background="{DynamicResource AccentBrush}">
+                    <Grid>
+                        <StackPanel
+                            Margin="12,0,0,0"
+                            HorizontalAlignment="Left"
+                            Orientation="Horizontal">
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontSize="13"
+                                Foreground="{DynamicResource ForegroundColor}"
+                                Text="数据筛选"
+                                TextWrapping="Wrap" />
+                        </StackPanel>
+                        <StackPanel
+                            Margin="0,0,12,0"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal">
+                            <Button Style="{DynamicResource CloseButtonStyle}" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+                <Grid Grid.Row="1" Margin="10,0,10,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" HorizontalAlignment="Left" Orientation="Horizontal">
+                        <Button Command="{Binding AddCmd}" Height="25" Width="80" Content="添加"></Button>
+                        <Button Command="{Binding ClearCmd}" Margin="10,0,0,0" Height="25" Width="80" Content="清除"></Button>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Margin="5,0,0,0" VerticalAlignment="Center" Orientation="Horizontal">
+                        <TextBlock Width="65" Text="左括号"></TextBlock>
+                        <TextBlock Width="170" Text="列名"></TextBlock>
+                        <TextBlock Width="110" Text="操作符"></TextBlock>
+                        <TextBlock Width="170" Text="数据值"></TextBlock>
+                        <TextBlock Width="65" Text="右括号"></TextBlock>
+                        <TextBlock Width="65" Text="逻辑"></TextBlock>
+                    </StackPanel>
+                    <ListBox Grid.Row="2" ItemsSource="{Binding GridFilterColumn}" SelectedItem="{Binding GridFilterColumnSelected}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <local:FilterSelectedContorl FilterSelectedItem="{Binding}"/>
+                                    <Button Margin="10,0,0,0" Visibility="{Binding IsNoFirstItem,Converter={StaticResource conBoolAsVisiable}}"  Command="{Binding DataContext.DeleteCmd,RelativeSource={RelativeSource AncestorType=ListBox,Mode=FindAncestor}}" CommandParameter="{Binding}" VerticalAlignment="Center" Width="16" Height="16"
+                                Style="{DynamicResource ButtonS5}"
+                                                                ToolTip="删除">
+                                        <Path Stroke="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" Data="M0.5,2.453 L17.5,2.453 M11.197,2.453 L11.197,0.50000001 6.802,0.50000001 6.802,2.453 M14.615,2.453 L14.615,17.472 3.385,17.472 3.385,2.453 M9,5.237 L9,14.687 M11.67,6.966 L11.67,12.96 M6.329,6.966 L6.329,12.96" Stretch="Uniform"  Width="16" Height="16"/>
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    
+                </Grid>
+                <StackPanel Grid.Row="2" Margin="0,0,10,0" HorizontalAlignment="Right" Orientation="Horizontal">
+                    <Button Command="{Binding ConfirmCmd}" Height="25" Width="80" Content="确定"></Button>
+                    <Button Click="Button_Click" Margin="10,0,0,0" Height="25" Width="80" Content="取消"></Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
