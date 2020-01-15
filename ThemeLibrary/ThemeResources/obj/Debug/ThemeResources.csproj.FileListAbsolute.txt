@@ -1,0 +1,4 @@
+F:\Source Code\MrihfFrame\Output\ThemeResources.dll
+F:\Source Code\MrihfFrame\Output\ThemeResources.pdb
+F:\Source Code\MrihfFrame\ThemeLibrary\ThemeResources\obj\Debug\ThemeResources.dll
+F:\Source Code\MrihfFrame\ThemeLibrary\ThemeResources\obj\Debug\ThemeResources.pdb

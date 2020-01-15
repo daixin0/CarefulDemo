@@ -1,0 +1,8 @@
+F:\Source Code\MrihfFrame\Output\LanguagePackResource.dll
+F:\Source Code\MrihfFrame\Output\LanguagePackResource.pdb
+F:\Source Code\MrihfFrame\Mrihf\LanguagePackResource\obj\Debug\cn\Frame.baml
+F:\Source Code\MrihfFrame\Mrihf\LanguagePackResource\obj\Debug\en\Frame.baml
+F:\Source Code\MrihfFrame\Mrihf\LanguagePackResource\obj\Debug\LanguagePackResource_MarkupCompile.cache
+F:\Source Code\MrihfFrame\Mrihf\LanguagePackResource\obj\Debug\LanguagePackResource.g.resources
+F:\Source Code\MrihfFrame\Mrihf\LanguagePackResource\obj\Debug\LanguagePackResource.dll
+F:\Source Code\MrihfFrame\Mrihf\LanguagePackResource\obj\Debug\LanguagePackResource.pdb

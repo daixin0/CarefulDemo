@@ -1,0 +1,5 @@
+F:\Source Code\MrihfFrame\Output\CommonLib.dll
+F:\Source Code\MrihfFrame\Output\CommonLib.pdb
+F:\Source Code\MrihfFrame\Mrihf\CommonLib\obj\Debug\CommonLib.csproj.CopyComplete
+F:\Source Code\MrihfFrame\Mrihf\CommonLib\obj\Debug\CommonLib.dll
+F:\Source Code\MrihfFrame\Mrihf\CommonLib\obj\Debug\CommonLib.pdb

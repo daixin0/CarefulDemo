@@ -1,0 +1,13 @@
+F:\Source Code\MrihfFrame\Output\ModularityNavigationDemo.exe.config
+F:\Source Code\MrihfFrame\Output\ModularityNavigationDemo.exe
+F:\Source Code\MrihfFrame\Output\ModularityNavigationDemo.pdb
+F:\Source Code\MrihfFrame\Demo2\ModularityNavigationDemo\obj\Debug\MainWindow.g.cs
+F:\Source Code\MrihfFrame\Demo2\ModularityNavigationDemo\obj\Debug\App.g.cs
+F:\Source Code\MrihfFrame\Demo2\ModularityNavigationDemo\obj\Debug\ModularityNavigationDemo_MarkupCompile.cache
+F:\Source Code\MrihfFrame\Demo2\ModularityNavigationDemo\obj\Debug\ModularityNavigationDemo_MarkupCompile.lref
+F:\Source Code\MrihfFrame\Demo2\ModularityNavigationDemo\obj\Debug\MainWindow.baml
+F:\Source Code\MrihfFrame\Demo2\ModularityNavigationDemo\obj\Debug\ModularityNavigationDemo.g.resources
+F:\Source Code\MrihfFrame\Demo2\ModularityNavigationDemo\obj\Debug\ModularityNavigationDemo.Properties.Resources.resources
+F:\Source Code\MrihfFrame\Demo2\ModularityNavigationDemo\obj\Debug\ModularityNavigationDemo.csproj.GenerateResource.cache
+F:\Source Code\MrihfFrame\Demo2\ModularityNavigationDemo\obj\Debug\ModularityNavigationDemo.exe
+F:\Source Code\MrihfFrame\Demo2\ModularityNavigationDemo\obj\Debug\ModularityNavigationDemo.pdb
