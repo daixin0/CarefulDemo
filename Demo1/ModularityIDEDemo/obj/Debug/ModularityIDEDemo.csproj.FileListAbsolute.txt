@@ -1,0 +1,14 @@
+F:\Source Code\MrihfFrame\Output\ModularityIDEDemo.exe.config
+F:\Source Code\MrihfFrame\Output\ModularityIDEDemo.exe
+F:\Source Code\MrihfFrame\Output\ModularityIDEDemo.pdb
+F:\Source Code\MrihfFrame\Demo1\ModularityIDEDemo\obj\Debug\ModularityIDEDemo.csprojAssemblyReference.cache
+F:\Source Code\MrihfFrame\Demo1\ModularityIDEDemo\obj\Debug\MainWindow.g.cs
+F:\Source Code\MrihfFrame\Demo1\ModularityIDEDemo\obj\Debug\App.g.cs
+F:\Source Code\MrihfFrame\Demo1\ModularityIDEDemo\obj\Debug\ModularityIDEDemo_MarkupCompile.cache
+F:\Source Code\MrihfFrame\Demo1\ModularityIDEDemo\obj\Debug\ModularityIDEDemo_MarkupCompile.lref
+F:\Source Code\MrihfFrame\Demo1\ModularityIDEDemo\obj\Debug\MainWindow.baml
+F:\Source Code\MrihfFrame\Demo1\ModularityIDEDemo\obj\Debug\ModularityIDEDemo.g.resources
+F:\Source Code\MrihfFrame\Demo1\ModularityIDEDemo\obj\Debug\ModularityIDEDemo.Properties.Resources.resources
+F:\Source Code\MrihfFrame\Demo1\ModularityIDEDemo\obj\Debug\ModularityIDEDemo.csproj.GenerateResource.cache
+F:\Source Code\MrihfFrame\Demo1\ModularityIDEDemo\obj\Debug\ModularityIDEDemo.exe
+F:\Source Code\MrihfFrame\Demo1\ModularityIDEDemo\obj\Debug\ModularityIDEDemo.pdb
