@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Windows;
+using WPFCommonLib.Helpers;
 using WPFCommonLib.Utility;
 
 namespace WPFCommonLib.Base

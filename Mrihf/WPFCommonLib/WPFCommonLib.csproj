@@ -45,6 +45,7 @@
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity">
       <HintPath>..\..\Libs\System.Windows.Interactivity.dll</HintPath>
@@ -96,6 +97,7 @@
     <Compile Include="Helpers\WeakFunc.cs" />
     <Compile Include="Helpers\WeakFuncGeneric.cs" />
     <Compile Include="ICleanup.cs" />
+    <Compile Include="IViewModelParameter.cs" />
     <Compile Include="Messaging\DialogMessage.cs" />
     <Compile Include="Messaging\GenericMessage.cs" />
     <Compile Include="Messaging\IMessenger.cs" />
@@ -116,7 +118,9 @@
     <Compile Include="ObservableObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Proxy\BindingProxy.cs" />
-    <Compile Include="Utility\ApplicationHelper.cs" />
+    <Compile Include="Services\ContainerService.cs" />
+    <Compile Include="Services\FrameWindowService.cs" />
+    <Compile Include="Services\IFrameWindowService.cs" />
     <Compile Include="Utility\DispatcherHelper.cs" />
     <Compile Include="Utility\RpcInvoker.cs" />
     <Compile Include="ViewModelBase.cs" />

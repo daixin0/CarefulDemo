@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interactivity;
 using WPFCommonLib.Base;
+using WPFCommonLib.Helpers;
 using WPFCommonLib.Utility;
 
 namespace WPFCommonLib.Behaviors
