@@ -10,17 +10,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using WPFCommonLib.Helpers;
-// ReSharper restore RedundantUsingDirective
-
-#if NETFX_CORE
-#if !PORTABLE
-using Windows.ApplicationModel;
-#endif
-#else
-// ReSharper disable RedundantUsingDirective
 using System.Windows;
-// ReSharper restore RedundantUsingDirective
-#endif
 
 ////using GalaSoft.Utilities.Attributes;
 
