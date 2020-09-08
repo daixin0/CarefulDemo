@@ -58,12 +58,6 @@
     <Compile Include="Ioc\ISimpleIoc.cs" />
     <Compile Include="Ioc\PreferredConstructor.cs" />
     <Compile Include="Ioc\SimpleIoc.cs" />
-    <Compile Include="Logs\FileLogger.cs" />
-    <Compile Include="Logs\ILog.cs" />
-    <Compile Include="Logs\ILogExtensions.cs" />
-    <Compile Include="Logs\Measurement.cs" />
-    <Compile Include="Logs\Priority.cs" />
-    <Compile Include="NotifyPropertyChanged.cs" />
     <Compile Include="ObjectMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

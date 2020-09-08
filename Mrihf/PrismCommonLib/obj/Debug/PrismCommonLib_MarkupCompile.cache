@@ -4,7 +4,7 @@
 library
 C#
 .cs
-F:\Source Code\MrihfFrame\Mrihf\PrismCommonLib\obj\Debug\
+F:\Project\MrihfDemo\Mrihf\PrismCommonLib\obj\Debug\
 PrismCommonLib
 none
 false
@@ -12,8 +12,8 @@ DEBUG;TRACE
 
 2-518826883
 
-202788328693
-19-1688486403
+202-1759068921
+191317347091
 Interactivity\DefaultPopupWindows\DefaultConfirmationWindow.xaml;Interactivity\DefaultPopupWindows\DefaultNotificationWindow.xaml;
 
 False

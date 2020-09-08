@@ -1,0 +1,2 @@
+F:\Project\MrihfDemo\Careful.Core\obj\Debug\Careful.Core.csprojAssemblyReference.cache
+F:\Project\MrihfDemo\Careful.Core\obj\Debug\Careful.Core.csproj.CoreCompileInputs.cache

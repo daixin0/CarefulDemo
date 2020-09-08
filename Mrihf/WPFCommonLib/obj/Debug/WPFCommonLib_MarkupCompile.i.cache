@@ -4,7 +4,7 @@
 library
 C#
 .cs
-F:\Source Code\MrihfFrame\Mrihf\WPFCommonLib\obj\Debug\
+F:\Project\MrihfDemo\Mrihf\WPFCommonLib\obj\Debug\
 WPFCommonLib
 none
 false
@@ -12,9 +12,9 @@ DEBUG;TRACE
 
 91658809003
 
-81-501622818
-20-656624556
+761389308320
+20724032301
 Views\FrameWindow.xaml;Views\MessageBoxControl\MessageBoxPath.xaml;Views\MessageBoxControl\MessageBoxView.xaml;Views\MessageBoxControl\MessageBoxWindow.xaml;Views\Theme.xaml;Views\WindowBaseControl\BaseWindowStyle.xaml;Views\WindowBaseControl\ChildWindowStyle.xaml;Views\WindowContainerControl\CircleProgressRingStyle.xaml;Views\WindowContainerControl\WindowContainer.xaml;
 
-True
+False
 

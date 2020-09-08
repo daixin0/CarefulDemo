@@ -19,7 +19,6 @@ namespace WPFCommonLib
     public interface IContainerParameter :  IViewModelParameter
     {
         WindowContainer ContainerContent { get; set; }
-        
     }
     public interface IViewModelCloseParameter : IViewModelParameter
     {
