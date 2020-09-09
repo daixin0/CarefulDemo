@@ -15,14 +15,15 @@ namespace Careful.Core.Mvvm.ViewInvokeCommand
         public static Type GetWindowObject(string assemblyName)
         {
             IContainerProvider ContainerProvider = ServiceLocator.Current.GetInstance<IContainerProvider>();
-            IUnityContainer unityContainer = ContainerProvider.GetContainer();
-            foreach (var item in unityContainer.Registrations.ToList())
-            {
-                if (item.RegisteredType.Name == assemblyName)
-                {
-                    return item.RegisteredType;
-                }
-            }
+            ISimpleIoc unityContainer = ContainerProvider.GetContainer();
+            
+            //foreach (var item in unityContainer.Registrations.ToList())
+            //{
+            //    if (item.RegisteredType.Name == assemblyName)
+            //    {
+            //        return item.RegisteredType;
+            //    }
+            //}
             return null;
         }
     }

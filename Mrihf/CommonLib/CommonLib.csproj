@@ -54,7 +54,6 @@
     <Compile Include="Extensions\ModelCastExtension.cs" />
     <Compile Include="Helpers\JsonHelper.cs" />
     <Compile Include="Helpers\XmlHelper.cs" />
-    <Compile Include="Ioc\IocFactory.cs" />
     <Compile Include="Ioc\ISimpleIoc.cs" />
     <Compile Include="Ioc\PreferredConstructor.cs" />
     <Compile Include="Ioc\SimpleIoc.cs" />

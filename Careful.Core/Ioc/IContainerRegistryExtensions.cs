@@ -2,9 +2,7 @@
 
 namespace Careful.Core.Ioc
 {
-    /// <summary>
-    /// Provides Generic Type extensions for the <see cref="IContainerRegistry" />
-    /// </summary>
+    
     public static class IContainerRegistryExtensions
     {
         /// <summary>
