@@ -1,0 +1,12 @@
+F:\Project\MrihfDemo\Careful.Core.Tool\bin\Debug\Careful.Core.Tool.dll
+F:\Project\MrihfDemo\Careful.Core.Tool\bin\Debug\Careful.Core.Tool.pdb
+F:\Project\MrihfDemo\Careful.Core.Tool\obj\Debug\Careful.Core.Tool.csproj.CoreCompileInputs.cache
+F:\Project\MrihfDemo\Careful.Core.Tool\obj\Debug\Careful.Core.Tool.dll
+F:\Project\MrihfDemo\Careful.Core.Tool\obj\Debug\Careful.Core.Tool.pdb
+F:\Project\MrihfDemo\Careful.Core.Tool\obj\Debug\Careful.Core.Tool.csprojAssemblyReference.cache
+F:\Project\CarefulDemo\Output\Careful\Careful.Core.Tool.dll
+F:\Project\CarefulDemo\Output\Careful\Careful.Core.Tool.pdb
+F:\Project\CarefulDemo\MVVMCareful\Careful.Core.Tool\obj\Debug\Careful.Core.Tool.csproj.CoreCompileInputs.cache
+F:\Project\CarefulDemo\MVVMCareful\Careful.Core.Tool\obj\Debug\Careful.Core.Tool.dll
+F:\Project\CarefulDemo\MVVMCareful\Careful.Core.Tool\obj\Debug\Careful.Core.Tool.pdb
+F:\Project\CarefulDemo\MVVMCareful\Careful.Core.Tool\obj\Debug\Careful.Core.Tool.csprojAssemblyReference.cache

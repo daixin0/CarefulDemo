@@ -1,0 +1,179 @@
+﻿<UserControl x:Class="Careful.Core.Mvvm.Views.MessageBoxControl.MessageBoxView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:local="clr-namespace:Careful.Core.Mvvm.Views.MessageBoxControl"
+             mc:Ignorable="d" >
+    <UserControl.Resources>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="BorderThickness" Value="0"></Setter>
+            <Setter Property="Background" Value="#FFF1F1F1"></Setter>
+            <Setter Property="Foreground" Value="#FF666263"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Name="border" Background="{TemplateBinding Background}" CornerRadius="12" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}">
+                            <ContentPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"></ContentPresenter>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Opacity" Value="0.7"></Setter>
+                                <Setter Property="BorderThickness" Value="0"></Setter>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Foreground" Value="#FFFFE38B"></Setter>
+                                <Setter Property="Background" Value="#FFFF8B02"></Setter>
+                                <Setter Property="BorderThickness" Value="0"></Setter>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" Value="DarkGray"></Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <local:MessageBoxViewModel x:Key="ViewModel"
+								   ShowMessageBoxEventHandler="OnShow"
+								   CloseMessageBoxEventHandler="OnClose" />
+        <local:VisibilityConverter x:Key="VisibilityConverter" />
+    </UserControl.Resources>
+    <Grid x:Name="LayoutRoot" SnapsToDevicePixels="True" RenderTransformOrigin="0.5,0.5">
+        <Grid.RenderTransform>
+            <ScaleTransform />
+        </Grid.RenderTransform>
+        <Border Margin="10" Effect="{DynamicResource ShadowWindow}" DataContext="{Binding Source={StaticResource ViewModel}}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="28.8"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Border Background="{Binding BackgroundTitle}" CornerRadius="5,5,0,0">
+                    <Grid>
+                        <StackPanel Orientation="Horizontal"  Margin="12,0,0,0" HorizontalAlignment="Left">
+                            <Path Width="13" Height="15" Stretch="Fill" Fill="#FFFEFFFF" Data="{DynamicResource pathLogo}"></Path>
+                            <TextBlock Margin="5,0,0,0" Foreground="#FFFEFFFF" TextWrapping="Wrap" Text="提示" VerticalAlignment="Center" FontSize="13"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,12,0">
+                            <Button Foreground="White" Width="12" Height="12" Command="{Binding CancelCommand}" Style="{DynamicResource PathButtonStyle}">
+                                <Path Data="{DynamicResource pathClose}"></Path>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="76" />
+                    </Grid.RowDefinitions>
+                    <Grid 
+			              Height="Auto"
+			              Margin="10" VerticalAlignment="Center" Panel.ZIndex="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="10" />
+                        </Grid.ColumnDefinitions>
+                        <Border x:Name="Image"
+				                Grid.Column="1"
+				                Width="24"
+				                Height="24" CornerRadius="24" >
+                            <ContentControl Content="{Binding Image}"></ContentControl>
+                        </Border>
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="2" Margin="5,0,0,0" VerticalAlignment="Center">
+                            <TextBlock x:Name="Message"
+                                   FontWeight="Normal"
+					               TextWrapping="WrapWithOverflow"
+                                   FontSize="15" Foreground="White"
+					               Text="{Binding Message}" />
+                        </ScrollViewer>
+
+                    </Grid>
+                    <Border Background="{Binding BackgroundTitle}"></Border>
+                    <Grid Grid.Row="2" >
+                        <Border BorderThickness="0" CornerRadius="0,0,5,5" Background="White">
+                            <UniformGrid Rows="1" Margin="0,0,14,0"
+                                         HorizontalAlignment="Center">
+                                <Button x:Name="Ok"
+                                        Width="80"
+                                        Height="27"
+                                        Background="#FFFF8B02"
+                                        Foreground="White"
+                                        BorderThickness="0"
+                                        FontSize="14"
+                                        Visibility="{Binding OkVisibility, Converter={StaticResource VisibilityConverter}}"
+                                        IsDefault="{Binding IsOkDefault}"
+                                        Command="{Binding OkCommand}">
+                                    <StackPanel  Orientation="Horizontal">
+                                        <TextBlock  Text="{Binding Ok}" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Button>
+                                <Button x:Name="Cancel"
+						                Width="80"
+                                        Height="27"
+                                        Margin="14,0,0,0"
+                                        Background="#FF008FFF"
+                                        Foreground="White"
+                                        BorderThickness="0"
+                                        FontSize="14"
+						                Visibility="{Binding CancelVisibility, Converter={StaticResource VisibilityConverter}}"
+						                IsDefault="{Binding IsCancelDefault}"
+						                IsCancel="True"
+						                Command="{Binding CancelCommand}">
+                                    <StackPanel  Orientation="Horizontal">
+                                        <Path Stroke="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" Data="M3.986,0.5 L0.50000001,3.985 3.986,7.472 M2.874,3.985 L11.015,3.985 C12.321,3.985 13.389,5.053 13.389,6.359 L13.389,14.5" Stretch="Uniform"  Width="16" Height="16" Margin="0,0,6,0" />
+                                        <TextBlock  Text="{Binding Cancel}" VerticalAlignment="Center"/>
+                                        <TextBlock  Text=" " VerticalAlignment="Center"/>
+                                        <TextBlock  Text="(C" VerticalAlignment="Center" TextDecorations="Underline"/>
+                                        <TextBlock  Text=")" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Button>
+                                <Button x:Name="Yes"
+						                Width="80"
+                                        Height="27"
+                                        Margin="14,0,0,0"
+                                         Background="#FFFF8B02"
+                                        Foreground="White"
+                                        BorderThickness="0"
+                                        FontSize="14"
+						                Visibility="{Binding YesVisibility, Converter={StaticResource VisibilityConverter}}"
+						                IsDefault="{Binding IsYesDefault}"
+						                Command="{Binding YesCommand}">
+                                    <StackPanel  Orientation="Horizontal">
+                                        <TextBlock  Text="{Binding Yes}" VerticalAlignment="Center"/>
+                                        <TextBlock  Text=" " VerticalAlignment="Center"/>
+                                        <TextBlock  Text="(Y" VerticalAlignment="Center" TextDecorations="Underline"/>
+                                        <TextBlock  Text=")" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Button>
+                                <Button x:Name="No"
+						                Width="80"
+                                        Height="27"
+                                        Margin="14,0,0,0"
+                                        Background="#FF008FFF"
+                                        Foreground="White"
+                                        BorderThickness="0"
+                                        FontSize="14"
+						                Visibility="{Binding NoVisibility, Converter={StaticResource VisibilityConverter}}"
+						                IsDefault="{Binding IsNoDefault}"
+						                Command="{Binding NoCommand}" >
+                                    <StackPanel  Orientation="Horizontal">
+                                        <TextBlock  Text="{Binding No}" VerticalAlignment="Center"/>
+                                        <TextBlock  Text=" " VerticalAlignment="Center"/>
+                                        <TextBlock  Text="(N" VerticalAlignment="Center" TextDecorations="Underline"/>
+                                        <TextBlock  Text=")" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Button>
+                            </UniformGrid>
+                        </Border>
+
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

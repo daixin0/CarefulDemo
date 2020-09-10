@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A046F60A-8588-47A8-9A72-6ADBF9A82CC5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Careful.Module.Core</RootNamespace>
+    <AssemblyName>Careful.Module.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Output\Careful\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\UriParsingHelper.cs" />
+    <Compile Include="Events\BackgroundEventSubscription.cs" />
+    <Compile Include="Events\DataEventArgs.cs" />
+    <Compile Include="Events\DelegateReference.cs" />
+    <Compile Include="Events\DispatcherEventSubscription.cs" />
+    <Compile Include="Events\EventAggregator.cs" />
+    <Compile Include="Events\EventBase.cs" />
+    <Compile Include="Events\EventSubscription.cs" />
+    <Compile Include="Events\IDelegateReference.cs" />
+    <Compile Include="Events\IEventAggregator.cs" />
+    <Compile Include="Events\IEventSubscription.cs" />
+    <Compile Include="Events\PubSubEvent.cs" />
+    <Compile Include="Events\SubscriptionToken.cs" />
+    <Compile Include="Events\ThreadOption.cs" />
+    <Compile Include="Events\WeakDelegatesManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Regions\AllActiveRegion.cs" />
+    <Compile Include="Regions\Behaviors\AutoPopulateRegionBehavior.cs" />
+    <Compile Include="Regions\Behaviors\BindRegionContextToDependencyObjectBehavior.cs" />
+    <Compile Include="Regions\Behaviors\ClearChildViewsRegionBehavior.cs" />
+    <Compile Include="Regions\Behaviors\DelayedRegionCreationBehavior.cs" />
+    <Compile Include="Regions\Behaviors\DestructibleRegionBehavior.cs" />
+    <Compile Include="Regions\Behaviors\IDestructible.cs" />
+    <Compile Include="Regions\Behaviors\IHostAwareRegionBehavior.cs" />
+    <Compile Include="Regions\Behaviors\RegionActiveAwareBehavior.cs" />
+    <Compile Include="Regions\Behaviors\RegionCreationException.cs" />
+    <Compile Include="Regions\Behaviors\RegionCreationException.Desktop.cs" />
+    <Compile Include="Regions\Behaviors\RegionManagerRegistrationBehavior.cs" />
+    <Compile Include="Regions\Behaviors\RegionMemberLifetimeBehavior.cs" />
+    <Compile Include="Regions\Behaviors\SelectorItemsSourceSyncBehavior.cs" />
+    <Compile Include="Regions\Behaviors\SyncRegionContextWithHostBehavior.cs" />
+    <Compile Include="Regions\ContentControlRegionAdapter.cs" />
+    <Compile Include="Regions\DefaultRegionManagerAccessor.cs" />
+    <Compile Include="Regions\IConfirmNavigationRequest.cs" />
+    <Compile Include="Regions\IJournalAware.cs" />
+    <Compile Include="Regions\INavigateAsync.cs" />
+    <Compile Include="Regions\INavigationAware.cs" />
+    <Compile Include="Regions\IRegion.cs" />
+    <Compile Include="Regions\IRegionAdapter.cs" />
+    <Compile Include="Regions\IRegionBehavior.cs" />
+    <Compile Include="Regions\IRegionBehaviorCollection.cs" />
+    <Compile Include="Regions\IRegionBehaviorFactory.cs" />
+    <Compile Include="Regions\IRegionBehaviorFactoryExtensions.cs" />
+    <Compile Include="Regions\IRegionCollection.cs" />
+    <Compile Include="Regions\IRegionManager.cs" />
+    <Compile Include="Regions\IRegionManagerAccessor.cs" />
+    <Compile Include="Regions\IRegionMemberLifetime.cs" />
+    <Compile Include="Regions\IRegionNavigationContentLoader.cs" />
+    <Compile Include="Regions\IRegionNavigationJournal.cs" />
+    <Compile Include="Regions\IRegionNavigationJournalEntry.cs" />
+    <Compile Include="Regions\IRegionNavigationService.cs" />
+    <Compile Include="Regions\IRegionViewRegistry.cs" />
+    <Compile Include="Regions\ItemMetadata.cs" />
+    <Compile Include="Regions\ItemsControlRegionAdapter.cs" />
+    <Compile Include="Regions\IViewsCollection.cs" />
+    <Compile Include="Regions\NavigationAsyncExtensions.cs" />
+    <Compile Include="Regions\NavigationContext.cs" />
+    <Compile Include="Regions\NavigationParameters.cs" />
+    <Compile Include="Regions\NavigationResult.cs" />
+    <Compile Include="Regions\Region.cs" />
+    <Compile Include="Regions\RegionAdapterBase.cs" />
+    <Compile Include="Regions\RegionAdapterMappings.cs" />
+    <Compile Include="Regions\RegionBehavior.cs" />
+    <Compile Include="Regions\RegionBehaviorCollection.cs" />
+    <Compile Include="Regions\RegionBehaviorFactory.cs" />
+    <Compile Include="Regions\RegionContext.cs" />
+    <Compile Include="Regions\RegionManager.cs" />
+    <Compile Include="Regions\RegionMemberLifetimeAttribute.cs" />
+    <Compile Include="Regions\RegionNavigationContentLoader.cs" />
+    <Compile Include="Regions\RegionNavigationEventArgs.cs" />
+    <Compile Include="Regions\RegionNavigationFailedEventArgs.cs" />
+    <Compile Include="Regions\RegionNavigationJournal.cs" />
+    <Compile Include="Regions\RegionNavigationJournalEntry.cs" />
+    <Compile Include="Regions\RegionNavigationService.cs" />
+    <Compile Include="Regions\RegionViewRegistry.cs" />
+    <Compile Include="Regions\SelectorRegionAdapter.cs" />
+    <Compile Include="Regions\SingleActiveRegion.cs" />
+    <Compile Include="Regions\SyncActiveStateAttribute.cs" />
+    <Compile Include="Regions\UpdateRegionsException.cs" />
+    <Compile Include="Regions\UpdateRegionsException.Desktop.cs" />
+    <Compile Include="Regions\ViewRegisteredEventArgs.cs" />
+    <Compile Include="Regions\ViewRegistrationException.cs" />
+    <Compile Include="Regions\ViewRegistrationException.Desktop.cs" />
+    <Compile Include="Regions\ViewsCollection.cs" />
+    <Compile Include="Regions\ViewSortHintAttribute.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Careful.Core\Careful.Core.csproj">
+      <Project>{9a2640b6-8161-462f-9f58-e8df8d94fd49}</Project>
+      <Name>Careful.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

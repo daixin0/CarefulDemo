@@ -1,0 +1,26 @@
+F:\Source Code\MrihfFrame\Output\WPFCommonLib.dll
+F:\Source Code\MrihfFrame\Output\WPFCommonLib.pdb
+F:\Source Code\MrihfFrame\Mrihf\WPFCommonLib\obj\Debug\WPFCommonLib.csprojAssemblyReference.cache
+F:\Source Code\MrihfFrame\Mrihf\WPFCommonLib\obj\Debug\WPFCommonLib.csproj.CopyComplete
+F:\Source Code\MrihfFrame\Mrihf\WPFCommonLib\obj\Debug\WPFCommonLib.dll
+F:\Source Code\MrihfFrame\Mrihf\WPFCommonLib\obj\Debug\WPFCommonLib.pdb
+F:\Source Code\MrihfFrame\Mrihf\WPFCommonLib\obj\Debug\Views\MessageBoxControl\MessageBoxPath.baml
+F:\Source Code\MrihfFrame\Mrihf\WPFCommonLib\obj\Debug\Views\MessageBoxControl\MessageBoxWindow.baml
+F:\Source Code\MrihfFrame\Mrihf\WPFCommonLib\obj\Debug\Views\Theme.baml
+F:\Source Code\MrihfFrame\Mrihf\WPFCommonLib\obj\Debug\Views\WindowBaseControl\ChildWindowStyle.baml
+F:\Source Code\MrihfFrame\Mrihf\WPFCommonLib\obj\Debug\Views\FrameWindow.g.cs
+F:\Source Code\MrihfFrame\Mrihf\WPFCommonLib\obj\Debug\Views\MessageBoxControl\MessageBoxView.g.cs
+F:\Source Code\MrihfFrame\Mrihf\WPFCommonLib\obj\Debug\Views\MessageBoxControl\MessageBoxWindow.g.cs
+F:\Source Code\MrihfFrame\Mrihf\WPFCommonLib\obj\Debug\GeneratedInternalTypeHelper.g.cs
+F:\Source Code\MrihfFrame\Mrihf\WPFCommonLib\obj\Debug\WPFCommonLib_MarkupCompile.cache
+F:\Source Code\MrihfFrame\Mrihf\WPFCommonLib\obj\Debug\WPFCommonLib_MarkupCompile.lref
+F:\Source Code\MrihfFrame\Mrihf\WPFCommonLib\obj\Debug\Views\FrameWindow.baml
+F:\Source Code\MrihfFrame\Mrihf\WPFCommonLib\obj\Debug\Views\MessageBoxControl\MessageBoxView.baml
+F:\Source Code\MrihfFrame\Mrihf\WPFCommonLib\obj\Debug\Views\WindowBaseControl\BaseWindowStyle.baml
+F:\Source Code\MrihfFrame\Mrihf\WPFCommonLib\obj\Debug\Views\WindowContainerControl\CircleProgressRingStyle.baml
+F:\Source Code\MrihfFrame\Mrihf\WPFCommonLib\obj\Debug\Views\WindowContainerControl\WindowContainer.baml
+F:\Source Code\MrihfFrame\Mrihf\WPFCommonLib\obj\Debug\WPFCommonLib.g.resources
+F:\Project\CarefulDemo\MVVMCareful\WPFCommonLib\obj\Debug\WPFCommonLib.csprojAssemblyReference.cache
+F:\Project\CarefulDemo\MVVMCareful\WPFCommonLib\obj\Debug\WPFCommonLib.csproj.CoreCompileInputs.cache
+F:\Project\CarefulDemo\MVVMCareful\WPFCommonLib\obj\Debug\WPFCommonLib.dll
+F:\Project\CarefulDemo\MVVMCareful\WPFCommonLib\obj\Debug\WPFCommonLib.pdb

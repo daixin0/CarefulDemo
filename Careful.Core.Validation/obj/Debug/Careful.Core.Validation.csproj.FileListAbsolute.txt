@@ -1,2 +1,0 @@
-F:\Project\MrihfDemo\Careful.Core.Validation\obj\Debug\Careful.Core.Validation.csprojAssemblyReference.cache
-F:\Project\MrihfDemo\Careful.Core.Validation\obj\Debug\Careful.Core.Validation.csproj.CoreCompileInputs.cache

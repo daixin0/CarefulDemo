@@ -1,5 +1,0 @@
-F:\Project\MrihfDemo\Careful.Core.Tool\bin\Debug\Careful.Core.Tool.dll
-F:\Project\MrihfDemo\Careful.Core.Tool\bin\Debug\Careful.Core.Tool.pdb
-F:\Project\MrihfDemo\Careful.Core.Tool\obj\Debug\Careful.Core.Tool.csproj.CoreCompileInputs.cache
-F:\Project\MrihfDemo\Careful.Core.Tool\obj\Debug\Careful.Core.Tool.dll
-F:\Project\MrihfDemo\Careful.Core.Tool\obj\Debug\Careful.Core.Tool.pdb

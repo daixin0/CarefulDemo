@@ -11,3 +11,18 @@ F:\Source Code\MrihfFrame\Demo2\ModularityNavigationDemo\obj\Debug\ModularityNav
 F:\Source Code\MrihfFrame\Demo2\ModularityNavigationDemo\obj\Debug\ModularityNavigationDemo.csproj.GenerateResource.cache
 F:\Source Code\MrihfFrame\Demo2\ModularityNavigationDemo\obj\Debug\ModularityNavigationDemo.exe
 F:\Source Code\MrihfFrame\Demo2\ModularityNavigationDemo\obj\Debug\ModularityNavigationDemo.pdb
+F:\Project\CarefulDemo\Output\ModularityNavigationDemo.exe.config
+F:\Project\CarefulDemo\Output\ModularityNavigationDemo.exe
+F:\Project\CarefulDemo\Output\ModularityNavigationDemo.pdb
+F:\Project\CarefulDemo\Demo2\ModularityNavigationDemo\obj\Debug\ModularityNavigationDemo.csprojAssemblyReference.cache
+F:\Project\CarefulDemo\Demo2\ModularityNavigationDemo\obj\Debug\MainWindow.g.cs
+F:\Project\CarefulDemo\Demo2\ModularityNavigationDemo\obj\Debug\App.g.cs
+F:\Project\CarefulDemo\Demo2\ModularityNavigationDemo\obj\Debug\ModularityNavigationDemo_MarkupCompile.cache
+F:\Project\CarefulDemo\Demo2\ModularityNavigationDemo\obj\Debug\ModularityNavigationDemo_MarkupCompile.lref
+F:\Project\CarefulDemo\Demo2\ModularityNavigationDemo\obj\Debug\MainWindow.baml
+F:\Project\CarefulDemo\Demo2\ModularityNavigationDemo\obj\Debug\ModularityNavigationDemo.g.resources
+F:\Project\CarefulDemo\Demo2\ModularityNavigationDemo\obj\Debug\ModularityNavigationDemo.Properties.Resources.resources
+F:\Project\CarefulDemo\Demo2\ModularityNavigationDemo\obj\Debug\ModularityNavigationDemo.csproj.GenerateResource.cache
+F:\Project\CarefulDemo\Demo2\ModularityNavigationDemo\obj\Debug\ModularityNavigationDemo.csproj.CoreCompileInputs.cache
+F:\Project\CarefulDemo\Demo2\ModularityNavigationDemo\obj\Debug\ModularityNavigationDemo.exe
+F:\Project\CarefulDemo\Demo2\ModularityNavigationDemo\obj\Debug\ModularityNavigationDemo.pdb

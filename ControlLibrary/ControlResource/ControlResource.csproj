@@ -62,6 +62,9 @@
     <Compile Include="Animations\GridLengthAnimation.cs" />
     <Compile Include="ControlAttach\CheckAttachProperty.cs" />
     <Compile Include="ControlAttach\PasswordBinding.cs" />
+    <Compile Include="CustomControls\DateTimePickerControl\DateTimePicker.cs" />
+    <Compile Include="CustomControls\DateTimePickerControl\TimeHour.cs" />
+    <Compile Include="CustomControls\DateTimePickerControl\TimeMinuteAndSecond.cs" />
     <Compile Include="CustomControls\MessageBoxControl\MessageBoxButton.cs" />
     <Compile Include="CustomControls\MessageBoxControl\MessageBoxEventArgs.cs" />
     <Compile Include="CustomControls\MessageBoxControl\MessageBoxShow.cs" />
@@ -75,6 +78,11 @@
     <Compile Include="CustomControls\MessageBoxControl\MessageWindow.cs" />
     <Compile Include="CustomControls\MessageBoxControl\VisibilityConverter.cs" />
     <Compile Include="CustomControls\CircleProgressRingControl\ModernProgressRing.cs" />
+    <Compile Include="DrawingHelper\GeoHelper.cs" />
+    <Compile Include="CustomControls\PagingControl\PagingCommandItem.cs" />
+    <Compile Include="CustomControls\PagingControl\PagingDecorator.cs" />
+    <Compile Include="CustomControls\PagingControl\PagingPanel.cs" />
+    <Compile Include="CustomControls\PagingControl\PagingScroller.cs" />
     <Compile Include="CustomControls\RadioButtonControl\UserControlRadioBtn.xaml.cs">
       <DependentUpon>UserControlRadioBtn.xaml</DependentUpon>
     </Compile>
@@ -181,6 +189,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="CustomControls\DateTimePickerControl\Style\DateTimePickerStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="CustomControls\MessageBoxControl\MessageBoxPath.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -190,6 +202,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="CustomControls\MessageBoxControl\MessageBoxWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CustomControls\PagingControl\Style\PagingScrollerStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -269,12 +285,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Mrihf\WPFCommonLib\WPFCommonLib.csproj">
-      <Project>{fbe456be-22c5-444d-8c39-0bfd24e49eb9}</Project>
-      <Name>WPFCommonLib</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

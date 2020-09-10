@@ -1,0 +1,22 @@
+F:\Source Code\MrihfFrame\Output\PrismCommonLib.dll
+F:\Source Code\MrihfFrame\Output\PrismCommonLib.pdb
+F:\Source Code\MrihfFrame\Mrihf\PrismCommonLib\obj\Debug\PrismCommonLib.csprojAssemblyReference.cache
+F:\Source Code\MrihfFrame\Mrihf\PrismCommonLib\obj\Debug\Interactivity\DefaultPopupWindows\DefaultConfirmationWindow.baml
+F:\Source Code\MrihfFrame\Mrihf\PrismCommonLib\obj\Debug\Interactivity\DefaultPopupWindows\DefaultNotificationWindow.baml
+F:\Source Code\MrihfFrame\Mrihf\PrismCommonLib\obj\Debug\Interactivity\DefaultPopupWindows\DefaultConfirmationWindow.g.cs
+F:\Source Code\MrihfFrame\Mrihf\PrismCommonLib\obj\Debug\Interactivity\DefaultPopupWindows\DefaultNotificationWindow.g.cs
+F:\Source Code\MrihfFrame\Mrihf\PrismCommonLib\obj\Debug\PrismCommonLib_MarkupCompile.cache
+F:\Source Code\MrihfFrame\Mrihf\PrismCommonLib\obj\Debug\PrismCommonLib.g.resources
+F:\Source Code\MrihfFrame\Mrihf\PrismCommonLib\obj\Debug\PrismCommonLib.csproj.CopyComplete
+F:\Source Code\MrihfFrame\Mrihf\PrismCommonLib\obj\Debug\PrismCommonLib.dll
+F:\Source Code\MrihfFrame\Mrihf\PrismCommonLib\obj\Debug\PrismCommonLib.pdb
+F:\Project\CarefulDemo\MVVMCareful\PrismCommonLib\obj\Debug\PrismCommonLib.csprojAssemblyReference.cache
+F:\Project\CarefulDemo\MVVMCareful\PrismCommonLib\obj\Debug\Interactivity\DefaultPopupWindows\DefaultConfirmationWindow.baml
+F:\Project\CarefulDemo\MVVMCareful\PrismCommonLib\obj\Debug\Interactivity\DefaultPopupWindows\DefaultNotificationWindow.baml
+F:\Project\CarefulDemo\MVVMCareful\PrismCommonLib\obj\Debug\Interactivity\DefaultPopupWindows\DefaultConfirmationWindow.g.cs
+F:\Project\CarefulDemo\MVVMCareful\PrismCommonLib\obj\Debug\Interactivity\DefaultPopupWindows\DefaultNotificationWindow.g.cs
+F:\Project\CarefulDemo\MVVMCareful\PrismCommonLib\obj\Debug\PrismCommonLib_MarkupCompile.cache
+F:\Project\CarefulDemo\MVVMCareful\PrismCommonLib\obj\Debug\PrismCommonLib.g.resources
+F:\Project\CarefulDemo\MVVMCareful\PrismCommonLib\obj\Debug\PrismCommonLib.csproj.CoreCompileInputs.cache
+F:\Project\CarefulDemo\MVVMCareful\PrismCommonLib\obj\Debug\PrismCommonLib.dll
+F:\Project\CarefulDemo\MVVMCareful\PrismCommonLib\obj\Debug\PrismCommonLib.pdb
