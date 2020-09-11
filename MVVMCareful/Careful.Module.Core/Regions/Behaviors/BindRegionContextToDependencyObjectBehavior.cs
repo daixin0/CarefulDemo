@@ -6,25 +6,13 @@ using System.Windows;
 
 namespace Careful.Module.Core.Regions.Behaviors
 {
-    /// <summary>
-    /// Defines a behavior that forwards the <see cref="RegionManager.RegionContextProperty"/> 
-    /// to the views in the region.
-    /// </summary>
     public class BindRegionContextToDependencyObjectBehavior : IRegionBehavior
     {
-        /// <summary>
-        /// The key of this behavior.
-        /// </summary>
+       
         public const string BehaviorKey = "ContextToDependencyObject";
 
-        /// <summary>
-        /// Behavior's attached region.
-        /// </summary>
         public IRegion Region { get; set; }
 
-        /// <summary>
-        /// Attaches the behavior to the specified region.
-        /// </summary>
         public void Attach()
         {
             this.Region.Views.CollectionChanged += this.Views_CollectionChanged;

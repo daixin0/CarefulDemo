@@ -6,15 +6,6 @@ using System.Windows;
 
 namespace Careful.Module.Core.Regions.Behaviors
 {
-    /// <summary>
-    /// Behavior that creates a new <see cref="IRegion"/>, when the control that will host the <see cref="IRegion"/> (see <see cref="TargetElement"/>)
-    /// is added to the VisualTree. This behavior will use the <see cref="RegionAdapterMappings"/> class to find the right type of adapter to create
-    /// the region. After the region is created, this behavior will detach.
-    /// </summary>
-    /// <remarks>
-    /// Attached property value inheritance is not available in Silverlight, so the current approach walks up the visual tree when requesting a region from a region manager.
-    /// The <see cref="RegionManagerRegistrationBehavior"/> is now responsible for walking up the Tree.
-    /// </remarks>
     public class DelayedRegionCreationBehavior
     {
         private readonly RegionAdapterMappings regionAdapterMappings;
