@@ -8,7 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interactivity;
 
-namespace Careful.Core.Validation
+namespace Careful.Core.PropertyValidation
 {
     public class VerificationCommandAction : TriggerAction<UIElement>
     {

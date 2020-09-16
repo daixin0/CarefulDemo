@@ -37,7 +37,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Careful.Core.AuthorizationM
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Careful.Core.Tool", "MVVMCareful\Careful.Core.Tool\Careful.Core.Tool.csproj", "{93A6997C-3D58-43AA-B24F-9CCF8C9630B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Careful.Core.Validation", "MVVMCareful\Careful.Core.Validation\Careful.Core.Validation.csproj", "{3B6117D5-6A36-4514-A002-A60E0A0D8D75}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Careful.Core.PropertyValidation", "MVVMCareful\Careful.Core.Validation\Careful.Core.PropertyValidation.csproj", "{3B6117D5-6A36-4514-A002-A60E0A0D8D75}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonLib", "MVVMCareful\CommonLib\CommonLib.csproj", "{A0B5A0B9-22EC-47CD-8F1E-8E8E403DF76C}"
 EndProject

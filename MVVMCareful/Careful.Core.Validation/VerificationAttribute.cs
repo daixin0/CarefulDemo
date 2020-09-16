@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 
-namespace Careful.Core.Validation
+namespace Careful.Core.PropertyValidation
 {
     public enum VerificationType
     {

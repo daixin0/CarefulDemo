@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Careful.Core.Validation
+namespace Careful.Core.PropertyValidation
 {
     public class ValidationObject: DependencyObject
     {

@@ -9,7 +9,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Interactivity;
 
-namespace Careful.Core.Validation
+namespace Careful.Core.PropertyValidation
 {
     public class ValidationExceptionBehavior : Behavior<FrameworkElement>
     {

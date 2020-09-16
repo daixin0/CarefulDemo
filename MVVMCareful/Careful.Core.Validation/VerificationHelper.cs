@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Careful.Core.Validation
+namespace Careful.Core.PropertyValidation
 {
     public class VerificationHelper
     {
