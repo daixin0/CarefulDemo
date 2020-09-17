@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Careful.Core.Tool
+namespace Careful.Data.Tool
 {
     public static class ConfigHelper
     {

@@ -1,0 +1,6 @@
+E:\Project\CarefulDemo\Careful.Data.Toll\bin\Debug\Careful.Data.Tool.dll
+E:\Project\CarefulDemo\Careful.Data.Toll\bin\Debug\Careful.Data.Tool.pdb
+E:\Project\CarefulDemo\Careful.Data.Toll\obj\Debug\Careful.Data.Tool.csprojAssemblyReference.cache
+E:\Project\CarefulDemo\Careful.Data.Toll\obj\Debug\Careful.Data.Tool.csproj.CoreCompileInputs.cache
+E:\Project\CarefulDemo\Careful.Data.Toll\obj\Debug\Careful.Data.Tool.dll
+E:\Project\CarefulDemo\Careful.Data.Toll\obj\Debug\Careful.Data.Tool.pdb
