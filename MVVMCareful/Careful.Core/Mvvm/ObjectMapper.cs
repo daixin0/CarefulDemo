@@ -1,4 +1,4 @@
-﻿using CommonLib.Extensions;
+﻿using Careful.Core.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CommonLib
+namespace Careful.Core.Mvvm
 {
     /// <summary>
     /// 对象映射器

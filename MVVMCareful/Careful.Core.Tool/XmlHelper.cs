@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace CommonLib.Helpers
+namespace Careful.Core.Tool
 {
     public class XmlHelper
     {

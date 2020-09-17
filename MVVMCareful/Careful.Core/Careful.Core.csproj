@@ -62,6 +62,7 @@
     <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Extensions\ExceptionExtensions.cs" />
     <Compile Include="Extensions\ListExtensions.cs" />
+    <Compile Include="Extensions\ModelCastExtension.cs" />
     <Compile Include="Extensions\VisualTreeHelperExtensions.cs" />
     <Compile Include="IActiveAware.cs" />
     <Compile Include="Ioc\ContainerLocator.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="Mvvm\BindingMarkupExtensionBase.cs" />
     <Compile Include="Mvvm\CompositionTargetRenderingListening.cs" />
     <Compile Include="Mvvm\NotifyPropertyChanged.cs" />
+    <Compile Include="Mvvm\ObjectMapper.cs" />
     <Compile Include="Mvvm\ObservableCollectionChanged.cs" />
     <Compile Include="Mvvm\ObservableCollectionSynchronize.cs" />
     <Compile Include="Mvvm\ObservableObject.cs" />

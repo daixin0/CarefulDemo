@@ -42,3 +42,14 @@ F:\Project\CarefulDemo\MVVMCareful\Careful.Core\obj\Debug\Mvvm\Views\WindowConta
 F:\Project\CarefulDemo\MVVMCareful\Careful.Core\obj\Debug\Careful.Core.g.resources
 F:\Project\CarefulDemo\MVVMCareful\Careful.Core\obj\Debug\Careful.Core.csproj.CoreCompileInputs.cache
 F:\Project\CarefulDemo\MVVMCareful\Careful.Core\obj\Debug\Careful.Core.csproj.CopyComplete
+E:\Project\CarefulDemo\MVVMCareful\Careful.Core\obj\Debug\Careful.Core.csprojAssemblyReference.cache
+E:\Project\CarefulDemo\MVVMCareful\Careful.Core\obj\Debug\Mvvm\Views\MessageBoxControl\MessageBoxPath.baml
+E:\Project\CarefulDemo\MVVMCareful\Careful.Core\obj\Debug\Mvvm\Views\MessageBoxControl\MessageBoxWindow.baml
+E:\Project\CarefulDemo\MVVMCareful\Careful.Core\obj\Debug\Mvvm\Views\Theme.baml
+E:\Project\CarefulDemo\MVVMCareful\Careful.Core\obj\Debug\Mvvm\Views\MessageBoxControl\MessageBoxView.g.cs
+E:\Project\CarefulDemo\MVVMCareful\Careful.Core\obj\Debug\Mvvm\Views\MessageBoxControl\MessageBoxWindow.g.cs
+E:\Project\CarefulDemo\MVVMCareful\Careful.Core\obj\Debug\GeneratedInternalTypeHelper.g.cs
+E:\Project\CarefulDemo\MVVMCareful\Careful.Core\obj\Debug\Careful.Core_MarkupCompile.cache
+E:\Project\CarefulDemo\MVVMCareful\Careful.Core\obj\Debug\Careful.Core_MarkupCompile.lref
+E:\Project\CarefulDemo\MVVMCareful\Careful.Core\obj\Debug\Careful.Core.dll
+E:\Project\CarefulDemo\MVVMCareful\Careful.Core\obj\Debug\Careful.Core.pdb

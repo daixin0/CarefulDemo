@@ -1,18 +1,14 @@
-// Copyright (c) Microsoft Corporation. All rights reserved. See License.txt in the project root for license information.
-
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Configuration;
 using System.Linq;
 using System.Text;
-using System.Configuration;
-using System.Collections.Specialized;
+using System.Threading.Tasks;
 
-namespace CommonLib.ApplicationHelper
+namespace Careful.Core.Tool
 {
-    /// <summary>
-    /// Class use for handling the application config file
-    /// </summary>
-    public static class ConfigHandler
+    public static class ConfigHelper
     {
         public static string GetValue(string key)
         {

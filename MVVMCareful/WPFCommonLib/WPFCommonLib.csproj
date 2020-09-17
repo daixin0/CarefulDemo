@@ -91,11 +91,5 @@
     <Compile Include="Utility\RpcInvoker.cs" />
     <Compile Include="DialogServices\INavigationService.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CommonLib\CommonLib.csproj">
-      <Project>{a0b5a0b9-22ec-47cd-8f1e-8e8e403df76c}</Project>
-      <Name>CommonLib</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

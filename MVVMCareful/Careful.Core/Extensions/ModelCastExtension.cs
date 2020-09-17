@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CommonLib.Extensions
+namespace Careful.Core.Extensions
 {
     public static class ModelCastExtension
     {

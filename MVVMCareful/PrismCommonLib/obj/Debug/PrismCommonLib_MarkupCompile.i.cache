@@ -4,7 +4,7 @@
 library
 C#
 .cs
-F:\Project\CarefulDemo\MVVMCareful\PrismCommonLib\obj\Debug\
+E:\Project\CarefulDemo\MVVMCareful\PrismCommonLib\obj\Debug\
 PrismCommonLib
 none
 false
@@ -13,7 +13,7 @@ DEBUG;TRACE
 2-518826883
 
 771915492700
-19-1303347533
+18-11458261
 Interactivity\DefaultPopupWindows\DefaultConfirmationWindow.xaml;Interactivity\DefaultPopupWindows\DefaultNotificationWindow.xaml;
 
 False
