@@ -189,7 +189,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="CustomControls\DateTimePickerControl\Style\DateTimePickerStyle.xaml">
+    <Page Include="CustomControls\DateTimePickerControl\DateTimePickerStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

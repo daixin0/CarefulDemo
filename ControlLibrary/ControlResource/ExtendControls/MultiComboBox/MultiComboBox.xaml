@@ -3,9 +3,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:ControlResource.ExtendControlStyle.MultiComboBox">
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/ControlResource;component/ExtendControlStyle/MultiComboBox/Colors.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/ControlResource;component/ExtendControlStyle/MultiComboBox/Share.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/ControlResource;component/ExtendControlStyle/MultiComboBox/ToggleButton.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/ControlResource;component/ExtendControls/MultiComboBox/Colors.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/ControlResource;component/ExtendControls/MultiComboBox/Share.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/ControlResource;component/ExtendControls/MultiComboBox/ToggleButton.xaml" />
         
     </ResourceDictionary.MergedDictionaries>
     <local:TrueToFalseConverter x:Key="conTrueToFalseConverter"></local:TrueToFalseConverter>
