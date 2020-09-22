@@ -27,7 +27,7 @@ namespace Careful.Core.Mvvm.Views.WindowBaseControl
         public BaseWindow()
         {
             style1 = new ResourceDictionary();
-            style1.Source = new Uri("WPFCommonLib;component/Views/WindowBaseControl/BaseWindowStyle.xaml", UriKind.Relative);
+            style1.Source = new Uri("Careful.Core;component/Mvvm/Views/WindowBaseControl/BaseWindowStyle.xaml", UriKind.Relative);
             this.Style = (System.Windows.Style)style1["BaseWindowStyle"];
             this.DataContext = this;
             this.StateChanged += BaseWindow_StateChanged;
@@ -51,28 +51,41 @@ namespace Careful.Core.Mvvm.Views.WindowBaseControl
         }
 
 
-        public bool IsMainWindow
-        {
-            get { return (bool)GetValue(IsMainWindowProperty); }
-            set { SetValue(IsMainWindowProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for IsMainWindow.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty IsMainWindowProperty =
-            DependencyProperty.Register("IsMainWindow", typeof(bool), typeof(BaseWindow), new PropertyMetadata(IsMainWindow_changed));
 
 
-        private static void IsMainWindow_changed(DependencyObject element, DependencyPropertyChangedEventArgs e)
+        public bool IsMinButton
         {
-            BaseWindow window = (BaseWindow)element;
-            window.SetMainWindow();
+            get { return (bool)GetValue(IsMinButtonProperty); }
+            set { SetValue(IsMinButtonProperty, value); }
         }
-        private void SetMainWindow()
+
+        // Using a DependencyProperty as the backing store for IsMinButton.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsMinButtonProperty =
+            DependencyProperty.Register("IsMinButton", typeof(bool), typeof(BaseWindow));
+
+
+
+        public bool IsMaxButton
         {
-            SetWorkArea();
-            this.ResizeMode = System.Windows.ResizeMode.CanResize;
-            NativeMethods.SetWindowRectanle(this);
+            get { return (bool)GetValue(IsMaxButtonProperty); }
+            set { SetValue(IsMaxButtonProperty, value); }
         }
+
+        // Using a DependencyProperty as the backing store for IsMaxButton.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsMaxButtonProperty =
+            DependencyProperty.Register("IsMaxButton", typeof(bool), typeof(BaseWindow));
+
+        public CornerRadius WindowCornerRadius
+        {
+            get { return (CornerRadius)GetValue(WindowCornerRadiusProperty); }
+            set { SetValue(WindowCornerRadiusProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ButtonCornerRadius.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty WindowCornerRadiusProperty =
+            DependencyProperty.Register("WindowCornerRadius", typeof(CornerRadius), typeof(BaseWindow));
+
+
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
@@ -81,7 +94,7 @@ namespace Careful.Core.Mvvm.Views.WindowBaseControl
         protected override void OnContentRendered(EventArgs e)
         {
             base.OnContentRendered(e);
-            NativeMethods.SetWindowRectanle(this);
+            //NativeMethods.SetWindowRectanle(this);
         }
 
         /// <summary>
@@ -111,7 +124,7 @@ namespace Careful.Core.Mvvm.Views.WindowBaseControl
                     WindowState = WindowState.Normal;
 
                 }
-                NativeMethods.SetWindowRectanle(this);
+                //NativeMethods.SetWindowRectanle(this);
             };
 
             Button btnClose = (Button)baseWindowTemplate.FindName("btnClose", this);
@@ -122,25 +135,13 @@ namespace Careful.Core.Mvvm.Views.WindowBaseControl
 
             Border borderTitle = (Border)baseWindowTemplate.FindName("borderTitle", this);
 
-            Button btnLock = (Button)baseWindowTemplate.FindName("btnLock", this);
-            btnLock.Click += (a, b) =>
-            {
-                SystemEventChanged?.Invoke("Lock");
-            };
-
-            Button btnUpgrade = (Button)baseWindowTemplate.FindName("btnUpgrade", this);
-            btnUpgrade.Click += (a, b) =>
-            {
-                SystemEventChanged?.Invoke("Upgrade");
-            };
-
             borderTitle.MouseMove += delegate (object sender, MouseEventArgs e)
             {
                 if (e.LeftButton == MouseButtonState.Pressed)
                 {
                     if (WindowState != WindowState.Maximized)
                         this.DragMove();
-                    NativeMethods.SetWindowRectanle(this);
+                    //NativeMethods.SetWindowRectanle(this);
                 }
             };
             borderTitle.MouseLeftButtonDown += delegate (object sender, MouseButtonEventArgs e)
@@ -157,14 +158,11 @@ namespace Careful.Core.Mvvm.Views.WindowBaseControl
                         WindowState = WindowState.Maximized;
                         btnMax.IsChecked = true;
                     }
-                    NativeMethods.SetWindowRectanle(this);
+                    //NativeMethods.SetWindowRectanle(this);
                 }
             };
             #endregion
         }
-
-        public Action<string> SystemEventChanged;
-
         Rect NormalRect { get; set; }
         private void SetWorkArea()
         {
@@ -219,7 +217,6 @@ namespace Careful.Core.Mvvm.Views.WindowBaseControl
             FrameworkElement fe = e.OriginalSource as FrameworkElement;
             if (fe == null)
                 return;
-            //NativeMethods.SetWindowRectanle(this);
             string strTemp = fe.Name;
             switch (strTemp)
             {
@@ -269,7 +266,7 @@ namespace Careful.Core.Mvvm.Views.WindowBaseControl
 
             }
             NormalRect = new Rect(this.Left, this.Top, this.Width, this.Height);
-            NativeMethods.SetWindowRectanle(this);
+            //NativeMethods.SetWindowRectanle(this);
         }
 
         #endregion
