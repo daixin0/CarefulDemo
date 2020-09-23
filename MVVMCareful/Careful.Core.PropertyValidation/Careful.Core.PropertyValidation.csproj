@@ -55,6 +55,7 @@
     <Compile Include="VerificationAttributeRule.cs" />
     <Compile Include="VerificationCommandAction.cs" />
     <Compile Include="VerificationHelper.cs" />
+    <Compile Include="VerificationType.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Careful.Core\Careful.Core.csproj">
