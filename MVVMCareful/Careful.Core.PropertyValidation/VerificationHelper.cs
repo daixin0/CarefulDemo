@@ -20,55 +20,13 @@ namespace Careful.Core.PropertyValidation
             PropertyInfo[] propertyInfos = type.GetProperties();
             foreach (var pro in propertyInfos)
             {
-                object[] att = pro.GetCustomAttributes(typeof(VerificationAttribute), true);
-                if (att.Length > 0)
-                {
-                    VerificationAttribute verificationAttribute = att[0] as VerificationAttribute;
-                    Type proType = pro.PropertyType;
-                    switch (verificationAttribute.VerificationType)
-                    {
-                        case VerificationType.NotNull:
-                            if (proType == typeof(string))
-                            {
-                                string value = pro.GetValue(obj)?.ToString();
-                                if (string.IsNullOrWhiteSpace(value))
-                                {
-                                    resultAction(new ValidationResult(false, verificationAttribute.PropertyDescription + verificationAttribute.VerificationType.GetDescription()));
-                                    return false;
-                                }
-                            }
-                            break;
-                        case VerificationType.PositiveNumber:
-                            string valNumber = pro.GetValue(obj)?.ToString();
-                            bool verifyResult = VerifyPositiveNumber(proType, valNumber);
-                            if (!verifyResult)
-                            {
-                                resultAction(new ValidationResult(false, verificationAttribute.PropertyDescription + verificationAttribute.VerificationType.GetDescription()));
-                                return false;
-                            }
-                            break;
-                        case VerificationType.Password:
-                            string passWord = pro.GetValue(obj)?.ToString();
-                            bool passWordresult = VerifyPositivePassWord(proType, passWord);
-                            if (!passWordresult)
-                            {
-                                resultAction(new ValidationResult(false, verificationAttribute.PropertyDescription + verificationAttribute.VerificationType.GetDescription()));
-                                return false;
-                            }
-                            break;
-                        default:
-                            break;
-
-                    }
-                }
+                return VerifivationFanction(pro, pro.GetValue(obj), resultAction);
             }
             resultAction(new ValidationResult(true, null));
             return true;
         }
-        public static bool VerifivationProrperty(ValidationObject validationObject, object obj, Action<ValidationResult> resultAction = null)
+        private static bool VerifivationFanction(PropertyInfo propertyInfo,object obj, Action<ValidationResult> resultAction = null)
         {
-            Type objectType = validationObject.ValidationModel.GetType();
-            PropertyInfo propertyInfo = objectType.GetProperty(validationObject.PropertyName);
             object[] att = propertyInfo.GetCustomAttributes(typeof(VerificationAttribute), true);
             if (att.Length > 0)
             {
@@ -84,6 +42,7 @@ namespace Careful.Core.PropertyValidation
                                 resultAction(new ValidationResult(false, verificationAttribute.PropertyDescription + verificationAttribute.VerificationType.GetDescription()));
                                 return false;
                             }
+                            
                             string value = obj.ToString();
                             if (string.IsNullOrWhiteSpace(value))
                             {
@@ -109,7 +68,7 @@ namespace Careful.Core.PropertyValidation
                         }
                         break;
                     case VerificationType.Password:
-                    
+
                         bool passWordresult = VerifyPositivePassWord(propertyType, obj);
                         if (!passWordresult)
                         {
@@ -123,6 +82,12 @@ namespace Careful.Core.PropertyValidation
             }
             resultAction(new ValidationResult(true, null));
             return true;
+        }
+        public static bool VerifivationProrperty(ValidationObject validationObject, object obj, Action<ValidationResult> resultAction = null)
+        {
+            Type objectType = validationObject.ValidationModel.GetType();
+            PropertyInfo propertyInfo = objectType.GetProperty(validationObject.PropertyName);
+            return VerifivationFanction(propertyInfo, obj, resultAction);
         }
         /// <summary>
         /// 验证是否大于零
