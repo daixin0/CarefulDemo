@@ -30,55 +30,77 @@ namespace Careful.Core.PropertyValidation
             object[] att = propertyInfo.GetCustomAttributes(typeof(VerificationAttribute), true);
             if (att.Length > 0)
             {
-                VerificationAttribute verificationAttribute = att[0] as VerificationAttribute;
-                Type propertyType = propertyInfo.PropertyType;
-                switch (verificationAttribute.VerificationType)
+                foreach (VerificationAttribute verificationAttribute in att)
                 {
-                    case VerificationType.NotNull:
-                        if (propertyType == typeof(string))
+                    Type propertyType = propertyInfo.PropertyType;
+                    foreach (var item in verificationAttribute.VerificationType)
+                    {
+                        switch (item)
                         {
-                            if (obj == null)
-                            {
-                                resultAction(new ValidationResult(false, verificationAttribute.PropertyDescription + verificationAttribute.VerificationType.GetDescription()));
-                                return false;
-                            }
-                            
-                            string value = obj.ToString();
-                            if (string.IsNullOrWhiteSpace(value))
-                            {
-                                resultAction(new ValidationResult(false, verificationAttribute.PropertyDescription + verificationAttribute.VerificationType.GetDescription()));
-                                return false;
-                            }
-                        }
-                        break;
-                    case VerificationType.PositiveNumber:
-                        bool verifyResult = VerifyPositiveNumber(propertyType, obj);
-                        if (!verifyResult)
-                        {
-                            resultAction(new ValidationResult(false, verificationAttribute.PropertyDescription + verificationAttribute.VerificationType.GetDescription()));
-                            return false;
-                        }
-                        break;
-                    case VerificationType.PhoneNumber:
-                        bool rest = VerifyPositivePhoneNumber(propertyType, obj);
-                        if (!rest)
-                        {
-                            resultAction(new ValidationResult(false, verificationAttribute.PropertyDescription + verificationAttribute.VerificationType.GetDescription()));
-                            return false;
-                        }
-                        break;
-                    case VerificationType.Password:
+                            case VerificationType.NotNull:
+                                if (propertyType == typeof(string))
+                                {
+                                    if (obj == null)
+                                    {
+                                        resultAction(new ValidationResult(false, verificationAttribute.PropertyDescription + item.GetDescription()));
+                                        return false;
+                                    }
 
-                        bool passWordresult = VerifyPositivePassWord(propertyType, obj);
-                        if (!passWordresult)
-                        {
-                            resultAction(new ValidationResult(false, verificationAttribute.PropertyDescription + verificationAttribute.VerificationType.GetDescription()));
-                            return false;
+                                    string value = obj.ToString();
+                                    if (string.IsNullOrWhiteSpace(value))
+                                    {
+                                        resultAction(new ValidationResult(false, verificationAttribute.PropertyDescription + item.GetDescription()));
+                                        return false;
+                                    }
+                                }
+                                break;
+                            case VerificationType.PositiveNumber:
+                                bool verifyResult = VerifyPositiveNumber(propertyType, obj);
+                                if (!verifyResult)
+                                {
+                                    resultAction(new ValidationResult(false, verificationAttribute.PropertyDescription + item.GetDescription()));
+                                    return false;
+                                }
+                                break;
+                            case VerificationType.PhoneNumber:
+                                bool rest = VerifyPositivePhoneNumber(propertyType, obj);
+                                if (!rest)
+                                {
+                                    resultAction(new ValidationResult(false, verificationAttribute.PropertyDescription + item.GetDescription()));
+                                    return false;
+                                }
+                                break;
+                            case VerificationType.GreaterThanNumber:
+                                bool passWordresult = VerifyNumberGreaterThanLength(obj, 6);
+                                if (!passWordresult)
+                                {
+                                    resultAction(new ValidationResult(false, verificationAttribute.PropertyDescription + item.GetDescription()));
+                                    return false;
+                                }
+                                break;
+                            case VerificationType.LessThanNumber:
+                                bool numberResult = VerifyNumberLessThanLength(obj, 5);
+                                if (!numberResult)
+                                {
+                                    resultAction(new ValidationResult(false, verificationAttribute.PropertyDescription + item.GetDescription()));
+                                    return false;
+                                }
+                                break;
+                            case VerificationType.Letter:
+                                bool letterResult = VerifyIsLetter(obj);
+                                if (!letterResult)
+                                {
+                                    resultAction(new ValidationResult(false, verificationAttribute.PropertyDescription + item.GetDescription()));
+                                    return false;
+                                }
+                                break;
+                            default:
+                                break;
                         }
-                        break;
-                    default:
-                        break;
+                    }
                 }
+                
+                
             }
             resultAction(new ValidationResult(true, null));
             return true;
@@ -110,6 +132,8 @@ namespace Careful.Core.PropertyValidation
                 return double.TryParse(value, out double number) && number >= 0;
             else if (propertyType == typeof(float))
                 return float.TryParse(value, out float number) && number >= 0;
+            else if (propertyType == typeof(ulong))
+                return ulong.TryParse(value, out ulong number) && number >= 0;
             else
                 return false;
         }
@@ -126,18 +150,30 @@ namespace Careful.Core.PropertyValidation
             return regex.IsMatch(phoneNumber);
         
         }
-
-        private static bool VerifyPositivePassWord(Type propertyType, object obj) 
+        private static bool VerifyIsLetter(object obj)
         {
-            if (obj == null) return false;
-            string passWord = obj.ToString();
-            if (string.IsNullOrEmpty(passWord))
+            if (obj == null) return true;
+            if (Regex.IsMatch(obj.ToString(), @"(?i)^[a-z]+$"))
+                return true;
+            else return false;
+        }
+        private static bool VerifyNumberGreaterThanLength(object obj,int number)
+        {
+            if (obj == null) return true;
+            if (obj.ToString().Length < number)
             {
                 return false;
             }
-            if (passWord.Length < 6) { return false; }
             return true;
         }
-
+        private static bool VerifyNumberLessThanLength(object obj,int number)
+        {
+            if (obj == null) return true;
+            if (obj.ToString().Length > number)
+            {
+                return false;
+            }
+            return true;
+        }
     }
 }

@@ -8,7 +8,7 @@ namespace Careful.Core.PropertyValidation
 {
     public class VerificationAttribute : Attribute
     {
-        public VerificationType VerificationType { get; set; }
+        public VerificationType[] VerificationType { get; set; }
         public string PropertyDescription { get; set; }
 
     }

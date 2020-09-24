@@ -1,0 +1,11 @@
+﻿<UserControl x:Class="Careful.Controls.RadioButtonControl.UserControlRadioBtn"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             x:Name="ucRadio"
+             mc:Ignorable="d" >
+    <Grid>
+        <RadioButton  Height="16" HorizontalAlignment="Center" Name="chkState" IsEnabled="{Binding ElementName=ucRadio,Path=IsEnabled}" GroupName="{Binding GroupName}" IsChecked="{Binding IsChecked,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Content="{Binding TextContent}" Style="{DynamicResource RadioButtonStyle1}" VerticalAlignment="Center" Click="chkState_Click" Unchecked="chkState_Unchecked" />
+    </Grid>
+</UserControl>

@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ThemeLibrary", "ThemeLibrar
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThemeResources", "ThemeLibrary\ThemeResources\ThemeResources.csproj", "{89429601-7DCC-47C6-8CB0-5F04F66AF36C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlResource", "ControlLibrary\ControlResource\ControlResource.csproj", "{96E0CF6A-E9CC-470B-8E07-32E1D3250499}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Careful.Controls", "ControlLibrary\ControlResource\Careful.Controls.csproj", "{96E0CF6A-E9CC-470B-8E07-32E1D3250499}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModularityIDEDemo", "Demo1\ModularityIDEDemo\ModularityIDEDemo.csproj", "{9DAB7CD6-1A77-4E3B-BBE3-CE04EA81D5D4}"
 EndProject

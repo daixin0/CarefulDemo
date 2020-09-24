@@ -1,0 +1,197 @@
+﻿<UserControl x:Class="Careful.Controls.DataGridControl.ColumnFilterControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+
+        <Style TargetType="ComboBox" BasedOn="{StaticResource {x:Type ComboBox}}">
+            <Setter Property="Background" Value="Transparent"></Setter>
+            <Setter Property="BorderThickness" Value="0"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ComboBox}">
+                        <Grid x:Name="grid" Background="{TemplateBinding Background}">
+                            <!--  ToggleButton 已数据绑定到 ComboBox 本身以切换 IsDropDownOpen  -->
+                            <ToggleButton
+                            x:Name="ToggleButton"
+                            Grid.Column="2"
+                            Background="{TemplateBinding Background}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            ClickMode="Press"
+                            Focusable="false"
+                            IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                            Template="{DynamicResource DComboBoxToggleButton}" />
+                            <!--<ContentPresenter
+                            x:Name="ContentSite"
+                            Width="Auto"
+                            Margin="6,3,23,3"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Content="{TemplateBinding SelectionBoxItem}"
+                            ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                            ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                            IsHitTestVisible="False"
+                            SnapsToDevicePixels="False"
+                            Visibility="Visible" />-->
+
+                            <!--  必须将 TextBox 命名为 PART_EditableTextBox，否则 ComboBox 将无法识别它  -->
+                            <TextBox Margin="2,2,23,2"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Background="{TemplateBinding Background}"
+                            BorderThickness="0"
+                            Focusable="True"
+                            IsReadOnly="{TemplateBinding IsReadOnly}"
+                            Style="{x:Null}" Text="{Binding FilterText,Mode=TwoWay, UpdateSourceTrigger=Explicit}"/>
+
+                            <!--  Popup 可显示 ComboBox 中的项列表。IsOpen 已数据绑定到通过 ComboBoxToggleButton 来切换的 IsDropDownOpen  -->
+                            <Popup
+                            x:Name="Popup"
+                            AllowsTransparency="True"
+                            Focusable="False"
+                            IsOpen="{TemplateBinding IsDropDownOpen}"
+                            Placement="Bottom"
+                            PopupAnimation="Slide">
+                                <Grid
+                                x:Name="DropDown"
+                                MinWidth="{TemplateBinding ActualWidth}"
+                                MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                                SnapsToDevicePixels="True">
+                                    <Border
+                                    x:Name="DropDownBorder"
+                                    Background="White"
+                                    BorderBrush="#FFABADB3"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="1" />
+                                    <ScrollViewer
+                                    Margin="4"
+                                    CanContentScroll="True"
+                                    HorizontalScrollBarVisibility="Auto"
+                                    SnapsToDevicePixels="True"
+                                    VerticalScrollBarVisibility="Auto">
+
+                                        <!--  StackPanel 用于显示子级，方法是将 IsItemsHost 设置为 True  -->
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
+
+                                    </ScrollViewer>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <!--  这会强制 DropDown 的大小有最小限制(如果它为空)  -->
+                            <Trigger Property="HasItems" Value="false">
+                                <Setter TargetName="DropDownBorder" Property="MinHeight" Value="95" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter TargetName="grid" Property="Opacity" Value="0.5" />
+                            </Trigger>
+
+                            <Trigger Property="IsGrouping" Value="true">
+                                <Setter Property="ScrollViewer.CanContentScroll" Value="false" />
+                            </Trigger>
+                            <Trigger SourceName="Popup" Property="AllowsTransparency" Value="true" />
+
+                            <Trigger Property="IsEditable" Value="true">
+                                <Setter Property="IsTabStop" Value="false" />
+                                <!--<Setter TargetName="PART_EditableTextBox" Property="Visibility" Value="Visible" />-->
+                                <!--<Setter TargetName="ContentSite" Property="Visibility" Value="Hidden" />-->
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Height="22" x:Name="LayoutRoot" Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Name="col1" Width="0"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <ComboBox x:Name="cbOperation" Visibility="Collapsed" ItemsSource="{Binding FilterOperations,Mode=OneWay}" SelectedItem="{Binding SelectedFilterOperation, Mode=TwoWay}" IsEnabled="{Binding FilterOperationsEnabled}" Grid.Column="0"  d:LayoutOverrides="Height" >
+            <ComboBox.Style>
+                <Style TargetType="ComboBox">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ComboBox}">
+                                <Grid x:Name="MainGrid" SnapsToDevicePixels="true">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition MinWidth="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}" Width="0"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Popup x:Name="PART_Popup" AllowsTransparency="true" Grid.ColumnSpan="2" IsOpen="{Binding IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}}" Margin="1" PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}" Placement="Bottom">
+                                        <Microsoft_Windows_Themes:SystemDropShadowChrome x:Name="Shdw" Color="Transparent" MaxHeight="{TemplateBinding MaxDropDownHeight}" MinWidth="{Binding ActualWidth, ElementName=MainGrid}">
+                                            <Border x:Name="DropDownBorder" BorderBrush="{DynamicResource {x:Static SystemColors.WindowFrameBrushKey}}" BorderThickness="1" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
+                                                <ScrollViewer x:Name="DropDownScrollViewer">
+                                                    <Grid RenderOptions.ClearTypeHint="Enabled">
+                                                        <Canvas HorizontalAlignment="Left" Height="0" VerticalAlignment="Top" Width="0">
+                                                            <Rectangle x:Name="OpaqueRect" Fill="{Binding Background, ElementName=DropDownBorder}" Height="{Binding ActualHeight, ElementName=DropDownBorder}" Width="{Binding ActualWidth, ElementName=DropDownBorder}"/>
+                                                        </Canvas>
+                                                        <ItemsPresenter x:Name="ItemsPresenter" KeyboardNavigation.DirectionalNavigation="Contained" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                                    </Grid>
+                                                </ScrollViewer>
+                                            </Border>
+                                        </Microsoft_Windows_Themes:SystemDropShadowChrome>
+                                    </Popup>
+                                    <ToggleButton BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" Grid.ColumnSpan="2" IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                    <ContentPresenter x:Name="contentPresenter" VerticalAlignment="Center" HorizontalAlignment="Center" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" Grid.ColumnSpan="2" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" Content="{TemplateBinding SelectionBoxItem}" ContentStringFormat="{TemplateBinding SelectionBoxItemStringFormat}" IsHitTestVisible="false"></ContentPresenter>
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="HasDropShadow" SourceName="PART_Popup" Value="true">
+                                        <Setter Property="Margin" TargetName="Shdw" Value="0,0,5,5"/>
+                                        <Setter Property="Color" TargetName="Shdw" Value="#71000000"/>
+                                    </Trigger>
+                                    <Trigger Property="HasItems" Value="false">
+                                        <Setter Property="Height" TargetName="DropDownBorder" Value="95"/>
+                                    </Trigger>
+                                    <Trigger Property="IsEnabled" Value="false">
+                                        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                                        <Setter Property="Background" Value="#FFF4F4F4"/>
+                                    </Trigger>
+                                    <Trigger Property="IsGrouping" Value="true">
+                                        <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
+                                    </Trigger>
+                                    <Trigger Property="ScrollViewer.CanContentScroll" SourceName="DropDownScrollViewer" Value="false">
+                                        <Setter Property="Canvas.Top" TargetName="OpaqueRect" Value="{Binding VerticalOffset, ElementName=DropDownScrollViewer}"/>
+                                        <Setter Property="Canvas.Left" TargetName="OpaqueRect" Value="{Binding HorizontalOffset, ElementName=DropDownScrollViewer}"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ComboBox.Style>
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <!--<Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="16"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Image VerticalAlignment="Top" x:Name="imgSort" Source="{Binding ImagePath}" Width="16" Height="16" />-->
+                        <TextBlock x:Name="txtDescription" Margin="5,0,0,0" Text="{Binding Description}" ></TextBlock>
+                    </Grid>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+            
+        </ComboBox> 
+        <ComboBox x:Name="cbDistinctProperties" Visibility="Collapsed" IsReadOnly="True" HorizontalAlignment="Stretch" ItemsSource="{Binding DistinctPropertyValues,Mode=TwoWay}"  VerticalAlignment="Stretch" Grid.Column="1" Background="white"  DropDownOpened="cbDistinctProperties_DropDownOpened">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <CheckBox IsChecked="{Binding IsChecked, Mode=TwoWay}" Content="{Binding Description,Mode=OneWay}"></CheckBox>
+                    </Grid>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <TextBox x:Name="txtFilter" Visibility="Collapsed" VerticalContentAlignment="Center" BorderThickness="0" BorderBrush="Gray" KeyUp="txtFilter_KeyUp" IsReadOnly="{Binding FilterReadOnly}" Grid.Column="1" VerticalAlignment="Stretch" />
+        <StackPanel Name="spDate" Visibility="Collapsed" Grid.Column="1" Orientation="Horizontal">
+            <DatePicker SelectedDateChanged="DatePicker_SelectedDateChanged"></DatePicker>
+            <!--<TextBlock Text="-"></TextBlock>
+            <DatePicker SelectedDateChanged="DatePicker_SelectedDateChanged_1"></DatePicker>-->
+        </StackPanel>
+    </Grid>
+</UserControl>

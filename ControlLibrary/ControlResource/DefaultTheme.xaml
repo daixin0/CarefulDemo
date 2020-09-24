@@ -1,15 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/ControlResource;Component/CustomControls/CircleProgressRingControl/CircleProgressRingStyle.xaml" />
-        <ResourceDictionary Source="/ControlResource;Component/ExtendControls/TreeListView/GridViewColumnHeader.xaml" />
-        <ResourceDictionary Source="/ControlResource;Component/ExtendControls/TreeListView/TreeExpandToggle.xaml" />
-        <ResourceDictionary Source="/ControlResource;Component/ExtendControls/TreeListView/TreeListViewStyle.xaml" />
-        <ResourceDictionary Source="/ControlResource;Component/ExtendControls/MultiComboBox/MultiComboBox.xaml" />
-        <ResourceDictionary Source="/ControlResource;Component/ExtendControls/WaterTextBox/WaterTextBoxStyle.xaml" />
-        <ResourceDictionary Source="/ControlResource;Component/ExtendControls/DataGrid/DataGridExtendStyle.xaml" />
-        <ResourceDictionary Source="/ControlResource;Component/ExtendControls/TabControl3D/TabControlStyle.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/ControlResource;component/CommonStyle/Styles/MenuItem.xaml" />
-
+        
         
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>
