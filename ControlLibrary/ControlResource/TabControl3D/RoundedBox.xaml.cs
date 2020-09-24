@@ -16,7 +16,7 @@
 //===================================================================================
 using System.Windows.Controls;
 
-namespace Careful.Controls.ExtendControlStyle.TabControl3D
+namespace Careful.Controls.TabControl3D
 {
     /// <summary>
     /// Interaction logic for RoundedBox.xaml

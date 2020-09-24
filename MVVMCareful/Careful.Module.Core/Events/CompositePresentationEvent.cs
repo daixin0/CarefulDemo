@@ -3,9 +3,8 @@
 using System;
 using System.Linq;
 using System.Windows.Threading;
-using PrismCommonLib.PubSubEvents;
 
-namespace PrismCommonLib.Composition.Events
+namespace Careful.Module.Core.Events
 {
     /// <summary>
     /// Defines a class that manages publication and subscription to events.
@@ -133,7 +132,7 @@ namespace PrismCommonLib.Composition.Events
                     subscription = new BackgroundEventSubscription<TPayload>(actionReference, filterReference);
                     break;
                 case ThreadOption.UIThread:
-                    subscription = new PrismCommonLib.Composition.Events.DispatcherEventSubscription<TPayload>(actionReference, filterReference, UIDispatcher);
+                    subscription = new DispatcherEventSubscription<TPayload>(actionReference, filterReference, null);
                     break;
                 default:
                     subscription = new EventSubscription<TPayload>(actionReference, filterReference);

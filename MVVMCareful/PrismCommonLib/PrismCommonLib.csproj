@@ -60,10 +60,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Composition\Bootstrapper.cs" />
-    <Compile Include="Composition\Events\CompositePresentationEvent.cs" />
-    <Compile Include="Composition\Events\DefaultDispatcher.Desktop.cs" />
-    <Compile Include="Composition\Events\DispatcherEventSubscription.cs" />
-    <Compile Include="Composition\Events\IDispatcherFacade.cs" />
     <Compile Include="Composition\GlobalSuppressions.cs" />
     <Compile Include="Composition\Modularity\AssemblyResolver.Desktop.cs" />
     <Compile Include="Composition\Modularity\ConfigurationModuleCatalog.Desktop.cs" />

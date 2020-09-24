@@ -4,7 +4,7 @@ using System;
 using System.Windows;
 using System.Windows.Threading;
 
-namespace PrismCommonLib.Composition.Events
+namespace Careful.Module.Core.Events
 {
     /// <summary>
     /// Wraps the Application Dispatcher.

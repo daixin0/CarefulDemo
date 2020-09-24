@@ -2,7 +2,7 @@
 
 using System;
 
-namespace PrismCommonLib.Composition.Events
+namespace Careful.Module.Core.Events
 {
     /// <summary>
     /// Defines the interface for invoking methods through a Dispatcher Facade

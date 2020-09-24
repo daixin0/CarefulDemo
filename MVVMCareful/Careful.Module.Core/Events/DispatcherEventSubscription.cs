@@ -42,7 +42,6 @@ namespace Careful.Module.Core.Events
     public class DispatcherEventSubscription<TPayload> : EventSubscription<TPayload>
     {
         private readonly SynchronizationContext syncContext;
-
         ///<summary>
         /// Creates a new instance of <see cref="BackgroundEventSubscription{TPayload}"/>.
         ///</summary>
@@ -57,8 +56,7 @@ namespace Careful.Module.Core.Events
         {
             syncContext = context;
         }
-
-        /// <summary>
+        ///<summary>
         /// Invokes the specified <see cref="System.Action{TPayload}"/> asynchronously in the specified <see cref="SynchronizationContext"/>.
         /// </summary>
         /// <param name="action">The action to execute.</param>

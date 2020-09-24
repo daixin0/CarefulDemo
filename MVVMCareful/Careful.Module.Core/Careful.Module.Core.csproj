@@ -47,13 +47,16 @@
   <ItemGroup>
     <Compile Include="Common\UriParsingHelper.cs" />
     <Compile Include="Events\BackgroundEventSubscription.cs" />
+    <Compile Include="Events\CompositePresentationEvent.cs" />
     <Compile Include="Events\DataEventArgs.cs" />
+    <Compile Include="Events\DefaultDispatcher.Desktop.cs" />
     <Compile Include="Events\DelegateReference.cs" />
     <Compile Include="Events\DispatcherEventSubscription.cs" />
     <Compile Include="Events\EventAggregator.cs" />
     <Compile Include="Events\EventBase.cs" />
     <Compile Include="Events\EventSubscription.cs" />
     <Compile Include="Events\IDelegateReference.cs" />
+    <Compile Include="Events\IDispatcherFacade.cs" />
     <Compile Include="Events\IEventAggregator.cs" />
     <Compile Include="Events\IEventSubscription.cs" />
     <Compile Include="Events\PubSubEvent.cs" />

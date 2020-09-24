@@ -18,3 +18,10 @@ F:\Project\CarefulDemo\MVVMCareful\Careful.Module.Core\obj\Debug\Careful.Module.
 F:\Project\CarefulDemo\MVVMCareful\Careful.Module.Core\obj\Debug\Careful.Module.Core.csproj.CopyComplete
 F:\Project\CarefulDemo\MVVMCareful\Careful.Module.Core\obj\Debug\Careful.Module.Core.dll
 F:\Project\CarefulDemo\MVVMCareful\Careful.Module.Core\obj\Debug\Careful.Module.Core.pdb
+E:\Project\CarefulDemo\MVVMCareful\Careful.Module.Core\obj\Debug\Careful.Module.Core.csprojAssemblyReference.cache
+E:\Project\CarefulDemo\MVVMCareful\Careful.Module.Core\obj\Debug\Careful.Module.Core.csproj.CoreCompileInputs.cache
+E:\Project\CarefulDemo\MVVMCareful\Careful.Module.Core\obj\Debug\Careful.Module.Core.dll
+E:\Project\CarefulDemo\MVVMCareful\Careful.Module.Core\obj\Debug\Careful.Module.Core.pdb
+E:\Project\CarefulDemo\Output\Careful\Careful.Module.Core.dll
+E:\Project\CarefulDemo\Output\Careful\Careful.Module.Core.pdb
+E:\Project\CarefulDemo\MVVMCareful\Careful.Module.Core\obj\Debug\Careful.Module.Core.csproj.CopyComplete
