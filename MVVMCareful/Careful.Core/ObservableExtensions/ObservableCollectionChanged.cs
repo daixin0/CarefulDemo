@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 
-namespace Careful.Core.Mvvm
+namespace Careful.Core.ObservableExtensions
 {
     public sealed class ObservableCollectionChanged<T> : ObservableCollection<T> where T : INotifyPropertyChanged
     {

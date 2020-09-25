@@ -2,7 +2,7 @@
 using System.Diagnostics.Contracts;
 using System.Threading;
 
-namespace Careful.Core.Mvvm
+namespace Careful.Core.Extensions
 {
     
     public sealed class ActionOnDispose : IDisposable

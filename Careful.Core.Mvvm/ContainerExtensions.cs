@@ -1,8 +1,9 @@
-﻿using Careful.Core.Mvvm;
+﻿using Careful.Core.Ioc;
+using Careful.Core.Mvvm;
 using Careful.Core.Mvvm.ViewModel;
 using System;
 
-namespace Careful.Core.Ioc
+namespace Careful.Core.Mvvm
 {
     /// <summary>
     /// <see cref="IUnityContainer"/> extensions.

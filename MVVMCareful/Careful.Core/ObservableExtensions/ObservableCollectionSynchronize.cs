@@ -5,8 +5,9 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Diagnostics.Contracts;
+using Careful.Core.Extensions;
 
-namespace Careful.Core.Mvvm
+namespace Careful.Core.ObservableExtensions
 {
     public class ObservableCollectionSynchronize<T> : ObservableCollection<T>
     {

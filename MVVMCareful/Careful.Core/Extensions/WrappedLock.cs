@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 
-namespace Careful.Core.Mvvm
+namespace Careful.Core.Extensions
 {
     public class WrappedLock : WrappedLock<object>
     {

@@ -1,5 +1,6 @@
 ﻿using Careful.Core.Mvvm;
 using Careful.Core.Mvvm.Command;
+using Careful.Core.ObservableExtensions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
