@@ -1,5 +1,6 @@
 ﻿using Careful.Core.Mvvm;
 using Careful.Core.Mvvm.BindingExtension;
+using Careful.Core.Mvvm.PropertyChanged;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
