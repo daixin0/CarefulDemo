@@ -4,14 +4,14 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using Careful.Core.Extensions;
+using Careful.Core.Logs;
+using Careful.Module.Core.Modularity;
+using Careful.Module.Core.Regions;
+using Careful.Module.Core.Regions.Behaviors;
 using Microsoft.Practices.ServiceLocation;
-using CommonLib.Logs;
-using PrismCommonLib.Composition.Modularity;
-using PrismCommonLib.Composition.Logging;
-using PrismCommonLib.Composition.Regions;
-using PrismCommonLib.Composition.Regions.Behaviors;
 
-namespace PrismCommonLib
+namespace Careful.Module.Core
 {
     /// <summary>
     /// Base class that provides a basic bootstrapping sequence and hooks
@@ -49,7 +49,7 @@ namespace PrismCommonLib
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope", Justification = "The Logger is added to the container which will dispose it when the container goes out of scope.")]
         protected virtual ILog CreateLogger()
         {
-            return new TextLogger();
+            return new FileLogger();
         }
 
         /// <summary>

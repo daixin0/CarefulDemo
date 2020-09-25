@@ -3,7 +3,7 @@
 using System;
 using Microsoft.Practices.ServiceLocation;
 
-namespace PrismCommonLib
+namespace Careful.Core.Extensions
 {
     /// <summary>
     /// Defines extension methods for the <see cref="ServiceLocator"/> class.
