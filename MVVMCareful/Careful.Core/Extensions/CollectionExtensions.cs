@@ -1,4 +1,4 @@
-﻿using Careful.Core.Mvvm;
+﻿using Careful.Core.ObservableExtensions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

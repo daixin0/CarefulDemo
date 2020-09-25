@@ -1,0 +1,107 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:lib="clr-namespace:Careful.Controls.PagingControl"
+                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity">
+    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}" x:Key="pageButtonStyle">
+        <Setter Property="Width" Value="30" />
+        <Setter Property="Height" Value="30" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Background" Value="White" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Name="border" Background="{TemplateBinding Background}" CornerRadius="{Binding ButtonCornerRadius,RelativeSource={RelativeSource AncestorType=Button}}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}">
+                        <ContentPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"></ContentPresenter>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Opacity" Value="0.7"></Setter>
+                            <Setter Property="Background" Value="#FF418AD7"></Setter>
+                            <Setter Property="Foreground" Value="White" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Background" Value="#FF418AD7"></Setter>
+                            <Setter Property="Foreground" Value="White" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type RepeatButton}" BasedOn="{StaticResource {x:Type RepeatButton}}" x:Key="pageRepeatButtonStyle">
+        <Setter Property="Width" Value="30" />
+        <Setter Property="Height" Value="30" />
+        <Setter Property="Interval" Value="500" />
+        <Setter Property="Background" Value="White" />
+        <Setter Property="BorderThickness" Value="0"></Setter>
+    </Style>
+
+    <DataTemplate DataType="{x:Type lib:PagingCommandItem}" x:Key="DefaultZapCommandItemTemplate">
+        <Button Margin="5,0,0,0" Command="{Binding}" Style="{StaticResource pageButtonStyle}" Content="{Binding Path=PageNumber}"/>
+    </DataTemplate>
+
+    <Style TargetType="{x:Type ItemsControl}" x:Key="ZapScrollerCommandItemsControlStyle">
+        <Setter Property="Focusable" Value="False"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ItemsControl}">
+                    <StackPanel Orientation="Horizontal" IsItemsHost="True"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type lib:PagingScroller}">
+        <Setter Property="CommandItemTemplate" Value="{StaticResource DefaultZapCommandItemTemplate}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type lib:PagingScroller}">
+                    <DockPanel>
+                        
+                        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" HorizontalAlignment="Center" >
+                            <!--<Button Content="&lt;&lt;" Command="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=FirstCommand}"
+                      Style="{StaticResource pageButtonStyle}"/>-->
+                            <StackPanel x:Name="spDeciption" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,10,0">
+                                <TextBlock Text="总共"></TextBlock>
+                                <TextBlock Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TotalNumber}"></TextBlock>
+                                <TextBlock Text="条数据"></TextBlock>
+                            </StackPanel>
+                            <RepeatButton Content="&lt;" Command="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=PreviousCommand}"
+                            Style="{StaticResource pageRepeatButtonStyle}"/>
+                            <ItemsControl Margin="6,0,0,0" ItemsSource="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Commands}"
+                            Style="{StaticResource ZapScrollerCommandItemsControlStyle}"
+                            ItemTemplate="{TemplateBinding CommandItemTemplate}"/>
+                            <RepeatButton Margin="6,0,0,0" Content="&gt;" Command="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=NextCommand}"
+                            Style="{StaticResource pageRepeatButtonStyle}"/>
+                            <!--<Button Content="&gt;&gt;" Command="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=LastCommand}"
+                      Style="{StaticResource pageButtonStyle}"/>-->
+                            <!--<StackPanel Orientation="Horizontal" Margin="15,0,0,0">
+                                <TextBlock Foreground="#FF8D8D8D" Text="跳至" VerticalAlignment="Center"></TextBlock>
+                                <TextBox VerticalAlignment="Center" Text="{Binding GoToPageIndex,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,RelativeSource={RelativeSource TemplatedParent}}" Margin="5,0,0,0" Width="40" BorderThickness="0">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="TextChanged">
+                                            <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=GoToPageCommand}"></i:InvokeCommandAction>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </TextBox>
+                                <TextBlock Foreground="#FF8D8D8D" Margin="5,0,0,0" Text="页" VerticalAlignment="Center"></TextBlock>
+                            </StackPanel>-->
+                        </StackPanel>
+
+                        <lib:PagingDecorator x:Name="PART_ZapDecorator">
+                            <lib:PagingPanel IsItemsHost="true" />
+                        </lib:PagingDecorator>
+
+                    </DockPanel>
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding TotalNumber}" Value="0">
+                            <Setter Property="Visibility" Value="Collapsed" TargetName="spDeciption" />
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

@@ -42,3 +42,10 @@ F:\Project\CarefulDemo\MVVMCareful\Careful.Core\obj\Debug\Mvvm\Views\WindowConta
 F:\Project\CarefulDemo\MVVMCareful\Careful.Core\obj\Debug\Careful.Core.g.resources
 F:\Project\CarefulDemo\MVVMCareful\Careful.Core\obj\Debug\Careful.Core.csproj.CoreCompileInputs.cache
 F:\Project\CarefulDemo\MVVMCareful\Careful.Core\obj\Debug\Careful.Core.csproj.CopyComplete
+E:\Project\CarefulDemo\Output\Careful\Careful.Core.dll
+E:\Project\CarefulDemo\Output\Careful\Careful.Core.pdb
+E:\Project\CarefulDemo\MVVMCareful\Careful.Core\obj\Debug\Careful.Core.csprojAssemblyReference.cache
+E:\Project\CarefulDemo\MVVMCareful\Careful.Core\obj\Debug\Careful.Core.csproj.CoreCompileInputs.cache
+E:\Project\CarefulDemo\MVVMCareful\Careful.Core\obj\Debug\Careful.Core.csproj.CopyComplete
+E:\Project\CarefulDemo\MVVMCareful\Careful.Core\obj\Debug\Careful.Core.dll
+E:\Project\CarefulDemo\MVVMCareful\Careful.Core\obj\Debug\Careful.Core.pdb

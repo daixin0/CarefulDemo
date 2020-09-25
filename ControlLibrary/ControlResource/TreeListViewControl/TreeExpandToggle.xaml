@@ -1,0 +1,130 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!--  展开折叠按钮  顶级  -->
+    <Style x:Key="ExpandCollapseToggleStyle" TargetType="{x:Type ToggleButton}">
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource NullFocusVisual}" />
+        <Setter Property="Focusable" Value="False" />
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                    <Grid Background="#00000000" SnapsToDevicePixels="True">
+                        <Rectangle
+                            x:Name="VerLn1"
+                            Width="1"
+                            Margin="0,-10,0,0"
+                            HorizontalAlignment="Center"
+                            Stroke="#00545454"
+                            Visibility="Collapsed" />
+                        <Border
+                            Width="12"
+                            Height="12"
+                            Margin="0,3,0,0"
+                            VerticalAlignment="Top"
+                            BorderBrush="#FF393939"
+                            BorderThickness="1"
+                            CornerRadius="1"
+                            Visibility="Collapsed">
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                    <GradientStop Offset="0" Color="#FFF9F9F9" />
+                                    <GradientStop Offset="1" Color="#FFDFDFDF" />
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <Grid>
+                                <Rectangle Margin="1,4" Fill="#FF393939" />
+                                <Rectangle
+                                    x:Name="rectangle"
+                                    Margin="4,1"
+                                    Fill="#FF393939" />
+                            </Grid>
+                        </Border>
+                        <Path
+                            x:Name="Close"
+                            Width="9"
+                            Height="9"
+                            Margin="0,9,0,0"
+                            VerticalAlignment="Top"
+                            Data="M0,0L25.194,16 0,32z"
+                            Fill="#989898"
+                            Stretch="Uniform" />
+                        <Path
+                            x:Name="Open"
+                            Width="8"
+                            Height="8"
+                            Margin="0,9,0,0"
+                            VerticalAlignment="Top"
+                            Data="M12,0 L12,12 0,12 z"
+                            Fill="#989898"
+                            Stretch="Uniform"
+                            Visibility="Collapsed" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True" />
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="rectangle" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="VerLn1" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="Open" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="Close" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="ExpandCollapseToggleStyle2" TargetType="{x:Type ToggleButton}">
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Width" Value="10" />
+        <Setter Property="Height" Value="10" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                    <Border
+                        Width="{TemplateBinding Width}"
+                        Height="{TemplateBinding Width}"
+                        Background="Transparent">
+                        <Border
+                            Width="9"
+                            Height="9"
+                            BorderBrush="#FF7898B5"
+                            BorderThickness="1"
+                            CornerRadius="1"
+                            SnapsToDevicePixels="true">
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                    <LinearGradientBrush.GradientStops>
+                                        <GradientStop Offset=".2" Color="White" />
+                                        <GradientStop Offset="1" Color="#FFC0B7A6" />
+                                    </LinearGradientBrush.GradientStops>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <Path
+                                x:Name="ExpandPath"
+                                Margin="1,1,1,1"
+                                Data="M 0 2 L 0 3 L 2 3 L 2 5 L 3 5 L 3 3                              L 5 3 L 5 2 L 3 2 L 3 0 L 2 0 L 2 2 Z"
+                                Fill="Black" />
+                        </Border>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="ExpandPath" Property="Data" Value="M 0 2 L 0 3 L 5 3 L 5 2 Z" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--  展开折叠按钮  其他级  -->
+    <Style x:Key="ExpandToggleStyle" TargetType="{x:Type ToggleButton}">
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Width" Value="10" />
+        <Setter Property="Height" Value="10" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                    <Image Name="toggleImage" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

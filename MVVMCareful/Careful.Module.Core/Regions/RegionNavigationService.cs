@@ -5,7 +5,7 @@ using System.Linq;
 using Careful.Core.Common;
 using Careful.Core.Ioc;
 using System.Windows;
-using Careful.Core.Mvvm.VMBase;
+using Careful.Core.Mvvm.ViewModel;
 
 namespace Careful.Module.Core.Regions
 {

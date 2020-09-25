@@ -2,6 +2,11 @@
 
 namespace Careful.Core.DialogServices
 {
+    public interface IDialogWindow
+    {
+        void Show(string name, IDialogParameters parameters, Action<IDialogResult> callback);
+        void ShowDialog(string name, IDialogParameters parameters, Action<IDialogResult> callback);
+    }
     public interface IDialogService
     {
         bool Confirm(string message, string title = "询问");
@@ -11,8 +16,6 @@ namespace Careful.Core.DialogServices
         void ShowMessageDialog(string message, string title = "提示");
         void ShowMessage(IDialogParameters parameters, Action<IDialogResult> callback);
         void ShowMessageDialog(IDialogParameters parameters, Action<IDialogResult> callback);
-        void Show(string name, IDialogParameters parameters, Action<IDialogResult> callback);
-        void ShowDialog(string name, IDialogParameters parameters, Action<IDialogResult> callback);
-
+        
     }
 }

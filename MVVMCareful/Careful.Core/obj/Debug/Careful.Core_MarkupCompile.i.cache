@@ -4,17 +4,17 @@
 library
 C#
 .cs
-F:\Project\CarefulDemo\MVVMCareful\Careful.Core\obj\Debug\
+E:\Project\CarefulDemo\MVVMCareful\Careful.Core\obj\Debug\
 Careful.Core
 none
 false
 DEBUG;TRACE
 
-7-1154708900
+9-118600039
 
-84-1865263777
-161564028934
-Mvvm\Views\MessageBoxControl\MessageBoxPath.xaml;Mvvm\Views\MessageBoxControl\MessageBoxView.xaml;Mvvm\Views\MessageBoxControl\MessageBoxWindow.xaml;Mvvm\Views\Theme.xaml;Mvvm\Views\WindowBaseControl\BaseWindowStyle.xaml;Mvvm\Views\WindowBaseControl\ToggleButtonStyle.xaml;Mvvm\Views\WindowContainerControl\CircleProgressRingStyle.xaml;
+105-1700132793
+16-811459442
+Mvvm\Interactivity\DefaultPopupWindows\DefaultConfirmationWindow.xaml;Mvvm\Interactivity\DefaultPopupWindows\DefaultNotificationWindow.xaml;Mvvm\Views\MessageBoxControl\MessageBoxPath.xaml;Mvvm\Views\MessageBoxControl\MessageBoxView.xaml;Mvvm\Views\MessageBoxControl\MessageBoxWindow.xaml;Mvvm\Views\Theme.xaml;Mvvm\Views\WindowBaseControl\BaseWindowStyle.xaml;Mvvm\Views\WindowBaseControl\ToggleButtonStyle.xaml;Mvvm\Views\WindowContainerControl\CircleProgressRingStyle.xaml;
 
-True
+False
 

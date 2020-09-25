@@ -12,8 +12,8 @@ using Careful.Core.Ioc;
 using Careful.Module.Core.Regions.Behaviors;
 using Careful.Core.Mvvm;
 using Careful.Core.Extensions;
+using Careful.Core.MessageFrame.Events;
 using System.Windows;
-using Careful.Module.Core.Events;
 
 namespace Careful.Module.Core.Regions
 {

@@ -1,5 +1,5 @@
 using Careful.Core;
-using Careful.Core.Mvvm.VMBase;
+using Careful.Core.Mvvm.ViewModel;
 using System;
 using System.Collections.Specialized;
 using System.Linq;

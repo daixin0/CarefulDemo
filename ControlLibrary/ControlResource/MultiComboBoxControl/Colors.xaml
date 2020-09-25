@@ -1,0 +1,100 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <!--  Window窗体  -->
+    <SolidColorBrush x:Key="WindowBackground" Color="#007ACB" />
+    <SolidColorBrush x:Key="WindowInnerBackground" Color="Transparent" />
+    <SolidColorBrush x:Key="WindowBorderBrush" Color="#920892" />
+    <DropShadowEffect
+        x:Key="WindowDropShadow"
+        BlurRadius="8"
+        Direction="0"
+        Opacity="0.7"
+        ShadowDepth="0"
+        Color="#F472F4" />
+    <SolidColorBrush x:Key="CaptionForeground" Color="White" />
+    <LinearGradientBrush x:Key="CaptionBackground" StartPoint="0.5,0" EndPoint="0.5,1">
+        <GradientStop Offset="0" Color="#571457" />
+        <GradientStop Offset="1" Color="#6A196A" />
+    </LinearGradientBrush>
+    <!--  MessageBoxX  -->
+    <SolidColorBrush x:Key="InfoForeground" Color="White" />
+    <SolidColorBrush x:Key="QuestionForeground" Color="#74B80C" />
+    <SolidColorBrush x:Key="WarningForeground" Color="DarkOrange" />
+    <SolidColorBrush x:Key="ErrorForeground" Color="#E74E4E" />
+    <!--  WaitingBox  -->
+    <SolidColorBrush x:Key="WaitingBoxBackground" Color="#921692" />
+    <!--  边框：Menu  -->
+    <DropShadowEffect
+        x:Key="DefaultDropShadow"
+        BlurRadius="5"
+        Direction="315"
+        Opacity="0.6"
+        ShadowDepth="2"
+        Color="Black" />
+    <!--  输入组件  -->
+    <SolidColorBrush x:Key="TextForeground" Color="White" />
+    <SolidColorBrush x:Key="TextBackground" Color="#0D234B" />
+    <SolidColorBrush x:Key="TextSelectionBrush" Color="#8F8787" />
+    <!--  TextBox默认Label颜色  -->
+    <SolidColorBrush x:Key="TextLabelBackground" Color="#508AB6" />
+    <!--  输入框  -->
+    <SolidColorBrush x:Key="ControlBorderBrush" Color="#999C9F" />
+    <SolidColorBrush x:Key="MouseOverBorderBrush" Color="#F6D1D1" />
+    <SolidColorBrush x:Key="FocusBackground" Color="#365080" />
+    <SolidColorBrush x:Key="FocusBorderBrush" Color="#EBCECE" />
+    <!--  ScrollBar  -->
+    <SolidColorBrush x:Key="ScrollBarForeround" Color="#877F7F" />
+    <SolidColorBrush x:Key="ScrollBarBackground" Color="#3E3E42" />
+
+    <!--  ItemsControl:DataGrid,Tree  -->
+    <sys:Double x:Key="HeaderFontSize">14</sys:Double>
+    <SolidColorBrush x:Key="HeaderBorderBrush" Color="#A6FFA500" />
+    <SolidColorBrush x:Key="HeaderBackground" Color="#0A48D3" />
+    <SolidColorBrush x:Key="ItemsContentBackground" Color="#1389D7" />
+    <SolidColorBrush x:Key="ItemsAlternationContentBackground" Color="#128EE0" />
+    <SolidColorBrush x:Key="GridLinesBrush" Color="#A6D0C2A7" />
+    <SolidColorBrush x:Key="ItemSelectedForeground" Color="White" />
+    <SolidColorBrush x:Key="ItemSelectedBackground" Color="#A145F8" />
+    <SolidColorBrush x:Key="ItemMouseOverBackground" Color="#E9FFFD" />
+    <SolidColorBrush x:Key="ItemMouseOverForeground" Color="White" />
+    <!--  高亮：日历Today  -->
+    <SolidColorBrush x:Key="ItemHighlighteBackground" Color="Blue" />
+    <SolidColorBrush x:Key="ItemHighlighteForeground" Color="White" />
+
+    <!--  普通无背景按钮  -->
+    <SolidColorBrush x:Key="CheckedForeground" Color="#F7B63E" />
+    <SolidColorBrush x:Key="MouseOverForeground" Color="Orange" />
+    <SolidColorBrush x:Key="PressedForeground" Color="DarkOrange" />
+    <SolidColorBrush x:Key="LinkForeground" Color="#0816BB" />
+    <!--  Popup,ComboBox  -->
+    <SolidColorBrush x:Key="PopupBackground" Color="#066EB3" />
+    <!--  Button  -->
+    <SolidColorBrush x:Key="ButtonBackground" Color="#1D4A9A" />
+    <SolidColorBrush x:Key="ButtonForeground" Color="White" />
+    <SolidColorBrush x:Key="ButtonMouseOverBackground" Color="Orange" />
+    <SolidColorBrush x:Key="ButtonMouseOverForeground" Color="White" />
+    <SolidColorBrush x:Key="ButtonPressedBackground" Color="DarkOrange" />
+    <SolidColorBrush x:Key="ButtonPressedForeground" Color="White" />
+    <!--  Menu  -->
+    <SolidColorBrush x:Key="MenuForeground" Color="#920892" />
+    <SolidColorBrush x:Key="MenuBackground" Color="#DDD1D1" />
+    <SolidColorBrush x:Key="MenuBorderBrush" Color="DarkBlue" />
+    <SolidColorBrush x:Key="MenuMouseOverBackground" Color="#0D3CD2" />
+    <SolidColorBrush x:Key="MenuMouseOverForeground" Color="White" />
+    <SolidColorBrush x:Key="MenuPressedBackground" Color="#082CA0" />
+    <SolidColorBrush x:Key="MenuPressedForeground" Color="White" />
+    <!--  State brush  -->
+    <SolidColorBrush x:Key="SuccessfulfaiBrush" Color="#16B32A" />
+    <SolidColorBrush x:Key="FailedBrush" Color="#B92222" />
+
+    <FontFamily x:Key="FontFamily">Microsoft YaHei</FontFamily>
+    <sys:Double x:Key="FontSize">13</sys:Double>
+    <sys:Double x:Key="DisableOpacity">0.5</sys:Double>
+    <sys:Double x:Key="ReadonlyOpacity">0.88</sys:Double>
+    <sys:Double x:Key="WatermarkOpacity">0.4</sys:Double>
+    <sys:String x:Key="DateFormat">yyyy年MM月dd日</sys:String>
+    <sys:String x:Key="DateTimeFormat">yyyy-MM-dd HH:mm:ss</sys:String>
+
+</ResourceDictionary>
