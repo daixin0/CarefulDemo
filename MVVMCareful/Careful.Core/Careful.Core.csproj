@@ -97,6 +97,24 @@
     <Compile Include="Mvvm\Command\RelayCommand.cs" />
     <Compile Include="Mvvm\Command\WeakEventHandlerManager.cs" />
     <Compile Include="Mvvm\BindingExtension\BindingMarkupExtensionBase.cs" />
+    <Compile Include="Mvvm\Interactivity\CommandBehaviorBase.cs" />
+    <Compile Include="Mvvm\Interactivity\DefaultPopupWindows\DefaultConfirmationWindow.xaml.cs">
+      <DependentUpon>DefaultConfirmationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Mvvm\Interactivity\DefaultPopupWindows\DefaultNotificationWindow.xaml.cs">
+      <DependentUpon>DefaultNotificationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Mvvm\Interactivity\InteractionRequest\Confirmation.cs" />
+    <Compile Include="Mvvm\Interactivity\InteractionRequest\IConfirmation.cs" />
+    <Compile Include="Mvvm\Interactivity\InteractionRequest\IInteractionRequest.cs" />
+    <Compile Include="Mvvm\Interactivity\InteractionRequest\IInteractionRequestAware.cs" />
+    <Compile Include="Mvvm\Interactivity\InteractionRequest\INotification.cs" />
+    <Compile Include="Mvvm\Interactivity\InteractionRequest\InteractionRequest.cs" />
+    <Compile Include="Mvvm\Interactivity\InteractionRequest\InteractionRequestedEventArgs.cs" />
+    <Compile Include="Mvvm\Interactivity\InteractionRequest\InteractionRequestTrigger.cs" />
+    <Compile Include="Mvvm\Interactivity\InteractionRequest\Notification.cs" />
+    <Compile Include="Mvvm\Interactivity\InvokeCommandAction.cs" />
+    <Compile Include="Mvvm\Interactivity\PopupWindowAction.cs" />
     <Compile Include="Mvvm\PropertyChanged\ModelCastExtension.cs" />
     <Compile Include="Mvvm\PropertyChanged\NotifyPropertyChanged.cs" />
     <Compile Include="Mvvm\ObservableCollectionChanged.cs" />
@@ -152,6 +170,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Mvvm\Interactivity\DefaultPopupWindows\DefaultConfirmationWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Mvvm\Interactivity\DefaultPopupWindows\DefaultNotificationWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Mvvm\Views\MessageBoxControl\MessageBoxPath.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

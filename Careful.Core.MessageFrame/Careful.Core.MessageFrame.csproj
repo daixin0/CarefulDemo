@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5ABF0785-531B-4575-AD7D-3184D564746D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Careful.Core.MessageFrame</RootNamespace>
+    <AssemblyName>Careful.Core.MessageFrame</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Output\Careful\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Events\BackgroundEventSubscription.cs" />
+    <Compile Include="Events\CompositePresentationEvent.cs" />
+    <Compile Include="Events\DataEventArgs.cs" />
+    <Compile Include="Events\DefaultDispatcher.Desktop.cs" />
+    <Compile Include="Events\DelegateReference.cs" />
+    <Compile Include="Events\DispatcherEventSubscription.cs" />
+    <Compile Include="Events\EventAggregator.cs" />
+    <Compile Include="Events\EventBase.cs" />
+    <Compile Include="Events\EventSubscription.cs" />
+    <Compile Include="Events\IDelegateReference.cs" />
+    <Compile Include="Events\IDispatcherFacade.cs" />
+    <Compile Include="Events\IEventAggregator.cs" />
+    <Compile Include="Events\IEventSubscription.cs" />
+    <Compile Include="Events\PubSubEvent.cs" />
+    <Compile Include="Events\SubscriptionToken.cs" />
+    <Compile Include="Events\ThreadOption.cs" />
+    <Compile Include="Events\WeakDelegatesManager.cs" />
+    <Compile Include="Messaging\DialogMessage.cs" />
+    <Compile Include="Messaging\GenericMessage.cs" />
+    <Compile Include="Messaging\IExecuteWithObject.cs" />
+    <Compile Include="Messaging\IExecuteWithObjectAndResult.cs" />
+    <Compile Include="Messaging\IMessenger.cs" />
+    <Compile Include="Messaging\MessageBase.cs" />
+    <Compile Include="Messaging\Messenger.cs" />
+    <Compile Include="Messaging\NotificationMessage.cs" />
+    <Compile Include="Messaging\NotificationMessageAction.cs" />
+    <Compile Include="Messaging\NotificationMessageActionGeneric.cs" />
+    <Compile Include="Messaging\NotificationMessageGeneric.cs" />
+    <Compile Include="Messaging\NotificationMessageWithCallback.cs" />
+    <Compile Include="Messaging\PropertyChangedMessage.cs" />
+    <Compile Include="Messaging\PropertyChangedMessageBase.cs" />
+    <Compile Include="Messaging\WeakAction.cs" />
+    <Compile Include="Messaging\WeakActionGeneric.cs" />
+    <Compile Include="Messaging\WeakFunc.cs" />
+    <Compile Include="Messaging\WeakFuncGeneric.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

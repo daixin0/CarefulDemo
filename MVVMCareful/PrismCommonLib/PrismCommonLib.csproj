@@ -63,38 +63,7 @@
     <Compile Include="Composition\GlobalSuppressions.cs" />
     <Compile Include="Composition\ObservableObject.cs" />
     <Compile Include="Composition\ServiceLocatorExtensions.cs" />
-    <Compile Include="IActiveAware.cs" />
-    <Compile Include="Interactivity\CommandBehaviorBase.cs" />
-    <Compile Include="Interactivity\DefaultPopupWindows\DefaultConfirmationWindow.xaml.cs">
-      <DependentUpon>DefaultConfirmationWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Interactivity\DefaultPopupWindows\DefaultNotificationWindow.xaml.cs">
-      <DependentUpon>DefaultNotificationWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Interactivity\InteractionRequest\Confirmation.cs" />
-    <Compile Include="Interactivity\InteractionRequest\IConfirmation.cs" />
-    <Compile Include="Interactivity\InteractionRequest\IInteractionRequest.cs" />
-    <Compile Include="Interactivity\InteractionRequest\IInteractionRequestAware.cs" />
-    <Compile Include="Interactivity\InteractionRequest\INotification.cs" />
-    <Compile Include="Interactivity\InteractionRequest\InteractionRequest.cs" />
-    <Compile Include="Interactivity\InteractionRequest\InteractionRequestedEventArgs.cs" />
-    <Compile Include="Interactivity\InteractionRequest\InteractionRequestTrigger.cs" />
-    <Compile Include="Interactivity\InteractionRequest\Notification.cs" />
-    <Compile Include="Interactivity\InvokeCommandAction.cs" />
-    <Compile Include="Interactivity\PopupWindowAction.cs" />
-    <Compile Include="Mvvm\ErrorsContainer.cs" />
-    <Compile Include="Mvvm\PropertySupport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="Interactivity\DefaultPopupWindows\DefaultConfirmationWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Interactivity\DefaultPopupWindows\DefaultNotificationWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

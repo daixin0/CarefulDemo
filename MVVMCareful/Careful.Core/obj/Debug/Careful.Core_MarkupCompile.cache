@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 
-7-1154708900
+9-118600039
 
-891561516449
+1031388776980
 16-811459442
-Mvvm\Views\MessageBoxControl\MessageBoxPath.xaml;Mvvm\Views\MessageBoxControl\MessageBoxView.xaml;Mvvm\Views\MessageBoxControl\MessageBoxWindow.xaml;Mvvm\Views\Theme.xaml;Mvvm\Views\WindowBaseControl\BaseWindowStyle.xaml;Mvvm\Views\WindowBaseControl\ToggleButtonStyle.xaml;Mvvm\Views\WindowContainerControl\CircleProgressRingStyle.xaml;
+Mvvm\Interactivity\DefaultPopupWindows\DefaultConfirmationWindow.xaml;Mvvm\Interactivity\DefaultPopupWindows\DefaultNotificationWindow.xaml;Mvvm\Views\MessageBoxControl\MessageBoxPath.xaml;Mvvm\Views\MessageBoxControl\MessageBoxView.xaml;Mvvm\Views\MessageBoxControl\MessageBoxWindow.xaml;Mvvm\Views\Theme.xaml;Mvvm\Views\WindowBaseControl\BaseWindowStyle.xaml;Mvvm\Views\WindowBaseControl\ToggleButtonStyle.xaml;Mvvm\Views\WindowContainerControl\CircleProgressRingStyle.xaml;
 
 False
 

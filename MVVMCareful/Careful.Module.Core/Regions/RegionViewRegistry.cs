@@ -5,7 +5,7 @@ using System.Reflection;
 using Careful.Core.Common;
 using Careful.Core.Extensions;
 using Careful.Core.Ioc;
-using Careful.Module.Core.Events;
+using Careful.Core.MessageFrame.Events;
 
 namespace Careful.Module.Core.Regions
 {

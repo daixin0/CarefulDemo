@@ -62,3 +62,7 @@ E:\Project\CarefulDemo\MVVMCareful\Careful.Core\obj\Debug\Careful.Core.csproj.Co
 E:\Project\CarefulDemo\MVVMCareful\Careful.Core\obj\Debug\Careful.Core.csproj.CopyComplete
 E:\Project\CarefulDemo\MVVMCareful\Careful.Core\obj\Debug\Careful.Core.dll
 E:\Project\CarefulDemo\MVVMCareful\Careful.Core\obj\Debug\Careful.Core.pdb
+E:\Project\CarefulDemo\MVVMCareful\Careful.Core\obj\Debug\Mvvm\Interactivity\DefaultPopupWindows\DefaultConfirmationWindow.baml
+E:\Project\CarefulDemo\MVVMCareful\Careful.Core\obj\Debug\Mvvm\Interactivity\DefaultPopupWindows\DefaultNotificationWindow.baml
+E:\Project\CarefulDemo\MVVMCareful\Careful.Core\obj\Debug\Mvvm\Interactivity\DefaultPopupWindows\DefaultConfirmationWindow.g.cs
+E:\Project\CarefulDemo\MVVMCareful\Careful.Core\obj\Debug\Mvvm\Interactivity\DefaultPopupWindows\DefaultNotificationWindow.g.cs

@@ -51,23 +51,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\UriParsingHelper.cs" />
-    <Compile Include="Events\BackgroundEventSubscription.cs" />
-    <Compile Include="Events\CompositePresentationEvent.cs" />
-    <Compile Include="Events\DataEventArgs.cs" />
-    <Compile Include="Events\DefaultDispatcher.Desktop.cs" />
-    <Compile Include="Events\DelegateReference.cs" />
-    <Compile Include="Events\DispatcherEventSubscription.cs" />
-    <Compile Include="Events\EventAggregator.cs" />
-    <Compile Include="Events\EventBase.cs" />
-    <Compile Include="Events\EventSubscription.cs" />
-    <Compile Include="Events\IDelegateReference.cs" />
-    <Compile Include="Events\IDispatcherFacade.cs" />
-    <Compile Include="Events\IEventAggregator.cs" />
-    <Compile Include="Events\IEventSubscription.cs" />
-    <Compile Include="Events\PubSubEvent.cs" />
-    <Compile Include="Events\SubscriptionToken.cs" />
-    <Compile Include="Events\ThreadOption.cs" />
-    <Compile Include="Events\WeakDelegatesManager.cs" />
     <Compile Include="Modularity\AssemblyResolver.Desktop.cs" />
     <Compile Include="Modularity\ConfigurationModuleCatalog.Desktop.cs" />
     <Compile Include="Modularity\ConfigurationStore.Desktop.cs" />
@@ -188,6 +171,10 @@
     <Compile Include="RpcInvoker.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Careful.Core.MessageFrame\Careful.Core.MessageFrame.csproj">
+      <Project>{5abf0785-531b-4575-ad7d-3184d564746d}</Project>
+      <Name>Careful.Core.MessageFrame</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Careful.Core\Careful.Core.csproj">
       <Project>{9a2640b6-8161-462f-9f58-e8df8d94fd49}</Project>
       <Name>Careful.Core</Name>
