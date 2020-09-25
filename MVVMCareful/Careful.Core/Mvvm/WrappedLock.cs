@@ -62,14 +62,6 @@ namespace Careful.Core.Mvvm
             }
         }
 
-        [ContractInvariantMethod]
-        void ObjectInvariant()
-        {
-            Contract.Invariant(m_stack != null);
-            Contract.Invariant(m_actionOnLock != null);
-            Contract.Invariant(m_actionOnUnlock != null);
-        }
-
         private readonly Stack<Guid> m_stack = new Stack<Guid>();
         private readonly Action<T> m_actionOnUnlock;
         private readonly Action<T> m_actionOnLock;

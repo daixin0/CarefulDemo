@@ -1,4 +1,3 @@
-using Careful.Core.Mvvm;
 using Careful.Controls.Common.DrawingHelper;
 using System;
 using System.Windows;

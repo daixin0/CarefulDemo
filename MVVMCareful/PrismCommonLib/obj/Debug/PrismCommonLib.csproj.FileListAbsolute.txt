@@ -20,3 +20,13 @@ F:\Project\CarefulDemo\MVVMCareful\PrismCommonLib\obj\Debug\PrismCommonLib.g.res
 F:\Project\CarefulDemo\MVVMCareful\PrismCommonLib\obj\Debug\PrismCommonLib.csproj.CoreCompileInputs.cache
 F:\Project\CarefulDemo\MVVMCareful\PrismCommonLib\obj\Debug\PrismCommonLib.dll
 F:\Project\CarefulDemo\MVVMCareful\PrismCommonLib\obj\Debug\PrismCommonLib.pdb
+E:\Project\CarefulDemo\MVVMCareful\PrismCommonLib\obj\Debug\PrismCommonLib.csprojAssemblyReference.cache
+E:\Project\CarefulDemo\MVVMCareful\PrismCommonLib\obj\Debug\Interactivity\DefaultPopupWindows\DefaultConfirmationWindow.baml
+E:\Project\CarefulDemo\MVVMCareful\PrismCommonLib\obj\Debug\Interactivity\DefaultPopupWindows\DefaultNotificationWindow.baml
+E:\Project\CarefulDemo\MVVMCareful\PrismCommonLib\obj\Debug\Interactivity\DefaultPopupWindows\DefaultConfirmationWindow.g.cs
+E:\Project\CarefulDemo\MVVMCareful\PrismCommonLib\obj\Debug\Interactivity\DefaultPopupWindows\DefaultNotificationWindow.g.cs
+E:\Project\CarefulDemo\MVVMCareful\PrismCommonLib\obj\Debug\PrismCommonLib_MarkupCompile.cache
+E:\Project\CarefulDemo\MVVMCareful\PrismCommonLib\obj\Debug\PrismCommonLib.g.resources
+E:\Project\CarefulDemo\MVVMCareful\PrismCommonLib\obj\Debug\PrismCommonLib.csproj.CoreCompileInputs.cache
+E:\Project\CarefulDemo\MVVMCareful\PrismCommonLib\obj\Debug\PrismCommonLib.dll
+E:\Project\CarefulDemo\MVVMCareful\PrismCommonLib\obj\Debug\PrismCommonLib.pdb

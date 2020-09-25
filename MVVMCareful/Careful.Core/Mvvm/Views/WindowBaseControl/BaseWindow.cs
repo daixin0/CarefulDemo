@@ -17,7 +17,7 @@ using System.Windows.Interop;
 namespace Careful.Core.Mvvm.Views.WindowBaseControl
 {
 
-    public class BaseWindow : Window, INotifyPropertyChanged
+    public class BaseWindow : Window, INotifyPropertyChanged, IView
     {
         ResourceDictionary style1;
         //static BaseWindow()

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Collections.Specialized;
 using System.Windows;
-using Careful.Core.Mvvm.VMBase;
+using Careful.Core.Mvvm.ViewModel;
 
 namespace Careful.Module.Core.Regions.Behaviors
 {

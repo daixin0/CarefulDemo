@@ -1,4 +1,5 @@
 ﻿using Careful.Core.Mvvm;
+using Careful.Core.Mvvm.ViewModel;
 using System;
 
 namespace Careful.Core.Ioc

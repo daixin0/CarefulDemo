@@ -1,4 +1,5 @@
 ﻿using Careful.Core.Mvvm;
+using Careful.Core.Mvvm.PropertyChanged;
 using System;
 using System.ComponentModel;
 using System.Diagnostics.Contracts;

@@ -1,4 +1,5 @@
 ﻿using Careful.Core.Mvvm.Command;
+using Careful.Core.Mvvm.PropertyChanged;
 using System;
 using System.Collections.Generic;
 using System.Linq;

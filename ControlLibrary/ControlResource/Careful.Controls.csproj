@@ -67,6 +67,7 @@
     <Compile Include="DateTimePickerControl\TimeMinuteAndSecond.cs" />
     <Compile Include="CircleProgressRingControl\ModernProgressRing.cs" />
     <Compile Include="Common\DrawingHelper\GeoHelper.cs" />
+    <Compile Include="PagingControl\CompositionTargetRenderingListening.cs" />
     <Compile Include="PagingControl\PagingCommandItem.cs" />
     <Compile Include="PagingControl\PagingDecorator.cs" />
     <Compile Include="PagingControl\PagingPanel.cs" />

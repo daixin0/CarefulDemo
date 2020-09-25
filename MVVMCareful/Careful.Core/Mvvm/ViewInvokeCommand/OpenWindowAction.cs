@@ -1,5 +1,4 @@
-﻿using Careful.Core.Mvvm.VMBase;
-using Careful.Core.DialogServices;
+﻿using Careful.Core.DialogServices;
 using Careful.Core.Tool;
 using System;
 using System.Linq;
