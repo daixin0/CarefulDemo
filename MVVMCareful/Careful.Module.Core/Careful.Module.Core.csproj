@@ -172,11 +172,11 @@
     <Compile Include="RpcInvoker.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Careful.Core.MessageFrame\Careful.Core.MessageFrame.csproj">
+    <ProjectReference Include="..\Careful.Core.MessageFrame\Careful.Core.MessageFrame.csproj">
       <Project>{5abf0785-531b-4575-ad7d-3184d564746d}</Project>
       <Name>Careful.Core.MessageFrame</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Careful.Core.Mvvm\Careful.Core.Mvvm.csproj">
+    <ProjectReference Include="..\Careful.Core.Mvvm\Careful.Core.Mvvm.csproj">
       <Project>{32497025-c0ed-4450-a57d-2d8e4aa2fd8b}</Project>
       <Name>Careful.Core.Mvvm</Name>
     </ProjectReference>

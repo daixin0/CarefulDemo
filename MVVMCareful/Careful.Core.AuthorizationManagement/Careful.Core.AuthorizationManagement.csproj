@@ -53,8 +53,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Careful.Core.Mvvm\Careful.Core.Mvvm.csproj">
-      <Project>{32497025-C0ED-4450-A57D-2D8E4AA2FD8B}</Project>
+    <ProjectReference Include="..\Careful.Core.Mvvm\Careful.Core.Mvvm.csproj">
+      <Project>{32497025-c0ed-4450-a57d-2d8e4aa2fd8b}</Project>
       <Name>Careful.Core.Mvvm</Name>
     </ProjectReference>
     <ProjectReference Include="..\Careful.Core\Careful.Core.csproj">

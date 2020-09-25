@@ -45,9 +45,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Careful.Data.Tool", "MVVMCa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Careful.Core.PropertyValidation", "MVVMCareful\Careful.Core.PropertyValidation\Careful.Core.PropertyValidation.csproj", "{3B6117D5-6A36-4514-A002-A60E0A0D8D75}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Careful.Core.MessageFrame", "Careful.Core.MessageFrame\Careful.Core.MessageFrame.csproj", "{5ABF0785-531B-4575-AD7D-3184D564746D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Careful.Core.MessageFrame", "MVVMCareful\Careful.Core.MessageFrame\Careful.Core.MessageFrame.csproj", "{5ABF0785-531B-4575-AD7D-3184D564746D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Careful.Core.Mvvm", "Careful.Core.Mvvm\Careful.Core.Mvvm.csproj", "{32497025-C0ED-4450-A57D-2D8E4AA2FD8B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Careful.Core.Mvvm", "MVVMCareful\Careful.Core.Mvvm\Careful.Core.Mvvm.csproj", "{32497025-C0ED-4450-A57D-2D8E4AA2FD8B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

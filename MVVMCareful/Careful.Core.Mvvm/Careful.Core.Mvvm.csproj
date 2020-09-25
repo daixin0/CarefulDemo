@@ -154,11 +154,11 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MVVMCareful\Careful.Core.Tool\Careful.Core.Tool.csproj">
+    <ProjectReference Include="..\Careful.Core.Tool\Careful.Core.Tool.csproj">
       <Project>{93A6997C-3D58-43AA-B24F-9CCF8C9630B3}</Project>
       <Name>Careful.Core.Tool</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MVVMCareful\Careful.Core\Careful.Core.csproj">
+    <ProjectReference Include="..\Careful.Core\Careful.Core.csproj">
       <Project>{9A2640B6-8161-462F-9F58-E8DF8D94FD49}</Project>
       <Name>Careful.Core</Name>
     </ProjectReference>
