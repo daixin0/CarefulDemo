@@ -10,7 +10,7 @@ using System.Windows.Controls.Primitives;
 
 namespace Careful.Module.Core
 {
-    internal static class PrismInitializationExtensions
+    internal static class CarefulInitializationExtensions
     {
         internal static void ConfigureViewModelLocator()
         {

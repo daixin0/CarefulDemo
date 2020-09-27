@@ -13,7 +13,7 @@ namespace Careful.Module.Core
     /// <remarks>
     /// This class must be overridden to provide application specific configuration.
     /// </remarks>
-    public abstract class PrismApplicationBase : Application
+    public abstract class CarefulApplicationBase : Application
     {
         IContainerExtension _containerExtension;
         IModuleCatalog _moduleCatalog;
@@ -48,7 +48,7 @@ namespace Careful.Module.Core
         /// </summary>
         protected virtual void ConfigureViewModelLocator()
         {
-            PrismInitializationExtensions.ConfigureViewModelLocator();
+            CarefulInitializationExtensions.ConfigureViewModelLocator();
         }
 
         /// <summary>
@@ -176,7 +176,7 @@ namespace Careful.Module.Core
         /// </summary>
         protected virtual void InitializeModules()
         {
-            PrismInitializationExtensions.RunModuleManager(Container);
+            CarefulInitializationExtensions.RunModuleManager(Container);
         }
     }
 }

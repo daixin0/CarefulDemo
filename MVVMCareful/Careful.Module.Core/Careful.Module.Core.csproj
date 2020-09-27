@@ -100,9 +100,9 @@
     <Compile Include="Modularity\ModuleTypeLoaderNotFoundException.Desktop.cs" />
     <Compile Include="Modularity\ModuleTypeLoadingException.cs" />
     <Compile Include="Modularity\ModuleTypeLoadingException.Desktop.cs" />
-    <Compile Include="PrismApplicationBase.cs" />
-    <Compile Include="PrismBootstrapperBase.cs" />
-    <Compile Include="PrismInitializationExtensions.cs" />
+    <Compile Include="CarefulApplicationBase.cs" />
+    <Compile Include="CarefulBootstrapperBase.cs" />
+    <Compile Include="CarefulInitializationExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Regions\AllActiveRegion.cs" />
     <Compile Include="Regions\Behaviors\AutoPopulateRegionBehavior.cs" />
