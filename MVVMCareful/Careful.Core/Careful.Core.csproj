@@ -70,6 +70,7 @@
     <Compile Include="Extensions\VisualTreeHelperExtensions.cs" />
     <Compile Include="Extensions\WrappedLock.cs" />
     <Compile Include="IActiveAware.cs" />
+    <Compile Include="Ioc\CarefulIocExtension.cs" />
     <Compile Include="Ioc\ContainerLocator.cs" />
     <Compile Include="Ioc\ContainerResolutionErrorCollection.cs" />
     <Compile Include="Ioc\ContainerResolutionException.cs" />

@@ -9,7 +9,7 @@ namespace Careful.Core.Ioc
         bool ContainsCreated<TClass>();
 
         bool ContainsCreated<TClass>(string key);
-
+        bool IsRegistered(Type type);
         bool IsRegistered<T>();
 
         bool IsRegistered<T>(string key);
@@ -21,7 +21,7 @@ namespace Careful.Core.Ioc
         void Register<TInterface, TClass>(bool createInstanceImmediately)
             where TClass : class
             where TInterface : class;
-
+        void RegisterInstance<TInterface>(object obj);
         void Register<TClass>() 
             where TClass : class;
 

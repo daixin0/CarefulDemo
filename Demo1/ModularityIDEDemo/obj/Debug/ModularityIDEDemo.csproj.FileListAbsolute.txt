@@ -41,3 +41,17 @@ F:\Project\CarefulDemo\Demo1\ModularityIDEDemo\obj\Debug\ModularityIDEDemo.cspro
 F:\Project\CarefulDemo\Demo1\ModularityIDEDemo\obj\Debug\ModularityIDEDemo.csproj.CoreCompileInputs.cache
 F:\Project\CarefulDemo\Demo1\ModularityIDEDemo\obj\Debug\ModularityIDEDemo.exe
 F:\Project\CarefulDemo\Demo1\ModularityIDEDemo\obj\Debug\ModularityIDEDemo.pdb
+E:\Project\CarefulDemo\Output\ModularityIDEDemo.exe.config
+E:\Project\CarefulDemo\Output\ModularityIDEDemo.exe
+E:\Project\CarefulDemo\Output\ModularityIDEDemo.pdb
+E:\Project\CarefulDemo\Demo1\ModularityIDEDemo\obj\Debug\MainWindow.g.cs
+E:\Project\CarefulDemo\Demo1\ModularityIDEDemo\obj\Debug\App.g.cs
+E:\Project\CarefulDemo\Demo1\ModularityIDEDemo\obj\Debug\ModularityIDEDemo_MarkupCompile.cache
+E:\Project\CarefulDemo\Demo1\ModularityIDEDemo\obj\Debug\ModularityIDEDemo_MarkupCompile.lref
+E:\Project\CarefulDemo\Demo1\ModularityIDEDemo\obj\Debug\MainWindow.baml
+E:\Project\CarefulDemo\Demo1\ModularityIDEDemo\obj\Debug\ModularityIDEDemo.g.resources
+E:\Project\CarefulDemo\Demo1\ModularityIDEDemo\obj\Debug\ModularityIDEDemo.Properties.Resources.resources
+E:\Project\CarefulDemo\Demo1\ModularityIDEDemo\obj\Debug\ModularityIDEDemo.csproj.GenerateResource.cache
+E:\Project\CarefulDemo\Demo1\ModularityIDEDemo\obj\Debug\ModularityIDEDemo.csproj.CoreCompileInputs.cache
+E:\Project\CarefulDemo\Demo1\ModularityIDEDemo\obj\Debug\ModularityIDEDemo.exe
+E:\Project\CarefulDemo\Demo1\ModularityIDEDemo\obj\Debug\ModularityIDEDemo.pdb

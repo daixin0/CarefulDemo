@@ -26,3 +26,12 @@ F:\Project\CarefulDemo\MVVMCareful\LanguagePackResource\obj\Debug\LanguagePackRe
 F:\Project\CarefulDemo\MVVMCareful\LanguagePackResource\obj\Debug\LanguagePackResource.csproj.CoreCompileInputs.cache
 F:\Project\CarefulDemo\MVVMCareful\LanguagePackResource\obj\Debug\LanguagePackResource.dll
 F:\Project\CarefulDemo\MVVMCareful\LanguagePackResource\obj\Debug\LanguagePackResource.pdb
+E:\Project\CarefulDemo\Output\Careful\LanguagePackResource.dll
+E:\Project\CarefulDemo\Output\Careful\LanguagePackResource.pdb
+E:\Project\CarefulDemo\MVVMCareful\LanguagePackResource\obj\Debug\cn\Frame.baml
+E:\Project\CarefulDemo\MVVMCareful\LanguagePackResource\obj\Debug\en\Frame.baml
+E:\Project\CarefulDemo\MVVMCareful\LanguagePackResource\obj\Debug\LanguagePackResource_MarkupCompile.cache
+E:\Project\CarefulDemo\MVVMCareful\LanguagePackResource\obj\Debug\LanguagePackResource.g.resources
+E:\Project\CarefulDemo\MVVMCareful\LanguagePackResource\obj\Debug\LanguagePackResource.csproj.CoreCompileInputs.cache
+E:\Project\CarefulDemo\MVVMCareful\LanguagePackResource\obj\Debug\LanguagePackResource.dll
+E:\Project\CarefulDemo\MVVMCareful\LanguagePackResource\obj\Debug\LanguagePackResource.pdb

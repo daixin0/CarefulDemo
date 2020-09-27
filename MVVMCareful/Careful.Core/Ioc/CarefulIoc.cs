@@ -59,7 +59,10 @@ namespace Careful.Core.Ioc
 
             return _instancesRegistry[classType].ContainsKey(key);
         }
-
+        public bool IsRegistered(Type type)
+        {
+            return _interfaceToClassMap.ContainsKey(type);
+        }
         public bool IsRegistered<T>()
         {
             var classType = typeof(T);
@@ -121,7 +124,11 @@ namespace Careful.Core.Ioc
                 }
             }
         }
+        public void RegisterInstance<TInterface>(object obj)
+        {
+            Type type = obj.GetType();
 
+        }
         public void Register<TClass>()
             where TClass : class
         {
@@ -648,6 +655,8 @@ namespace Careful.Core.Ioc
         {
             return (TService)DoGetService(typeof(TService), key, false);
         }
+
+        
 
         #endregion
     }

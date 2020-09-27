@@ -1,15 +1,9 @@
-﻿using Careful.Core.Mvvm;
-using Careful.Core.Mvvm.BindingExtension;
+﻿using Careful.Core.Mvvm.BindingExtension;
+using Careful.Core.Mvvm.PropertyChanged;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Globalization;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Data;
 using System.Windows.Markup;
 
 namespace Careful.Core.AuthorizationManagement

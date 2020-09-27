@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="CarefulBootstrapper.cs" />
     <Compile Include="Common\UriParsingHelper.cs" />
     <Compile Include="Modularity\AssemblyResolver.Desktop.cs" />
     <Compile Include="Modularity\ConfigurationModuleCatalog.Desktop.cs" />
@@ -99,6 +100,9 @@
     <Compile Include="Modularity\ModuleTypeLoaderNotFoundException.Desktop.cs" />
     <Compile Include="Modularity\ModuleTypeLoadingException.cs" />
     <Compile Include="Modularity\ModuleTypeLoadingException.Desktop.cs" />
+    <Compile Include="PrismApplicationBase.cs" />
+    <Compile Include="PrismBootstrapperBase.cs" />
+    <Compile Include="PrismInitializationExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Regions\AllActiveRegion.cs" />
     <Compile Include="Regions\Behaviors\AutoPopulateRegionBehavior.cs" />

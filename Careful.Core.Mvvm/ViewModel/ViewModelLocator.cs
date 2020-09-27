@@ -3,6 +3,7 @@
 using Careful.Core.Mvvm.Views;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,29 +27,28 @@ namespace Careful.Core.Mvvm.ViewModel
 
         private static void AutoWireViewModelChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var view = d as IView;
-
-            if (view == null)
+            if (!DesignerProperties.GetIsInDesignMode(d))
             {
-                // TODO: Improve exception
-                throw new Exception("Your views must implement IView");
+                var value = (bool?)e.NewValue;
+                if (value.HasValue && value.Value)
+                {
+                    ViewModelLocationProvider.AutoWireViewModelChanged(d, Bind);
+                }
             }
-
-            ViewModelLocationProvider.AutoWireViewModelChanged(view);
         }
-
+        static void Bind(object view, object viewModel)
+        {
+            if (view is FrameworkElement element)
+                element.DataContext = viewModel;
+        }
         /// <summary>
         /// Gets the value of the AutoWireViewModel attached property.
         /// </summary>
         /// <param name="obj">The dependency object that has this attached property.</param>
         /// <returns><c>True</c> if view model autowiring is enabled; otherwise, <c>false</c>.</returns>
-        public static bool GetAutoWireViewModel(DependencyObject obj)
+        public static bool? GetAutoWireViewModel(DependencyObject obj)
         {
-            if (obj != null)
-            {
-                return (bool)obj.GetValue(AutoWireViewModelProperty);
-            }
-            return false;
+            return (bool?)obj.GetValue(AutoWireViewModelProperty);
         }
 
         /// <summary>

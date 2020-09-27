@@ -14,3 +14,9 @@ F:\Project\CarefulDemo\ThemeLibrary\ThemeResources\obj\Debug\ThemeResources.cspr
 F:\Project\CarefulDemo\ThemeLibrary\ThemeResources\obj\Debug\ThemeResources.csproj.CoreCompileInputs.cache
 F:\Project\CarefulDemo\ThemeLibrary\ThemeResources\obj\Debug\ThemeResources.dll
 F:\Project\CarefulDemo\ThemeLibrary\ThemeResources\obj\Debug\ThemeResources.pdb
+E:\Project\CarefulDemo\Output\ThemeResources.dll
+E:\Project\CarefulDemo\Output\ThemeResources.pdb
+E:\Project\CarefulDemo\ThemeLibrary\ThemeResources\obj\Debug\ThemeResources.csproj.CoreCompileInputs.cache
+E:\Project\CarefulDemo\ThemeLibrary\ThemeResources\obj\Debug\ThemeResources.dll
+E:\Project\CarefulDemo\ThemeLibrary\ThemeResources\obj\Debug\ThemeResources.pdb
+E:\Project\CarefulDemo\ThemeLibrary\ThemeResources\obj\Debug\ThemeResources.csprojAssemblyReference.cache
