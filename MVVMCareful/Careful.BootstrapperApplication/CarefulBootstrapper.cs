@@ -2,6 +2,7 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using Careful.Core.DialogServices;
 using Careful.Core.Extensions;
 using Careful.Core.Ioc;
 using Careful.Core.Logs;
@@ -34,6 +35,7 @@ namespace Careful.BootstrapperApplication
         /// </summary>
         /// <value>The default <see cref="IModuleCatalog"/> instance.</value>
         protected IModuleCatalog ModuleCatalog { get; set; }
+        public IContainerProvider Provider => ContainerExtension;
         public IContainerExtension ContainerExtension { get; set; }
 
         public ICarefulIoc Container { get; protected set; }
@@ -70,7 +72,12 @@ namespace Careful.BootstrapperApplication
         /// <returns>A new instance of <see cref="IUnityContainer"/>.</returns>
         protected virtual ICarefulIoc CreateContainer()
         {
-            return new CarefulIoc();
+            return CarefulIoc.Default;
+        }
+
+        protected virtual IContainerExtension CreateContainerExtension()
+        {
+            return CarefulIoc.Default.GetInstance<IContainerExtension>();
         }
         #region configure
         /// <summary>
@@ -79,24 +86,28 @@ namespace Careful.BootstrapperApplication
         /// </summary>
         protected virtual void ConfigureContainer()
         {
-            Container.Register<ILog>();
+            Container.RegisterInstance<ILog>(Logger);
 
             this.Logger.Log("adding careful bootstrapper extension to container", LogLevel.Debug, Priority.Low);
 
             this.Container.RegisterInstance<IModuleCatalog>(this.ModuleCatalog);
 
-            //Container.Register<IServiceLocator, ServiceLocator>(true);
+            Container.Register<IDialogService, DialogService>();
+
+            Container.RegisterInstance<IServiceLocator>(CarefulIoc.Default);
             Container.Register<IModuleInitializer, ModuleInitializer>(true);
             Container.Register<IModuleManager, ModuleManager>(true);
             Container.Register<RegionAdapterMappings>(true);
-            Container.Register<IRegionManager, RegionManager>(true);
             Container.Register<IEventAggregator, EventAggregator>(true);
+            Container.Register<IRegionManager, RegionManager>(true);
+            Container.Register<IContainerExtension, CarefulIocExtension>(true);
             Container.Register<IRegionViewRegistry, RegionViewRegistry>(true);
             Container.Register<IRegionBehaviorFactory, RegionBehaviorFactory>(true);
             Container.Register<IRegionNavigationJournalEntry, RegionNavigationJournalEntry>(false);
             Container.Register<IRegionNavigationJournal, RegionNavigationJournal>(false);
-            Container.Register<IRegionNavigationService, RegionNavigationService>(false);
             Container.Register<IRegionNavigationContentLoader, RegionNavigationContentLoader>(false);
+            Container.Register<IRegionNavigationService, RegionNavigationService>(false);
+
 
         }
 
@@ -105,7 +116,7 @@ namespace Careful.BootstrapperApplication
         /// </summary>
         protected virtual void ConfigureServiceLocator()
         {
-            ServiceLocator.SetLocatorProvider(() => this.Container.GetInstance<IServiceLocator>());
+            ServiceLocator.SetLocatorProvider(() => CarefulIoc.Default);
         }
 
         protected virtual void ConfigureModuleCatalog(IModuleCatalog moduleCatalog) { }
@@ -196,6 +207,8 @@ namespace Careful.BootstrapperApplication
             {
                 throw new InvalidOperationException("log created faild");
             }
+
+
             ConfigureViewModelLocator();
             this.Logger.Log("log created success", LogLevel.Debug, Priority.Low);
 
@@ -206,16 +219,12 @@ namespace Careful.BootstrapperApplication
                 throw new InvalidOperationException("module catelog null");
             }
 
-            ContainerExtension = ContainerLocator.Current;
-            RegisterRequiredTypes(ContainerExtension);
-            RegisterTypes(ContainerExtension);
-            ContainerExtension.FinalizeExtension();
-
             this.Logger.Log("configuring module catelog", LogLevel.Debug, Priority.Low);
             ConfigureModuleCatalog(ModuleCatalog);
 
             this.Logger.Log("creating careful container", LogLevel.Debug, Priority.Low);
             this.Container = this.CreateContainer();
+
             if (this.Container == null)
             {
                 throw new InvalidOperationException("careful container null");
@@ -227,8 +236,18 @@ namespace Careful.BootstrapperApplication
             this.Logger.Log("confguring service locator", LogLevel.Debug, Priority.Low);
             this.ConfigureServiceLocator();
 
+            ContainerLocator.SetContainerExtension(() => CreateContainerExtension());
+
+            ContainerExtension = ContainerLocator.Current;
+
+            //To Do :region register
+
+            //RegisterRequiredTypes(ContainerExtension);
+            //RegisterTypes(ContainerExtension);
+            //ContainerExtension.FinalizeExtension();
+
             this.Logger.Log("configuring region adapter", LogLevel.Debug, Priority.Low);
-            this.ConfigureRegionAdapterMappings();
+            //this.ConfigureRegionAdapterMappings();
 
             this.Logger.Log("configuring default region behaviors", LogLevel.Debug, Priority.Low);
             this.ConfigureDefaultRegionBehaviors();
@@ -261,7 +280,7 @@ namespace Careful.BootstrapperApplication
 
             this.Logger.Log("bootstrapper sequence completed", LogLevel.Debug, Priority.Low);
 
-            
+
 
             //var regionAdapterMappins = ContainerExtension.Resolve<RegionAdapterMappings>();
             //ConfigureRegionAdapterMappings(regionAdapterMappins);
@@ -321,12 +340,15 @@ namespace Careful.BootstrapperApplication
         /// <returns>The shell of the application.</returns>
         /// <remarks>
         /// If the returned instance is a <see cref="DependencyObject"/>, the
-        /// <see cref="Bootstrapper"/> will attach the default <see cref="IRegionManager"/> of
+        /// <see cref="CarefulBootstrapper"/> will attach the default <see cref="IRegionManager"/> of
         /// the application in its <see cref="RegionManager.RegionManagerProperty"/> attached property
         /// in order to be able to add regions by using the <see cref="RegionManager.RegionNameProperty"/>
         /// attached property from XAML.
         /// </remarks>
-        protected abstract DependencyObject CreateShell();
+        protected virtual DependencyObject CreateShell()
+        {
+            return null;
+        }
 
 
         /// <summary>

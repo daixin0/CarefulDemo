@@ -1,6 +1,7 @@
 // Copyright (c) Microsoft Corporation. All rights reserved. See License.txt in the project root for license information.
 
 using Careful.Core.Extensions;
+using Careful.Core.Ioc;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -39,6 +40,7 @@ namespace Careful.Module.Core.Modularity
         /// <summary>
         /// Initializes a new instance of the <see cref="ModuleCatalog"/> class.
         /// </summary>
+        [PreferredConstructorAttribute]
         public ModuleCatalog()
         {
             this.items = new ModuleCatalogItemCollection();
