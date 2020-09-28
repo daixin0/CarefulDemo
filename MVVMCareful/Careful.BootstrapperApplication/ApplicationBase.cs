@@ -5,7 +5,7 @@ using Careful.Module.Core.Regions;
 using System;
 using System.Windows;
 
-namespace Careful.Module.Core
+namespace Careful.BootstrapperApplication
 {
     /// <summary>
     /// Base application class that provides a basic initialization sequence

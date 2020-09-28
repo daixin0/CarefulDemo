@@ -12,7 +12,7 @@ using Careful.Module.Core.Regions;
 using Careful.Module.Core.Regions.Behaviors;
 using Microsoft.Practices.ServiceLocation;
 
-namespace Careful.Module.Core
+namespace Careful.BootstrapperApplication
 {
     /// <summary>
     /// Base class that provides a basic bootstrapping sequence and hooks

@@ -9,7 +9,7 @@ using Careful.Module.Core.Regions.Behaviors;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 
-namespace Careful.Module.Core
+namespace Careful.BootstrapperApplication
 {
     internal static class InitializationExtensions
     {

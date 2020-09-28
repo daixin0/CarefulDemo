@@ -49,6 +49,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Careful.Core.MessageFrame",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Careful.Core.Mvvm", "MVVMCareful\Careful.Core.Mvvm\Careful.Core.Mvvm.csproj", "{32497025-C0ED-4450-A57D-2D8E4AA2FD8B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Careful.BootstrapperApplication", "MVVMCareful\Careful.BootstrapperApplication\Careful.BootstrapperApplication.csproj", "{EE637630-A4F2-44F2-92DE-42A3D4255E29}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -107,6 +109,10 @@ Global
 		{32497025-C0ED-4450-A57D-2D8E4AA2FD8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32497025-C0ED-4450-A57D-2D8E4AA2FD8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32497025-C0ED-4450-A57D-2D8E4AA2FD8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE637630-A4F2-44F2-92DE-42A3D4255E29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE637630-A4F2-44F2-92DE-42A3D4255E29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE637630-A4F2-44F2-92DE-42A3D4255E29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE637630-A4F2-44F2-92DE-42A3D4255E29}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -125,6 +131,7 @@ Global
 		{3B6117D5-6A36-4514-A002-A60E0A0D8D75} = {396E2D23-0514-40F7-841F-FA31D27361FD}
 		{5ABF0785-531B-4575-AD7D-3184D564746D} = {396E2D23-0514-40F7-841F-FA31D27361FD}
 		{32497025-C0ED-4450-A57D-2D8E4AA2FD8B} = {396E2D23-0514-40F7-841F-FA31D27361FD}
+		{EE637630-A4F2-44F2-92DE-42A3D4255E29} = {396E2D23-0514-40F7-841F-FA31D27361FD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F712A359-A09E-462F-9796-B9461201B22F}

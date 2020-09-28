@@ -50,10 +50,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationBase.cs" />
-    <Compile Include="CarefulBootstrapper.cs" />
     <Compile Include="Common\UriParsingHelper.cs" />
-    <Compile Include="InitializationExtensions.cs" />
     <Compile Include="Modularity\AssemblyResolver.Desktop.cs" />
     <Compile Include="Modularity\ConfigurationModuleCatalog.Desktop.cs" />
     <Compile Include="Modularity\ConfigurationStore.Desktop.cs" />
