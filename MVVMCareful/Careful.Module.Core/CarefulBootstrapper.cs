@@ -1,47 +1,202 @@
-﻿using Careful.Core.Extensions;
+using System;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+using Careful.Core.Extensions;
 using Careful.Core.Ioc;
 using Careful.Core.Logs;
 using Careful.Core.MessageFrame.Events;
-using Careful.Core.Mvvm;
+using Careful.Core.Mvvm.ViewModel;
 using Careful.Module.Core.Modularity;
 using Careful.Module.Core.Regions;
+using Careful.Module.Core.Regions.Behaviors;
 using Microsoft.Practices.ServiceLocation;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace Careful.Module.Core
 {
-    public class CarefulBootstrapper : Bootstrapper
+    /// <summary>
+    /// Base class that provides a basic bootstrapping sequence and hooks
+    /// that specific implementations can override
+    /// </summary>
+    /// <remarks>
+    /// This class must be overridden to provide application specific configuration.
+    /// </remarks>
+    public abstract class Bootstrapper
     {
-        private bool useDefaultConfiguration = true;
+        /// <summary>
+        /// Gets the <see cref="ILog"/> for the application.
+        /// </summary>
+        /// <value>A <see cref="ILog"/> instance.</value>
+        protected ILog Logger { get; set; }
 
         /// <summary>
-        /// Gets the default <see cref="IUnityContainer"/> for the application.
+        /// Gets the default <see cref="IModuleCatalog"/> for the application.
         /// </summary>
-        /// <value>The default <see cref="IUnityContainer"/> instance.</value>
-        [CLSCompliant(false)]
+        /// <value>The default <see cref="IModuleCatalog"/> instance.</value>
+        protected IModuleCatalog ModuleCatalog { get; set; }
+        public IContainerExtension ContainerExtension { get; set; }
+
         public ICarefulIoc Container { get; protected set; }
 
+        /// <summary>
+        /// Gets the shell user interface
+        /// </summary>
+        /// <value>The shell user interface.</value>
+        protected DependencyObject Shell { get; set; }
 
         /// <summary>
-        /// Run the bootstrapper process.
+        /// Create the <see cref="ILog" /> used by the bootstrapper.
         /// </summary>
-        /// <param name="runWithDefaultConfiguration">If <see langword="true"/>, registers default Prism Library services in the container. This is the default behavior.</param>
-        public override void Run(bool runWithDefaultConfiguration)
+        /// <remarks>
+        /// The base implementation returns a new TextLogger.
+        /// </remarks>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope", Justification = "The Logger is added to the container which will dispose it when the container goes out of scope.")]
+        protected virtual ILog CreateLogger()
         {
-            this.useDefaultConfiguration = runWithDefaultConfiguration;
+            return new FileLogger();
+        }
 
+        /// <summary>
+        /// Runs the bootstrapper process.
+        /// </summary>
+        public void Run()
+        {
+            Initialize();
+            Run(true);
+        }
+        /// <summary>
+        /// Creates the <see cref="IUnityContainer"/> that will be used as the default container.
+        /// </summary>
+        /// <returns>A new instance of <see cref="IUnityContainer"/>.</returns>
+        protected virtual ICarefulIoc CreateContainer()
+        {
+            return new CarefulIoc();
+        }
+        #region configure
+        /// <summary>
+        /// Configures the <see cref="IUnityContainer"/>. May be overwritten in a derived class to add specific
+        /// type mappings required by the application.
+        /// </summary>
+        protected virtual void ConfigureContainer()
+        {
+            Container.Register<ILog>();
+
+            this.Logger.Log("adding careful bootstrapper extension to container", LogLevel.Debug, Priority.Low);
+
+            this.Container.RegisterInstance<IModuleCatalog>(this.ModuleCatalog);
+
+            //Container.Register<IServiceLocator, ServiceLocator>(true);
+            Container.Register<IModuleInitializer, ModuleInitializer>(true);
+            Container.Register<IModuleManager, ModuleManager>(true);
+            Container.Register<RegionAdapterMappings>(true);
+            Container.Register<IRegionManager, RegionManager>(true);
+            Container.Register<IEventAggregator, EventAggregator>(true);
+            Container.Register<IRegionViewRegistry, RegionViewRegistry>(true);
+            Container.Register<IRegionBehaviorFactory, RegionBehaviorFactory>(true);
+            Container.Register<IRegionNavigationJournalEntry, RegionNavigationJournalEntry>(false);
+            Container.Register<IRegionNavigationJournal, RegionNavigationJournal>(false);
+            Container.Register<IRegionNavigationService, RegionNavigationService>(false);
+            Container.Register<IRegionNavigationContentLoader, RegionNavigationContentLoader>(false);
+
+        }
+
+        /// <summary>
+        /// Configures the LocatorProvider for the <see cref="Microsoft.Practices.ServiceLocation.ServiceLocator" />.
+        /// </summary>
+        protected virtual void ConfigureServiceLocator()
+        {
+            ServiceLocator.SetLocatorProvider(() => this.Container.GetInstance<IServiceLocator>());
+        }
+
+        protected virtual void ConfigureModuleCatalog(IModuleCatalog moduleCatalog) { }
+        protected virtual void ConfigureViewModelLocator()
+        {
+            InitializationExtensions.ConfigureViewModelLocator();
+        }
+        protected virtual void ConfigureRegionAdapterMappings(RegionAdapterMappings regionAdapterMappings)
+        {
+            regionAdapterMappings?.RegisterDefaultRegionAdapterMappings();
+        }
+
+        protected virtual void ConfigureDefaultRegionBehaviors(IRegionBehaviorFactory regionBehaviors)
+        {
+            regionBehaviors?.RegisterDefaultRegionBehaviors();
+        }
+
+        /// <summary>
+        /// Configures the default region adapter mappings to use in the application, in order
+        /// to adapt UI controls defined in XAML to use a region and register it automatically.
+        /// May be overwritten in a derived class to add specific mappings required by the application.
+        /// </summary>
+        /// <returns>The <see cref="RegionAdapterMappings"/> instance containing all the mappings.</returns>
+        protected virtual RegionAdapterMappings ConfigureRegionAdapterMappings()
+        {
+            RegionAdapterMappings regionAdapterMappings = ServiceLocator.Current.GetInstance<RegionAdapterMappings>();
+            if (regionAdapterMappings != null)
+            {
+                regionAdapterMappings.RegisterMapping(typeof(Selector), ServiceLocator.Current.GetInstance<SelectorRegionAdapter>());
+                regionAdapterMappings.RegisterMapping(typeof(ItemsControl), ServiceLocator.Current.GetInstance<ItemsControlRegionAdapter>());
+                regionAdapterMappings.RegisterMapping(typeof(ContentControl), ServiceLocator.Current.GetInstance<ContentControlRegionAdapter>());
+            }
+
+            return regionAdapterMappings;
+        }
+        /// <summary>
+        /// Configures the <see cref="IRegionBehaviorFactory"/>. 
+        /// This will be the list of default behaviors that will be added to a region. 
+        /// </summary>
+        protected virtual IRegionBehaviorFactory ConfigureDefaultRegionBehaviors()
+        {
+            var defaultRegionBehaviorTypesDictionary = ServiceLocator.Current.GetInstance<IRegionBehaviorFactory>();
+
+            if (defaultRegionBehaviorTypesDictionary != null)
+            {
+                defaultRegionBehaviorTypesDictionary.AddIfMissing(BindRegionContextToDependencyObjectBehavior.BehaviorKey,
+                                                                  typeof(BindRegionContextToDependencyObjectBehavior));
+
+                defaultRegionBehaviorTypesDictionary.AddIfMissing(RegionActiveAwareBehavior.BehaviorKey,
+                                                                  typeof(RegionActiveAwareBehavior));
+
+                defaultRegionBehaviorTypesDictionary.AddIfMissing(SyncRegionContextWithHostBehavior.BehaviorKey,
+                                                                  typeof(SyncRegionContextWithHostBehavior));
+
+                defaultRegionBehaviorTypesDictionary.AddIfMissing(RegionManagerRegistrationBehavior.BehaviorKey,
+                                                                  typeof(RegionManagerRegistrationBehavior));
+
+                defaultRegionBehaviorTypesDictionary.AddIfMissing(RegionMemberLifetimeBehavior.BehaviorKey,
+                                                  typeof(RegionMemberLifetimeBehavior));
+
+                defaultRegionBehaviorTypesDictionary.AddIfMissing(ClearChildViewsRegionBehavior.BehaviorKey,
+                                                  typeof(ClearChildViewsRegionBehavior));
+
+                defaultRegionBehaviorTypesDictionary.AddIfMissing(AutoPopulateRegionBehavior.BehaviorKey,
+                                                  typeof(AutoPopulateRegionBehavior));
+            }
+
+            return defaultRegionBehaviorTypesDictionary;
+        }
+
+        #endregion
+
+        /// <summary>
+        /// Creates the <see cref="IModuleCatalog"/> used by Prism.
+        /// </summary>
+        ///  <remarks>
+        /// The base implementation returns a new ModuleCatalog.
+        /// </remarks>
+        protected virtual IModuleCatalog CreateModuleCatalog()
+        {
+            return new ModuleCatalog();
+        }
+
+        protected virtual void Initialize()
+        {
             this.Logger = this.CreateLogger();
             if (this.Logger == null)
             {
                 throw new InvalidOperationException("log created faild");
             }
-
+            ConfigureViewModelLocator();
             this.Logger.Log("log created success", LogLevel.Debug, Priority.Low);
 
             this.Logger.Log("create module catelog", LogLevel.Debug, Priority.Low);
@@ -51,8 +206,13 @@ namespace Careful.Module.Core
                 throw new InvalidOperationException("module catelog null");
             }
 
+            ContainerExtension = ContainerLocator.Current;
+            RegisterRequiredTypes(ContainerExtension);
+            RegisterTypes(ContainerExtension);
+            ContainerExtension.FinalizeExtension();
+
             this.Logger.Log("configuring module catelog", LogLevel.Debug, Priority.Low);
-            this.ConfigureModuleCatalog();
+            ConfigureModuleCatalog(ModuleCatalog);
 
             this.Logger.Log("creating careful container", LogLevel.Debug, Priority.Low);
             this.Container = this.CreateContainer();
@@ -77,9 +237,12 @@ namespace Careful.Module.Core
             this.RegisterFrameworkExceptionTypes();
 
             this.Logger.Log("create shell", LogLevel.Debug, Priority.Low);
+
             this.Shell = this.CreateShell();
             if (this.Shell != null)
             {
+                MvvmHelpers.AutowireViewModel(Shell);
+
                 this.Logger.Log("setting region management", LogLevel.Debug, Priority.Low);
                 RegionManager.SetRegionManager(this.Shell, this.Container.GetInstance<IRegionManager>());
 
@@ -87,7 +250,7 @@ namespace Careful.Module.Core
                 RegionManager.UpdateRegions();
 
                 this.Logger.Log("initialize shell", LogLevel.Debug, Priority.Low);
-                this.InitializeShell();
+                this.OnInitialized();
             }
 
             if (this.Container.IsRegistered<IModuleManager>())
@@ -97,129 +260,82 @@ namespace Careful.Module.Core
             }
 
             this.Logger.Log("bootstrapper sequence completed", LogLevel.Debug, Priority.Low);
-        }
 
-        /// <summary>
-        /// Configures the LocatorProvider for the <see cref="ServiceLocator" />.
-        /// </summary>
-        protected override void ConfigureServiceLocator()
-        {
-            ServiceLocator.SetLocatorProvider(() => this.Container.GetInstance<IServiceLocator>());
-        }
-
-        /// <summary>
-        /// Registers in the <see cref="IUnityContainer"/> the <see cref="Type"/> of the Exceptions
-        /// that are not considered root exceptions by the <see cref="ExceptionExtensions"/>.
-        /// </summary>
-        protected override void RegisterFrameworkExceptionTypes()
-        {
-            base.RegisterFrameworkExceptionTypes();
-        }
-
-        /// <summary>
-        /// Configures the <see cref="IUnityContainer"/>. May be overwritten in a derived class to add specific
-        /// type mappings required by the application.
-        /// </summary>
-        protected virtual void ConfigureContainer()
-        {
-            Container.Register<ILog>();
-
-
-            this.Logger.Log("adding careful bootstrapper extension to container", LogLevel.Debug, Priority.Low);
             
 
-            this.Container.RegisterInstance<IModuleCatalog>(this.ModuleCatalog);
+            //var regionAdapterMappins = ContainerExtension.Resolve<RegionAdapterMappings>();
+            //ConfigureRegionAdapterMappings(regionAdapterMappins);
 
-            if (useDefaultConfiguration)
-            {
-                //RegisterTypeIfMissing(typeof(IServiceLocator), typeof(ServiceLocator), true);
-                RegisterTypeIfMissing(typeof(IModuleInitializer), typeof(ModuleInitializer), true);
-                RegisterTypeIfMissing(typeof(IModuleManager), typeof(ModuleManager), true);
-                RegisterTypeIfMissing(typeof(RegionAdapterMappings), typeof(RegionAdapterMappings), true);
-                RegisterTypeIfMissing(typeof(IRegionManager), typeof(RegionManager), true);
-                RegisterTypeIfMissing(typeof(IEventAggregator), typeof(EventAggregator), true);
-                RegisterTypeIfMissing(typeof(IRegionViewRegistry), typeof(RegionViewRegistry), true);
-                RegisterTypeIfMissing(typeof(IRegionBehaviorFactory), typeof(RegionBehaviorFactory), true);
-                RegisterTypeIfMissing(typeof(IRegionNavigationJournalEntry), typeof(RegionNavigationJournalEntry), false);
-                RegisterTypeIfMissing(typeof(IRegionNavigationJournal), typeof(RegionNavigationJournal), false);
-                RegisterTypeIfMissing(typeof(IRegionNavigationService), typeof(RegionNavigationService), false);
-                RegisterTypeIfMissing(typeof(IRegionNavigationContentLoader), typeof(RegionNavigationContentLoader), true);
-            }
+            //var defaultRegionBehaviors = ContainerExtension.Resolve<IRegionBehaviorFactory>();
+            //ConfigureDefaultRegionBehaviors(defaultRegionBehaviors);
+
+            //RegisterFrameworkExceptionTypes();
         }
+
+
+        /// <summary>
+        /// Registers all types that are required by Prism to function with the container.
+        /// </summary>
+        /// <param name="containerRegistry"></param>
+        protected virtual void RegisterRequiredTypes(IContainerRegistry containerRegistry)
+        {
+            if (ModuleCatalog == null)
+                throw new InvalidOperationException("IModuleCatalog");
+
+            containerRegistry.RegisterRequiredTypes(ModuleCatalog);
+        }
+        protected virtual void RegisterTypes(IContainerRegistry containerRegistry)
+        {
+
+        }
+
+        /// <summary>
+        /// Registers the <see cref="Type"/>s of the Exceptions that are not considered 
+        /// root exceptions by the <see cref="ExceptionExtensions"/>.
+        /// </summary>
+        protected virtual void RegisterFrameworkExceptionTypes()
+        {
+            ExceptionExtensions.RegisterFrameworkExceptionType(
+                typeof(Microsoft.Practices.ServiceLocation.ActivationException));
+        }
+
+
+        /// <summary>
+        /// Contains actions that should occur last.
+        /// </summary>
+        protected virtual void OnInitialized()
+        {
+            if (Shell is Window window)
+                window.Show();
+        }
+        /// <summary>
+        /// Run the bootstrapper process.
+        /// </summary>
+        /// <param name="runWithDefaultConfiguration">If <see langword="true"/>, registers default 
+        /// Prism Library services in the container. This is the default behavior.</param>
+        public abstract void Run(bool runWithDefaultConfiguration);
+
+        /// <summary>
+        /// Creates the shell or main window of the application.
+        /// </summary>
+        /// <returns>The shell of the application.</returns>
+        /// <remarks>
+        /// If the returned instance is a <see cref="DependencyObject"/>, the
+        /// <see cref="Bootstrapper"/> will attach the default <see cref="IRegionManager"/> of
+        /// the application in its <see cref="RegionManager.RegionManagerProperty"/> attached property
+        /// in order to be able to add regions by using the <see cref="RegionManager.RegionNameProperty"/>
+        /// attached property from XAML.
+        /// </remarks>
+        protected abstract DependencyObject CreateShell();
+
 
         /// <summary>
         /// Initializes the modules. May be overwritten in a derived class to use a custom Modules Catalog
         /// </summary>
-        protected override void InitializeModules()
+        protected virtual void InitializeModules()
         {
-            IModuleManager manager;
-
-            try
-            {
-                manager = this.Container.GetInstance<IModuleManager>();
-            }
-            catch (Exception ex)
-            {
-                if (ex.Message.Contains("IModuleCatalog"))
-                {
-                    throw new InvalidOperationException("null module catelog exception");
-                }
-
-                throw;
-            }
-
+            IModuleManager manager = ServiceLocator.Current.GetInstance<IModuleManager>();
             manager.Run();
-        }
-
-        /// <summary>
-        /// Creates the <see cref="IUnityContainer"/> that will be used as the default container.
-        /// </summary>
-        /// <returns>A new instance of <see cref="IUnityContainer"/>.</returns>
-        [CLSCompliant(false)]
-        protected virtual ICarefulIoc CreateContainer()
-        {
-            return new CarefulIoc();
-        }
-
-        /// <summary>
-        /// Registers a type in the container only if that type was not already registered.
-        /// </summary>
-        /// <param name="fromType">The interface type to register.</param>
-        /// <param name="toType">The type implementing the interface.</param>
-        /// <param name="registerAsSingleton">Registers the type as a singleton.</param>
-        protected void RegisterTypeIfMissing(Type fromType, Type toType, bool registerAsSingleton)
-        {
-            if (fromType == null)
-            {
-                throw new ArgumentNullException("fromType");
-            }
-            if (toType == null)
-            {
-                throw new ArgumentNullException("toType");
-            }
-            if (Container.IsRegistered(fromType))
-            {
-                Logger.Log(
-                    String.Format(CultureInfo.CurrentCulture,
-                                  "type mapping already registering",
-                                  fromType.Name), LogLevel.Debug, Priority.Low);
-            }
-            else
-            {
-                if (registerAsSingleton)
-                {
-                    //Container.RegisterType(fromType, toType, new ContainerControlledLifetimeManager());
-                }
-                else
-                {
-                    //Container.RegisterType(fromType, toType);
-                }
-            }
-        }
-
-        protected override DependencyObject CreateShell()
-        {
-            throw new NotImplementedException();
         }
     }
 }

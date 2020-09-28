@@ -11,7 +11,7 @@ namespace Careful.Core.Ioc
     public class CarefulIoc : ICarefulIoc
     {
         private readonly Dictionary<Type, ConstructorInfo> _constructorInfos
-            = new Dictionary<Type, ConstructorInfo>();
+           = new Dictionary<Type, ConstructorInfo>();
 
         private readonly string _defaultKey = Guid.NewGuid().ToString();
 
@@ -59,10 +59,7 @@ namespace Careful.Core.Ioc
 
             return _instancesRegistry[classType].ContainsKey(key);
         }
-        public bool IsRegistered(Type type)
-        {
-            return _interfaceToClassMap.ContainsKey(type);
-        }
+
         public bool IsRegistered<T>()
         {
             var classType = typeof(T);
@@ -126,8 +123,36 @@ namespace Careful.Core.Ioc
         }
         public void RegisterInstance<TInterface>(object obj)
         {
-            Type type = obj.GetType();
+            lock (_syncLock)
+            {
+                var interfaceType = typeof(TInterface);
+                var classType = obj.GetType();
 
+                if (_interfaceToClassMap.ContainsKey(interfaceType))
+                {
+                    if (_interfaceToClassMap[interfaceType] != classType)
+                    {
+                        throw new InvalidOperationException(
+                            string.Format(
+                                CultureInfo.InvariantCulture,
+                                "There is already a class registered for {0}.",
+                                interfaceType.FullName));
+                    }
+                }
+                else
+                {
+                    _interfaceToClassMap.Add(interfaceType, classType);
+                    _constructorInfos.Add(classType, GetConstructorInfo(classType));
+                }
+
+                Func<TInterface> factory = MakeInstance<TInterface>;
+                DoRegister(interfaceType, factory, _defaultKey);
+
+            }
+        }
+        public bool IsRegistered(Type type)
+        {
+            return _interfaceToClassMap.ContainsKey(type);
         }
         public void Register<TClass>()
             where TClass : class
@@ -154,7 +179,7 @@ namespace Careful.Core.Ioc
                         throw new InvalidOperationException(
                             string.Format(
                                 CultureInfo.InvariantCulture,
-                                "Class {0} is already registered.", 
+                                "Class {0} is already registered.",
                                 classType));
                     }
 
@@ -200,8 +225,8 @@ namespace Careful.Core.Ioc
                 {
                     throw new InvalidOperationException(
                         string.Format(
-                            CultureInfo.InvariantCulture, 
-                            "There is already a factory registered for {0}.", 
+                            CultureInfo.InvariantCulture,
+                            "There is already a factory registered for {0}.",
                             classType.FullName));
                 }
 
@@ -415,7 +440,7 @@ namespace Careful.Core.Ioc
                             throw new ActivationException(
                                 string.Format(
                                     CultureInfo.InvariantCulture,
-                                    "Type not found in cache without a key: {0}", 
+                                    "Type not found in cache without a key: {0}",
                                     serviceType.FullName));
                         }
                     }
@@ -477,7 +502,7 @@ namespace Careful.Core.Ioc
                 {
                     return GetPreferredConstructorInfo(constructorInfos, resolveTo);
                 }
-                
+
                 if (constructorInfos.FirstOrDefault(i => i.Name == ".cctor") == null)
                 {
                     return GetPreferredConstructorInfo(constructorInfos, resolveTo);
@@ -491,7 +516,7 @@ namespace Careful.Core.Ioc
                     throw new ActivationException(
                         string.Format(
                             CultureInfo.InvariantCulture,
-                            "Cannot register: No public constructor found in {0}.", 
+                            "Cannot register: No public constructor found in {0}.",
                             resolveTo.Name));
                 }
 
@@ -505,7 +530,7 @@ namespace Careful.Core.Ioc
                 throw new ActivationException(
                     string.Format(
                         CultureInfo.InvariantCulture,
-                        "Cannot register: No public constructor found in {0}.", 
+                        "Cannot register: No public constructor found in {0}.",
                         resolveTo.Name));
             }
 
@@ -516,9 +541,9 @@ namespace Careful.Core.Ioc
         {
             var preferredConstructorInfo
                 = (from t in constructorInfos
-                    let attribute = Attribute.GetCustomAttribute(t, typeof(PreferredConstructorAttribute))
-                    where attribute != null
-                    select t).FirstOrDefault();
+                   let attribute = Attribute.GetCustomAttribute(t, typeof(PreferredConstructorAttribute))
+                   where attribute != null
+                   select t).FirstOrDefault();
 
             if (preferredConstructorInfo == null)
             {
@@ -569,7 +594,7 @@ namespace Careful.Core.Ioc
 
         public IEnumerable<TService> GetAllCreatedInstances<TService>()
         {
-            var serviceType = typeof (TService);
+            var serviceType = typeof(TService);
             return GetAllCreatedInstances(serviceType)
                 .Select(instance => (TService)instance);
         }
@@ -585,7 +610,7 @@ namespace Careful.Core.Ioc
 
         #region Implementation of IServiceLocator
 
-       
+
         public IEnumerable<object> GetAllInstances(Type serviceType)
         {
             lock (_factories)
@@ -608,7 +633,7 @@ namespace Careful.Core.Ioc
             return new List<object>();
         }
 
-        
+
         public IEnumerable<TService> GetAllInstances<TService>()
         {
             var serviceType = typeof(TService);
@@ -655,8 +680,6 @@ namespace Careful.Core.Ioc
         {
             return (TService)DoGetService(typeof(TService), key, false);
         }
-
-        
 
         #endregion
     }

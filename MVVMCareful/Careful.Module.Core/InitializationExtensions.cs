@@ -1,5 +1,6 @@
 ﻿using Careful.Core.DialogServices;
 using Careful.Core.Ioc;
+using Careful.Core.MessageFrame;
 using Careful.Core.MessageFrame.Events;
 using Careful.Core.Mvvm.ViewModel;
 using Careful.Module.Core.Modularity;
@@ -10,7 +11,7 @@ using System.Windows.Controls.Primitives;
 
 namespace Careful.Module.Core
 {
-    internal static class CarefulInitializationExtensions
+    internal static class InitializationExtensions
     {
         internal static void ConfigureViewModelLocator()
         {

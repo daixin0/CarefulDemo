@@ -9,22 +9,22 @@ namespace Careful.Core.Ioc
         bool ContainsCreated<TClass>();
 
         bool ContainsCreated<TClass>(string key);
-        bool IsRegistered(Type type);
-        bool IsRegistered<T>();
 
+        bool IsRegistered<T>();
+        bool IsRegistered(Type type);
         bool IsRegistered<T>(string key);
 
         void Register<TInterface, TClass>()
-            where TClass : class 
+            where TClass : class
             where TInterface : class;
 
         void Register<TInterface, TClass>(bool createInstanceImmediately)
             where TClass : class
             where TInterface : class;
-        void RegisterInstance<TInterface>(object obj);
-        void Register<TClass>() 
-            where TClass : class;
 
+        void Register<TClass>()
+            where TClass : class;
+        void RegisterInstance<TInterface>(object obj);
         void Register<TClass>(bool createInstanceImmediately)
             where TClass : class;
 
@@ -45,13 +45,13 @@ namespace Careful.Core.Ioc
 
         void Reset();
 
-        void Unregister<TClass>() 
+        void Unregister<TClass>()
             where TClass : class;
 
-        void Unregister<TClass>(TClass instance) 
+        void Unregister<TClass>(TClass instance)
             where TClass : class;
 
-        void Unregister<TClass>(string key) 
+        void Unregister<TClass>(string key)
             where TClass : class;
 
     }
