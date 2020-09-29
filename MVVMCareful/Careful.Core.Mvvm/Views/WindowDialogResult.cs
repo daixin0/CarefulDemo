@@ -5,12 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Careful.Core.Mvvm.Views.WindowBaseControl
+namespace Careful.Core.Mvvm.Views
 {
     public class WindowDialogResult
     {
-
-
         public static bool? GetDialogResult(DependencyObject obj)
         {
             return (bool?)obj.GetValue(DialogResultProperty);

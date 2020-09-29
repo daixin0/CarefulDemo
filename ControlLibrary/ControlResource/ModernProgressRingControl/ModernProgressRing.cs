@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Careful.Core.Mvvm.Views.WindowContainerControl
+namespace Careful.Controls.ModernProgressRingControl
 {
     [TemplateVisualState(GroupName = GroupActiveStates, Name = StateInactive)]
     [TemplateVisualState(GroupName = GroupActiveStates, Name = StateActive)]

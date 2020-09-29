@@ -1,6 +1,5 @@
 ﻿using Careful.Core.Ioc;
 using Careful.Core.DialogServices;
-using Careful.Core.Tool;
 using System;
 using System.ComponentModel;
 using System.Linq;
@@ -8,12 +7,20 @@ using System.Windows;
 
 namespace Careful.Core.Mvvm.ViewModel
 {
-    public class ViewModelDialog : ViewModelBase, IDialogService, IDialogWindow
+    public class ViewModelDialog : ViewModelBase, IDialogWindow
     {
         private readonly IContainerExtension _containerExtension;
+
+        protected IDialogService DialogService { get; set; }
+
+        public ViewModelDialog()
+        {
+            DialogService = new DialogService(null);
+        }
         public ViewModelDialog(IContainerExtension containerExtension)
         {
             _containerExtension = containerExtension;
+
         }
         protected virtual Window CreateDialogWindow(string name)
         {
@@ -112,40 +119,5 @@ namespace Careful.Core.Mvvm.ViewModel
         {
             CommonShow(name, parameters, callback, true);
         }
-        public bool Confirm(string message, string title = "询问")
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Confirm(IDialogParameters parameters, Action<IDialogResult> callback)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void ShowLog(string title, string log)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void ShowMessage(string message, string title = "提示")
-        {
-            throw new NotImplementedException();
-        }
-
-        public void ShowMessage(IDialogParameters parameters, Action<IDialogResult> callback)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void ShowMessageDialog(string message, string title = "提示")
-        {
-            throw new NotImplementedException();
-        }
-
-        public void ShowMessageDialog(IDialogParameters parameters, Action<IDialogResult> callback)
-        {
-            throw new NotImplementedException();
-        }
-
     }
 }

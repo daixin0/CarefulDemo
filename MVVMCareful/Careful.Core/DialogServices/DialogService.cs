@@ -12,6 +12,10 @@ namespace Careful.Core.DialogServices
         public DialogService(ILog log)
         {
             Log = log;
+            if(Log==null)
+            {
+                Log = new FileLogger();
+            }
         }
         public ILog Log { get; private set; }
 
@@ -155,37 +159,37 @@ namespace Careful.Core.DialogServices
         }
         public void Confirm(IDialogParameters parameters, Action<IDialogResult> callback)
         {
-            throw new NotImplementedException();
+            
         }
 
-        public void ShowLog(string title, string log)
+        public void ShowLog(string title, string log, LogLevel logLevel, Priority priority = Priority.None)
         {
-            throw new NotImplementedException();
+            Log.Log(title + ":" + log, logLevel, priority);
         }
 
         public void ShowMessageDialog(string message, string title = "提示")
         {
-            throw new NotImplementedException();
+            MessageWindow.ShowDialog(title, message, MessageBoxType.Information);
         }
 
         public void ShowMessage(IDialogParameters parameters, Action<IDialogResult> callback)
         {
-            throw new NotImplementedException();
+            
         }
 
         public void ShowMessageDialog(IDialogParameters parameters, Action<IDialogResult> callback)
         {
-            throw new NotImplementedException();
+            
         }
 
         public bool Confirm(string message, string title = "询问")
         {
-            throw new NotImplementedException();
+            return MessageWindow.ShowDialog(title, message, MessageBoxType.Confirm).Value;
         }
 
         public void ShowMessage(string message, string title = "提示")
         {
-            throw new NotImplementedException();
+            MessageWindow.Show(title, message, MessageBoxType.Information);
         }
     }
 }

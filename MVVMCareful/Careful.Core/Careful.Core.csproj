@@ -60,6 +60,9 @@
     <Compile Include="Common\ParametersExtensions.cs" />
     <Compile Include="ContainerServices\IContainerService.cs" />
     <Compile Include="DialogServices\DialogService.cs" />
+    <Compile Include="DialogServices\IMessageView.cs" />
+    <Compile Include="DialogServices\MessageBoxType.cs" />
+    <Compile Include="DialogServices\MessageWindow.cs" />
     <Compile Include="Extensions\ActionOnDispose.cs" />
     <Compile Include="Extensions\CollectionExtensions.cs" />
     <Compile Include="Extensions\DependencyObjectExtensions.cs" />
@@ -85,6 +88,7 @@
     <Compile Include="Ioc\ICarefulIoc.cs" />
     <Compile Include="Ioc\PreferredConstructor.cs" />
     <Compile Include="Ioc\CarefulIoc.cs" />
+    <Compile Include="IView.cs" />
     <Compile Include="Logs\FileLogger.cs" />
     <Compile Include="Logs\ILog.cs" />
     <Compile Include="Logs\ILogExtensions.cs" />
@@ -102,12 +106,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Proxy\BindingProxy.cs" />
     <Compile Include="TypeOperation.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Careful.Core.Tool\Careful.Core.Tool.csproj">
-      <Project>{93a6997c-3d58-43aa-b24f-9ccf8c9630b3}</Project>
-      <Name>Careful.Core.Tool</Name>
-    </ProjectReference>
+    <Compile Include="WindowOperation.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

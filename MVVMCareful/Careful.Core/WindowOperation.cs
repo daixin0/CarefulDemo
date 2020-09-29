@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Interop;
 
-namespace Careful.Core.Tool
+namespace Careful.Core
 {
     public class WindowOperation
     {

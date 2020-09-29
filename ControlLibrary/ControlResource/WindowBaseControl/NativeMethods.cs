@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Careful.Core.Mvvm.Views.WindowBaseControl
+namespace Careful.Controls.WindowBaseControl
 {
     public class NativeMethods
     {

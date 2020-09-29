@@ -95,25 +95,7 @@
     <Compile Include="ViewModel\ViewModelDialog.cs" />
     <Compile Include="ViewModel\ViewModelLocationProvider.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
-    <Compile Include="Views\MessageBoxControl\MessageBoxButton.cs" />
-    <Compile Include="Views\MessageBoxControl\MessageBoxEventArgs.cs" />
-    <Compile Include="Views\MessageBoxControl\MessageBoxShow.cs" />
-    <Compile Include="Views\MessageBoxControl\MessageBoxView.xaml.cs">
-      <DependentUpon>MessageBoxView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\MessageBoxControl\MessageBoxViewModel.cs" />
-    <Compile Include="Views\MessageBoxControl\MessageBoxWindow.xaml.cs">
-      <DependentUpon>MessageBoxWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\MessageBoxControl\MessageWindow.cs" />
-    <Compile Include="Views\MessageBoxControl\VisibilityConverter.cs" />
-    <Compile Include="Views\WindowBaseControl\BaseWindow.cs" />
-    <Compile Include="Views\WindowBaseControl\IView.cs" />
-    <Compile Include="Views\WindowBaseControl\NativeMethods.cs" />
-    <Compile Include="Views\WindowBaseControl\ToggleStateControl.cs" />
-    <Compile Include="Views\WindowBaseControl\WindowDialogResult.cs" />
-    <Compile Include="Views\WindowBaseControl\Windows32Operation.cs" />
-    <Compile Include="Views\WindowContainerControl\ModernProgressRing.cs" />
+    <Compile Include="Views\WindowDialogResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Interactivity\DefaultPopupWindows\DefaultConfirmationWindow.xaml">
@@ -121,34 +103,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Interactivity\DefaultPopupWindows\DefaultNotificationWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\MessageBoxControl\MessageBoxPath.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\MessageBoxControl\MessageBoxView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\MessageBoxControl\MessageBoxWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Theme.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\WindowBaseControl\BaseWindowStyle.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\WindowBaseControl\ToggleButtonStyle.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\WindowContainerControl\CircleProgressRingStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -163,5 +117,6 @@
       <Name>Careful.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

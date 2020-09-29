@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:controls="clr-namespace:Careful.Core.Mvvm.Views.WindowContainerControl">
+    xmlns:controls="clr-namespace:Careful.Controls.ModernProgressRingControl">
     <Style TargetType="controls:ModernProgressRing">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Foreground" Value="{DynamicResource AccentBrush}" />

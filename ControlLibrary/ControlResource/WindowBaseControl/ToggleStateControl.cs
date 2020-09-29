@@ -7,7 +7,7 @@ using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 
-namespace Careful.Core.Mvvm.Views.WindowBaseControl
+namespace Careful.Controls.WindowBaseControl
 {
     public class ToggleStateControl:ToggleButton
     {

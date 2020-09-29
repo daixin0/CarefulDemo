@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:controls="clr-namespace:Careful.Core.Mvvm.Views.WindowBaseControl"
+                    xmlns:controls="clr-namespace:Careful.Controls.WindowBaseControl"
                     xmlns:convert="clr-namespace:Careful.Core.CommonConverter;assembly=Careful.Core">
     <convert:BoolAsVisiableConverter x:Key="BoolAsVisiable"></convert:BoolAsVisiableConverter>
 

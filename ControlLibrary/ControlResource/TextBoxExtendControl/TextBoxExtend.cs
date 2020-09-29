@@ -7,10 +7,15 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace Careful.Controls.WaterTextBoxControl
+namespace Careful.Controls.TextBoxExtendControl
 {
-    public class WaterTextBox : TextBox
+    public class TextBoxExtend : TextBox
     {
+        static TextBoxExtend()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(TextBoxExtend), new FrameworkPropertyMetadata(typeof(TextBoxExtend)));
+        }
+
         protected override DependencyObject GetUIParentCore()
         {
             return base.GetUIParentCore();
@@ -24,7 +29,7 @@ namespace Careful.Controls.WaterTextBoxControl
 
         // Using a DependencyProperty as the backing store for Data.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty DataProperty =
-            DependencyProperty.Register("Data", typeof(Geometry), typeof(WaterTextBox));
+            DependencyProperty.Register("Data", typeof(Geometry), typeof(TextBoxExtend));
 
 
 
@@ -36,7 +41,7 @@ namespace Careful.Controls.WaterTextBoxControl
 
         // Using a DependencyProperty as the backing store for TextBoxCornerRadius.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty TextBoxCornerRadiusProperty =
-            DependencyProperty.Register("TextBoxCornerRadius", typeof(CornerRadius), typeof(WaterTextBox),new PropertyMetadata(new CornerRadius(2)));
+            DependencyProperty.Register("TextBoxCornerRadius", typeof(CornerRadius), typeof(TextBoxExtend),new PropertyMetadata(new CornerRadius(2)));
 
 
 
@@ -48,7 +53,7 @@ namespace Careful.Controls.WaterTextBoxControl
 
         // Using a DependencyProperty as the backing store for WaterText.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty WaterTextProperty =
-            DependencyProperty.Register("WaterText", typeof(string), typeof(WaterTextBox));
+            DependencyProperty.Register("WaterText", typeof(string), typeof(TextBoxExtend));
 
         
 
@@ -60,7 +65,7 @@ namespace Careful.Controls.WaterTextBoxControl
 
         // Using a DependencyProperty as the backing store for AlignmentX.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty AlignmentXProperty =
-            DependencyProperty.Register("AlignmentX", typeof(AlignmentX), typeof(WaterTextBox), new PropertyMetadata(AlignmentX.Left));
+            DependencyProperty.Register("AlignmentX", typeof(AlignmentX), typeof(TextBoxExtend), new PropertyMetadata(AlignmentX.Left));
 
 
 
@@ -72,7 +77,7 @@ namespace Careful.Controls.WaterTextBoxControl
 
         // Using a DependencyProperty as the backing store for WaterFontStyle.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty WaterFontStyleProperty =
-            DependencyProperty.Register("WaterFontStyle", typeof(FontStyle), typeof(WaterTextBox), new PropertyMetadata(FontStyles.Normal));
+            DependencyProperty.Register("WaterFontStyle", typeof(FontStyle), typeof(TextBoxExtend), new PropertyMetadata(FontStyles.Normal));
 
 
     }

@@ -13,8 +13,9 @@ using System.ComponentModel;
 using System.Windows.Controls.Primitives;
 using System.Runtime.InteropServices;
 using System.Windows.Interop;
+using Careful.Core;
 
-namespace Careful.Core.Mvvm.Views.WindowBaseControl
+namespace Careful.Controls.WindowBaseControl
 {
 
     public class BaseWindow : Window, INotifyPropertyChanged, IView
@@ -27,7 +28,7 @@ namespace Careful.Core.Mvvm.Views.WindowBaseControl
         public BaseWindow()
         {
             style1 = new ResourceDictionary();
-            style1.Source = new Uri("Careful.Core;component/Mvvm/Views/WindowBaseControl/BaseWindowStyle.xaml", UriKind.Relative);
+            style1.Source = new Uri("Careful.Controls;component/WindowBaseControl/BaseWindowStyle.xaml", UriKind.Relative);
             this.Style = (System.Windows.Style)style1["BaseWindowStyle"];
             this.DataContext = this;
             this.StateChanged += BaseWindow_StateChanged;

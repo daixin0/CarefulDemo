@@ -44,7 +44,7 @@ namespace Careful.Core.Ioc
 
         public object Resolve(Type type)
         {
-            throw new NotImplementedException();
+            return Instance.GetInstance(type);
         }
 
         public object Resolve(Type type, params (Type Type, object Instance)[] parameters)

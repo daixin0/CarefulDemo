@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Runtime.InteropServices;
 
-namespace Careful.Core.Mvvm.Views.WindowBaseControl
+namespace Careful.Controls.WindowBaseControl
 {
     public class Windows32Operation
     {
