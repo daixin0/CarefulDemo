@@ -17,7 +17,7 @@ namespace Module.Test.ViewModels
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            
+            //containerRegistry.Register<MainWindowViewModel>();
         }
     }
 }

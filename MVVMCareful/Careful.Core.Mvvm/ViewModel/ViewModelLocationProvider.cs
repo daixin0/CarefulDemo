@@ -46,6 +46,7 @@ namespace Careful.Core.Mvvm.ViewModel
                 var viewName = viewType.FullName;
                 viewName = viewName.Replace(".Views.", ".ViewModels.");
                 var viewAssemblyName = viewType.GetTypeInfo().Assembly.FullName;
+                viewAssemblyName = viewAssemblyName.Replace(".Views", ".ViewModels");
                 var suffix = viewName.EndsWith("View") ? "Model" : "ViewModel";
                 var viewModelName = String.Format(CultureInfo.InvariantCulture, "{0}{1}, {2}", viewName, suffix, viewAssemblyName);
                 return Type.GetType(viewModelName);

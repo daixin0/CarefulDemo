@@ -11,7 +11,7 @@ using System.Windows.Input;
 
 namespace Module.Test.ViewModels
 {
-    public class MainWindowViewModel:ViewModelDialog
+    public class MainWindowViewModel:ViewModelBase
     {
 
 		public MainWindowViewModel(IEventAggregator eventAggregator)

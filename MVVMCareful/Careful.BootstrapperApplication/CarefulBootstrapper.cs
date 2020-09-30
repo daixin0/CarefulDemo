@@ -210,8 +210,8 @@ namespace Careful.BootstrapperApplication
                 throw new InvalidOperationException("log created faild");
             }
 
-
             ConfigureViewModelLocator();
+
             this.Logger.Log("log created success", LogLevel.Debug, Priority.Low);
 
             this.Logger.Log("create module catelog", LogLevel.Debug, Priority.Low);
@@ -283,7 +283,7 @@ namespace Careful.BootstrapperApplication
             this.Logger.Log("bootstrapper sequence completed", LogLevel.Debug, Priority.Low);
 
 
-
+           
             //var regionAdapterMappins = ContainerExtension.Resolve<RegionAdapterMappings>();
             //ConfigureRegionAdapterMappings(regionAdapterMappins);
 

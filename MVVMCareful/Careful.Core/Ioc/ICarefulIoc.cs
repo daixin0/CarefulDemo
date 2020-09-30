@@ -30,7 +30,7 @@ namespace Careful.Core.Ioc
 
         void Register<TClass>(Func<TClass> factory)
             where TClass : class;
-
+        void Register(Type classType);
         void Register<TClass>(Func<TClass> factory, bool createInstanceImmediately)
             where TClass : class;
 

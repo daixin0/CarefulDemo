@@ -17,7 +17,7 @@ namespace Module.Test.Views
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            
+            //containerRegistry.Register<MainWindowView>();
         }
     }
 }

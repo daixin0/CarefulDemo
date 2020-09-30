@@ -11,7 +11,7 @@ namespace Careful.Core.Mvvm.ViewModel
     {
         public static void AutowireViewModel(object viewOrViewModel)
         {
-            if (viewOrViewModel is FrameworkElement view && view.DataContext is null && ViewModelLocator.GetAutoWireViewModel(view) is null)
+            if (viewOrViewModel is FrameworkElement view && view.DataContext is null)
             {
                 ViewModelLocator.SetAutoWireViewModel(view, true);
             }

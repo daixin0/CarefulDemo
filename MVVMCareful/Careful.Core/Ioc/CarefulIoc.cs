@@ -201,7 +201,41 @@ namespace Careful.Core.Ioc
                 }
             }
         }
+        public void Register(Type classType)
+        {
+            if (classType.IsInterface)
+            {
+                throw new ArgumentException("An interface cannot be registered alone.");
+            }
 
+            lock (_syncLock)
+            {
+                if (_factories.ContainsKey(classType)
+                    && _factories[classType].ContainsKey(_defaultKey))
+                {
+                    if (!_constructorInfos.ContainsKey(classType))
+                    {
+                        throw new InvalidOperationException(
+                            string.Format(
+                                CultureInfo.InvariantCulture,
+                                "Class {0} is already registered.",
+                                classType));
+                    }
+
+                    return;
+                }
+
+                if (!_interfaceToClassMap.ContainsKey(classType))
+                {
+                    _interfaceToClassMap.Add(classType, null);
+                }
+
+                _constructorInfos.Add(classType, GetConstructorInfo(classType));
+                Func<object> factory = new Func<object>(() => MakeInstance(classType));
+                DoRegister(classType, factory, _defaultKey);
+
+            }
+        }
         public void Register<TClass>(Func<TClass> factory)
             where TClass : class
         {
@@ -397,11 +431,7 @@ namespace Careful.Core.Ioc
                 {
                     if (!_interfaceToClassMap.ContainsKey(serviceType))
                     {
-                        throw new ActivationException(
-                            string.Format(
-                                CultureInfo.InvariantCulture,
-                                "Type not found in cache: {0}.",
-                                serviceType.FullName));
+                        return null;
                     }
 
                     if (cache)
@@ -580,6 +610,29 @@ namespace Careful.Core.Ioc
             }
 
             return (TClass)constructor.Invoke(parameters);
+        }
+        private object MakeInstance(Type serviceType)
+        {
+
+            var constructor = _constructorInfos.ContainsKey(serviceType)
+                                  ? _constructorInfos[serviceType]
+                                  : GetConstructorInfo(serviceType);
+
+            var parameterInfos = constructor.GetParameters();
+
+            if (parameterInfos.Length == 0)
+            {
+                return constructor.Invoke(_emptyArguments);
+            }
+
+            var parameters = new object[parameterInfos.Length];
+
+            foreach (var parameterInfo in parameterInfos)
+            {
+                parameters[parameterInfo.Position] = GetService(parameterInfo.ParameterType);
+            }
+
+            return constructor.Invoke(parameters);
         }
 
         public IEnumerable<object> GetAllCreatedInstances(Type serviceType)

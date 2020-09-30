@@ -19,7 +19,7 @@ namespace Careful.Core.Ioc
 
         [PreferredConstructorAttribute]
         public CarefulIocExtension()
-            : this(new CarefulIoc())
+            : this(CarefulIoc.Default)
         {
         }
 
@@ -36,7 +36,13 @@ namespace Careful.Core.Ioc
 
         public object Resolve(Type type)
         {
-            return Instance.GetInstance(type);
+            var instance = Instance.GetInstance(type);
+            if (instance == null)
+            {
+                Instance.Register(type);
+                instance= Instance.GetInstance(type);
+            }
+            return instance;
         }
 
         public object Resolve(Type type, params (Type Type, object Instance)[] parameters)
