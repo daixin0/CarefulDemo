@@ -52,6 +52,35 @@ namespace Careful.Core.Mvvm.ViewModel
             }
         }
 
+
+        public static bool? GetSingleton(DependencyObject obj)
+        {
+            return (bool?)obj.GetValue(SingletonProperty);
+        }
+
+        public static void SetSingleton(DependencyObject obj, bool? value)
+        {
+            obj.SetValue(SingletonProperty, value);
+        }
+
+        // Using a DependencyProperty as the backing store for Singleton.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SingletonProperty =
+            DependencyProperty.RegisterAttached("Singleton", typeof(bool?), typeof(ViewModelLocator),new PropertyMetadata(SingletonChanged));
+
+        private static void SingletonChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (!DesignerProperties.GetIsInDesignMode(d))
+            {
+                if (e.NewValue == null)
+                {
+                    ViewModelLocationProvider.SetDefaultViewModelSingleton(false);
+                }
+                else if ((bool)e.NewValue)
+                {
+                    ViewModelLocationProvider.SetDefaultViewModelSingleton((bool)e.NewValue);
+                }
+            }
+        }
         /// <summary>
         /// Sets the DataContext of a View.
         /// </summary>

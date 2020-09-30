@@ -15,9 +15,9 @@ namespace Careful.BootstrapperApplication
     {
         internal static void ConfigureViewModelLocator()
         {
-            ViewModelLocationProvider.SetDefaultViewModelFactory((view, type) =>
+            ViewModelLocationProvider.SetDefaultViewModelFactory((view, type ,singleton) =>
             {
-                return ContainerLocator.Container.Resolve(type);
+                return ContainerLocator.Container.Resolve(type, singleton);
             });
         }
 

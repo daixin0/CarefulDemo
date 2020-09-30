@@ -44,7 +44,30 @@ namespace Careful.Core.Ioc
             }
             return instance;
         }
-
+        public object Resolve(Type type,bool singleton)
+        {
+            if (singleton)
+            {
+                var instance = Instance.GetInstance(type);
+                if (instance == null)
+                {
+                    Instance.Register(type);
+                    instance = Instance.GetInstance(type);
+                }
+                return instance;
+            }
+            else
+            {
+                var instance = Instance.GetInstance(type, Guid.NewGuid().ToString());
+                if (instance == null)
+                {
+                    Instance.Register(type);
+                    instance = Instance.GetInstance(type, Guid.NewGuid().ToString());
+                }
+                return instance;
+            }
+            
+        }
         public object Resolve(Type type, params (Type Type, object Instance)[] parameters)
         {
             throw new NotImplementedException();

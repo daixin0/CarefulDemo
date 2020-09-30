@@ -14,6 +14,8 @@ namespace Careful.Core.Ioc
         /// <returns>The resolved Service <see cref="Type"/></returns>
         object Resolve(Type type);
 
+        object Resolve(Type type,bool singleton);
+
         /// <summary>
         /// Resolves a given <see cref="Type"/>
         /// </summary>

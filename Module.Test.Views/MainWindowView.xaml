@@ -6,7 +6,7 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:vm="clr-namespace:Careful.Core.Mvvm.ViewModel;assembly=Careful.Core.Mvvm"
         xmlns:local="clr-namespace:Module.Test.Views"
-        mc:Ignorable="d" vm:ViewModelLocator.AutoWireViewModel="True"
+        mc:Ignorable="d" vm:ViewModelLocator.Singleton="True" vm:ViewModelLocator.AutoWireViewModel="True"
         Title="MainWindow" Height="450" Width="800">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">

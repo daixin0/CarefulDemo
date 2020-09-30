@@ -35,7 +35,9 @@ namespace Careful.Core.Mvvm.ViewModel
         /// <summary>
         /// ViewModelfactory that provides the View instance and ViewModel type as parameters.
         /// </summary>
-        static Func<object, Type, object> _defaultViewModelFactoryWithViewParameter;
+        static Func<object, Type, bool, object> _defaultViewModelFactoryWithViewParameter;
+
+        static bool _defaultViewModelSingleton;
 
         /// <summary>
         /// Default view type to view model type resolver, assumes the view model is in same assembly as the view type, but in the "ViewModels" namespace.
@@ -65,7 +67,7 @@ namespace Careful.Core.Mvvm.ViewModel
         /// Sets the default view model factory.
         /// </summary>
         /// <param name="viewModelFactory">The view model factory that provides the View instance and ViewModel type as parameters.</param>
-        public static void SetDefaultViewModelFactory(Func<object, Type, object> viewModelFactory)
+        public static void SetDefaultViewModelFactory(Func<object, Type, bool, object > viewModelFactory)
         {
             _defaultViewModelFactoryWithViewParameter = viewModelFactory;
         }
@@ -77,6 +79,11 @@ namespace Careful.Core.Mvvm.ViewModel
         public static void SetDefaultViewTypeToViewModelTypeResolver(Func<Type, Type> viewTypeToViewModelTypeResolver)
         {
             _defaultViewTypeToViewModelTypeResolver = viewTypeToViewModelTypeResolver;
+        }
+
+        public static void SetDefaultViewModelSingleton(bool isSingleton)
+        {
+            _defaultViewModelSingleton = isSingleton;
         }
 
         /// <summary>
@@ -103,7 +110,7 @@ namespace Careful.Core.Mvvm.ViewModel
                 if (viewModelType == null)
                     return;
 
-                viewModel = _defaultViewModelFactoryWithViewParameter != null ? _defaultViewModelFactoryWithViewParameter(view, viewModelType) : _defaultViewModelFactory(viewModelType);
+                viewModel = _defaultViewModelFactoryWithViewParameter != null ? _defaultViewModelFactoryWithViewParameter(view, viewModelType,_defaultViewModelSingleton) : _defaultViewModelFactory(viewModelType);
             }
 
 
