@@ -22,7 +22,7 @@ namespace Careful.BootstrapperApplication
     /// <remarks>
     /// This class must be overridden to provide application specific configuration.
     /// </remarks>
-    public abstract class Bootstrapper
+    public abstract class CarefulBootstrapper
     {
         /// <summary>
         /// Gets the <see cref="ILog"/> for the application.
@@ -90,23 +90,25 @@ namespace Careful.BootstrapperApplication
 
             this.Logger.Log("adding careful bootstrapper extension to container", LogLevel.Debug, Priority.Low);
 
-            this.Container.RegisterInstance<IModuleCatalog>(this.ModuleCatalog);
+            Container.RegisterInstance<IModuleCatalog>(this.ModuleCatalog);
 
             Container.Register<IDialogService, DialogService>();
 
             Container.RegisterInstance<IServiceLocator>(CarefulIoc.Default);
+            Container.Register<IContainerExtension, CarefulIocExtension>(true);
             Container.Register<IModuleInitializer, ModuleInitializer>(true);
             Container.Register<IModuleManager, ModuleManager>(true);
-            Container.Register<RegionAdapterMappings>(true);
+            //Container.Register<RegionAdapterMappings>(true);
             Container.Register<IEventAggregator, EventAggregator>(true);
-            Container.Register<IRegionManager, RegionManager>(true);
-            Container.Register<IContainerExtension, CarefulIocExtension>(true);
-            Container.Register<IRegionViewRegistry, RegionViewRegistry>(true);
-            Container.Register<IRegionBehaviorFactory, RegionBehaviorFactory>(true);
-            Container.Register<IRegionNavigationJournalEntry, RegionNavigationJournalEntry>(false);
-            Container.Register<IRegionNavigationJournal, RegionNavigationJournal>(false);
-            Container.Register<IRegionNavigationContentLoader, RegionNavigationContentLoader>(false);
-            Container.Register<IRegionNavigationService, RegionNavigationService>(false);
+            
+
+            //Container.Register<IRegionManager, RegionManager>(true);
+            //Container.Register<IRegionViewRegistry, RegionViewRegistry>(true);
+            //Container.Register<IRegionBehaviorFactory, RegionBehaviorFactory>(true);
+            //Container.Register<IRegionNavigationJournalEntry, RegionNavigationJournalEntry>(false);
+            //Container.Register<IRegionNavigationJournal, RegionNavigationJournal>(false);
+            //Container.Register<IRegionNavigationContentLoader, RegionNavigationContentLoader>(false);
+            //Container.Register<IRegionNavigationService, RegionNavigationService>(false);
 
 
         }
@@ -197,7 +199,7 @@ namespace Careful.BootstrapperApplication
         /// </remarks>
         protected virtual IModuleCatalog CreateModuleCatalog()
         {
-            return new ModuleCatalog();
+            return new DirectoryModuleCatalog() { ModulePath = AppDomain.CurrentDomain.BaseDirectory };
         }
 
         protected virtual void Initialize()
@@ -246,13 +248,13 @@ namespace Careful.BootstrapperApplication
             //RegisterTypes(ContainerExtension);
             //ContainerExtension.FinalizeExtension();
 
-            this.Logger.Log("configuring region adapter", LogLevel.Debug, Priority.Low);
+            //this.Logger.Log("configuring region adapter", LogLevel.Debug, Priority.Low);
             //this.ConfigureRegionAdapterMappings();
 
-            this.Logger.Log("configuring default region behaviors", LogLevel.Debug, Priority.Low);
-            this.ConfigureDefaultRegionBehaviors();
+            //this.Logger.Log("configuring default region behaviors", LogLevel.Debug, Priority.Low);
+            //this.ConfigureDefaultRegionBehaviors();
 
-            this.Logger.Log("registering frameworkd excetion type", LogLevel.Debug, Priority.Low);
+            //this.Logger.Log("registering frameworkd excetion type", LogLevel.Debug, Priority.Low);
             this.RegisterFrameworkExceptionTypes();
 
             this.Logger.Log("create shell", LogLevel.Debug, Priority.Low);

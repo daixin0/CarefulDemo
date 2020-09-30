@@ -1,4 +1,4 @@
-// Copyright (c) Microsoft Corporation. All rights reserved. See License.txt in the project root for license information.
+
 
 using System;
 using System.Configuration;
@@ -26,7 +26,7 @@ namespace Careful.Module.Core.Modularity
         public ModuleDependencyCollection(ModuleDependencyConfigurationElement[] dependencies)
         {
             if (dependencies == null)
-                throw new ArgumentNullException("dependencies");
+                throw new ArgumentNullException(nameof(dependencies));
 
             foreach (ModuleDependencyConfigurationElement dependency in dependencies)
             {

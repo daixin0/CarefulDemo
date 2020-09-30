@@ -1,15 +1,13 @@
-// Copyright (c) Microsoft Corporation. All rights reserved. See License.txt in the project root for license information.
-
-using Careful.Core.Common;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Windows;
+using Careful.Core.Common;
+using Careful.Module.Core.Common;
 
 namespace Careful.Module.Core.Modularity
 {
     /// <summary>
-    /// Used by <see cref="ModuleInitializer"/> to get the load sequence
+    /// Used by <see cref="IModuleInitializer"/> to get the load sequence
     /// for the modules to load according to their dependencies.
     /// </summary>
     public class ModuleDependencySolver
@@ -24,7 +22,7 @@ namespace Careful.Module.Core.Modularity
         public void AddModule(string name)
         {
             if (String.IsNullOrEmpty(name))
-                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, Application.Current.FindResource("StringCannotBeNullOrEmpty").ToString(), "name"));
+                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "StringCannotBeNullOrEmpty", "name"));
 
             AddToDependencyMatrix(name);
             AddToKnownModules(name);
@@ -40,13 +38,13 @@ namespace Careful.Module.Core.Modularity
         public void AddDependency(string dependingModule, string dependentModule)
         {
             if (String.IsNullOrEmpty(dependingModule))
-                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, Application.Current.FindResource("StringCannotBeNullOrEmpty").ToString(), "dependingModule"));
+                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "StringCannotBeNullOrEmpty", "dependingModule"));
 
             if (String.IsNullOrEmpty(dependentModule))
-                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, Application.Current.FindResource("StringCannotBeNullOrEmpty").ToString(), "dependentModule"));
+                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "StringCannotBeNullOrEmpty", "dependentModule"));
 
             if (!knownModules.Contains(dependingModule))
-                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, Application.Current.FindResource("DependencyForUnknownModule").ToString() , dependingModule));
+                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "DependencyForUnknownModule", dependingModule));
 
             AddToDependencyMatrix(dependentModule);
             dependencyMatrix.Add(dependentModule, dependingModule);
@@ -83,7 +81,7 @@ namespace Careful.Module.Core.Modularity
                 List<string> leaves = this.FindLeaves(skip);
                 if (leaves.Count == 0 && skip.Count < dependencyMatrix.Count)
                 {
-                    throw new CyclicDependencyFoundException(Application.Current.FindResource("CyclicDependencyFound").ToString());
+                    throw new CyclicDependencyFoundException("CyclicDependencyFound");
                 }
                 skip.AddRange(leaves);
             }
@@ -92,8 +90,8 @@ namespace Careful.Module.Core.Modularity
             if (skip.Count > knownModules.Count)
             {
                 string moduleNames = this.FindMissingModules(skip);
-                throw new ModularityException(moduleNames, String.Format(CultureInfo.CurrentCulture,
-                                                            Application.Current.FindResource("DependencyOnMissingModule").ToString(),
+                throw new ModularityException(moduleNames, string.Format(CultureInfo.CurrentCulture,
+                                                            "DependencyOnMissingModule",
                                                             moduleNames));
             }
 

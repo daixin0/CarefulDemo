@@ -1,11 +1,9 @@
-// Copyright (c) Microsoft Corporation. All rights reserved. See License.txt in the project root for license information.
-
 using Careful.Core.Extensions;
 using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows;
+
 
 namespace Careful.Module.Core.Modularity
 {
@@ -20,7 +18,7 @@ namespace Careful.Module.Core.Modularity
         /// </summary>
         public ConfigurationModuleCatalog()
         {
-            this.Store = new ConfigurationStore();
+            Store = new ConfigurationStore();
         }
 
         /// <summary>
@@ -33,28 +31,17 @@ namespace Careful.Module.Core.Modularity
         /// </summary>
         protected override void InnerLoad()
         {
-            if (this.Store == null)
+            if (Store == null)
             {
-                throw new InvalidOperationException(Application.Current.FindResource("ConfigurationStoreCannotBeNull").ToString());
+                throw new InvalidOperationException("ConfigurationStoreCannotBeNull");
             }
 
-            this.EnsureModulesDiscovered();
-        }
-
-        private static string GetFileAbsoluteUri(string filePath)
-        {
-            UriBuilder uriBuilder = new UriBuilder();
-            uriBuilder.Host = String.Empty;
-            uriBuilder.Scheme = Uri.UriSchemeFile;
-            uriBuilder.Path = Path.GetFullPath(filePath);
-            Uri fileUri = uriBuilder.Uri;
-
-            return fileUri.ToString();
+            EnsureModulesDiscovered();
         }
 
         private void EnsureModulesDiscovered()
         {
-            ModulesConfigurationSection section = this.Store.RetrieveModuleConfigurationSection();
+            ModulesConfigurationSection section = Store.RetrieveModuleConfigurationSection();
 
             if (section != null)
             {

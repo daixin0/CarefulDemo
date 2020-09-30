@@ -1,4 +1,4 @@
-// Copyright (c) Microsoft Corporation. All rights reserved. See License.txt in the project root for license information.
+
 
 using System;
 
@@ -14,11 +14,11 @@ namespace Careful.Module.Core.Modularity
         /// </summary>
         /// <param name="moduleInfo">The module info.</param>
         /// <param name="error">Any error that occurred during the call.</param>
-        public LoadModuleCompletedEventArgs(ModuleInfo moduleInfo, Exception error)
+        public LoadModuleCompletedEventArgs(IModuleInfo moduleInfo, Exception error)
         {
             if (moduleInfo == null)
             {
-                throw new ArgumentNullException("moduleInfo");
+                throw new ArgumentNullException(nameof(moduleInfo));
             }
 
             this.ModuleInfo = moduleInfo;
@@ -29,7 +29,7 @@ namespace Careful.Module.Core.Modularity
         /// Gets the module info.
         /// </summary>
         /// <value>The module info.</value>
-        public ModuleInfo ModuleInfo { get; private set; }
+        public IModuleInfo ModuleInfo { get; private set; }
 
         /// <summary>
         /// Gets any error that occurred

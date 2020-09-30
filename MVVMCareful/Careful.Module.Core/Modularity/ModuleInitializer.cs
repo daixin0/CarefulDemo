@@ -1,10 +1,6 @@
-// Copyright (c) Microsoft Corporation. All rights reserved. See License.txt in the project root for license information.
-
+using Careful.Core.Ioc;
 using System;
 using System.Globalization;
-using Microsoft.Practices.ServiceLocation;
-using System.Windows;
-using Careful.Core.Logs;
 
 namespace Careful.Module.Core.Modularity
 {
@@ -13,28 +9,15 @@ namespace Careful.Module.Core.Modularity
     /// </summary>
     public class ModuleInitializer : IModuleInitializer
     {
-        private readonly IServiceLocator serviceLocator;
-        private readonly ILog loggerFacade;
+        private readonly IContainerExtension _containerExtension;
 
         /// <summary>
         /// Initializes a new instance of <see cref="ModuleInitializer"/>.
         /// </summary>
-        /// <param name="serviceLocator">The container that will be used to resolve the modules by specifying its type.</param>
-        /// <param name="loggerFacade">The logger to use.</param>
-        public ModuleInitializer(IServiceLocator serviceLocator, ILog loggerFacade)
+        /// <param name="containerExtension">The container that will be used to resolve the modules by specifying its type.</param>
+        public ModuleInitializer(IContainerExtension containerExtension)
         {
-            if (serviceLocator == null)
-            {
-                throw new ArgumentNullException("serviceLocator");
-            }
-
-            if (loggerFacade == null)
-            {
-                throw new ArgumentNullException("loggerFacade");
-            }
-
-            this.serviceLocator = serviceLocator;
-            this.loggerFacade = loggerFacade;
+            this._containerExtension = containerExtension ?? throw new ArgumentNullException(nameof(containerExtension));
         }
 
         /// <summary>
@@ -42,38 +25,46 @@ namespace Careful.Module.Core.Modularity
         /// </summary>
         /// <param name="moduleInfo">The module to initialize</param>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Catches Exception to handle any exception thrown during the initialization process with the HandleModuleInitializationError method.")]
-        public void Initialize(ModuleInfo moduleInfo)
+        public void Initialize(IModuleInfo moduleInfo)
         {
-            if (moduleInfo == null) throw new ArgumentNullException("moduleInfo");
+            if (moduleInfo == null)
+                throw new ArgumentNullException(nameof(moduleInfo));
 
             IModule moduleInstance = null;
             try
             {
                 moduleInstance = this.CreateModule(moduleInfo);
-                moduleInstance.Initialize();
+                if (moduleInstance != null)
+                {
+                    moduleInstance.RegisterTypes(_containerExtension);
+                    moduleInstance.OnInitialized(_containerExtension);
+                }
             }
             catch (Exception ex)
             {
                 this.HandleModuleInitializationError(
                     moduleInfo,
-                    moduleInstance != null ? moduleInstance.GetType().Assembly.FullName : null,
+                    moduleInstance?.GetType().Assembly.FullName,
                     ex);
             }
         }
 
         /// <summary>
         /// Handles any exception occurred in the module Initialization process,
-        /// logs the error using the <see cref="ILog"/> and throws a <see cref="ModuleInitializeException"/>.
-        /// This method can be overridden to provide a different behavior. 
+        /// logs the error using the <see cref="ILoggerFacade"/> and throws a <see cref="ModuleInitializeException"/>.
+        /// This method can be overridden to provide a different behavior.
         /// </summary>
         /// <param name="moduleInfo">The module metadata where the error happenened.</param>
         /// <param name="assemblyName">The assembly name.</param>
         /// <param name="exception">The exception thrown that is the cause of the current error.</param>
         /// <exception cref="ModuleInitializeException"></exception>
-        public virtual void HandleModuleInitializationError(ModuleInfo moduleInfo, string assemblyName, Exception exception)
+        public virtual void HandleModuleInitializationError(IModuleInfo moduleInfo, string assemblyName, Exception exception)
         {
-            if (moduleInfo == null) throw new ArgumentNullException("moduleInfo");
-            if (exception == null) throw new ArgumentNullException("exception");
+            if (moduleInfo == null)
+                throw new ArgumentNullException(nameof(moduleInfo));
+
+            if (exception == null)
+                throw new ArgumentNullException(nameof(exception));
 
             Exception moduleException;
 
@@ -93,8 +84,6 @@ namespace Careful.Module.Core.Modularity
                 }
             }
 
-            this.loggerFacade.Log(moduleException.ToString(), LogLevel.Exception, Priority.High);
-
             throw moduleException;
         }
 
@@ -103,9 +92,11 @@ namespace Careful.Module.Core.Modularity
         /// </summary>
         /// <param name="moduleInfo">The module to create.</param>
         /// <returns>A new instance of the module specified by <paramref name="moduleInfo"/>.</returns>
-        protected virtual IModule CreateModule(ModuleInfo moduleInfo)
+        protected virtual IModule CreateModule(IModuleInfo moduleInfo)
         {
-            if (moduleInfo == null) throw new ArgumentNullException("moduleInfo");
+            if (moduleInfo == null)
+                throw new ArgumentNullException(nameof(moduleInfo));
+
             return this.CreateModule(moduleInfo.ModuleType);
         }
 
@@ -119,10 +110,10 @@ namespace Careful.Module.Core.Modularity
             Type moduleType = Type.GetType(typeName);
             if (moduleType == null)
             {
-                throw new ModuleInitializeException(string.Format(CultureInfo.CurrentCulture, Application.Current.FindResource("FailedToGetType").ToString(), typeName));
+                throw new ModuleInitializeException(string.Format(CultureInfo.CurrentCulture, "FailedToGetType", typeName));
             }
 
-            return (IModule)this.serviceLocator.GetInstance(moduleType);
+            return (IModule)_containerExtension.Resolve(moduleType);
         }
     }
 }

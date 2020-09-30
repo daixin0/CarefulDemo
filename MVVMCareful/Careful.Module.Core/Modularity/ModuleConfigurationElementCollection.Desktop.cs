@@ -1,4 +1,4 @@
-// Copyright (c) Microsoft Corporation. All rights reserved. See License.txt in the project root for license information.
+
 
 using System;
 using System.Collections.Generic;
@@ -27,7 +27,9 @@ namespace Careful.Module.Core.Modularity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ModuleConfigurationElementCollection(ModuleConfigurationElement[] modules)
         {
-            if (modules == null) throw new System.ArgumentNullException("modules");
+            if (modules == null)
+                throw new ArgumentNullException(nameof(modules));
+
             foreach (ModuleConfigurationElement module in modules)
             {
                 BaseAdd(module);
@@ -103,7 +105,8 @@ namespace Careful.Module.Core.Modularity
         /// <exception cref="ArgumentNullException">An <see cref="ArgumentNullException"/> is thrown if <paramref name="match"/> is null.</exception>
         public IList<ModuleConfigurationElement> FindAll(Predicate<ModuleConfigurationElement> match)
         {
-            if (match == null) throw new System.ArgumentNullException("match");
+            if (match == null)
+                throw new ArgumentNullException(nameof(match));
 
             IList<ModuleConfigurationElement> found = new List<ModuleConfigurationElement>();
             foreach (ModuleConfigurationElement moduleElement in this)

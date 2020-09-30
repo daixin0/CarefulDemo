@@ -1,5 +1,3 @@
-// Copyright (c) Microsoft Corporation. All rights reserved. See License.txt in the project root for license information.
-
 using System;
 using System.Collections.ObjectModel;
 
@@ -8,7 +6,7 @@ namespace Careful.Module.Core.Modularity
     /// <summary>
     /// Defines the metadata that describes a module.
     /// </summary>
-    public partial class ModuleInfo : IModuleCatalogItem
+    public partial class ModuleInfo : IModuleInfo
     {
         /// <summary>
         /// Initializes a new empty instance of <see cref="ModuleInfo"/>.
@@ -27,7 +25,8 @@ namespace Careful.Module.Core.Modularity
         /// <exception cref="ArgumentNullException">An <see cref="ArgumentNullException"/> is thrown if <paramref name="dependsOn"/> is <see langword="null"/>.</exception>
         public ModuleInfo(string name, string type, params string[] dependsOn)
         {
-            if (dependsOn == null) throw new System.ArgumentNullException("dependsOn");
+            if (dependsOn == null)
+                throw new ArgumentNullException(nameof(dependsOn));
 
             this.ModuleName = name;
             this.ModuleType = type;
@@ -45,6 +44,33 @@ namespace Careful.Module.Core.Modularity
         /// <param name="type">The module's type.</param>
         public ModuleInfo(string name, string type) : this(name, type, new string[0])
         {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of <see cref="ModuleInfo"/>.
+        /// </summary>
+        /// <param name="moduleType">The module's type.</param>
+        public ModuleInfo(Type moduleType)
+            : this(moduleType, moduleType.Name) { }
+
+        /// <summary>
+        /// Initializes a new instance of <see cref="ModuleInfo"/>.
+        /// </summary>
+        /// <param name="moduleType">The module's type.</param>
+        /// <param name="moduleName">The module's name.</param>
+        public ModuleInfo(Type moduleType, string moduleName)
+            : this(moduleType, moduleName, InitializationMode.WhenAvailable) { }
+
+        /// <summary>
+        /// Initializes a new instance of <see cref="ModuleInfo"/>.
+        /// </summary>
+        /// <param name="moduleType">The module's type.</param>
+        /// <param name="moduleName">The module's name.</param>
+        /// <param name="initializationMode">The module's <see cref="InitializationMode"/>.</param>
+        public ModuleInfo(Type moduleType, string moduleName, InitializationMode initializationMode)
+            : this(moduleName, moduleType.AssemblyQualifiedName)
+        {
+            InitializationMode = initializationMode;
         }
 
         /// <summary>

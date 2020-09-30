@@ -1,22 +1,17 @@
-// Copyright (c) Microsoft Corporation. All rights reserved. See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Windows;
-using Careful.Core.Logs;
 
 namespace Careful.Module.Core.Modularity
 {
     /// <summary>
-    /// Component responsible for coordinating the modules' type loading and module initialization process. 
+    /// Component responsible for coordinating the modules' type loading and module initialization process.
     /// </summary>
     public partial class ModuleManager : IModuleManager, IDisposable
     {
         private readonly IModuleInitializer moduleInitializer;
-        private readonly IModuleCatalog moduleCatalog;
-        private readonly ILog loggerFacade;
         private IEnumerable<IModuleTypeLoader> typeLoaders;
         private HashSet<IModuleTypeLoader> subscribedToModuleTypeLoaders = new HashSet<IModuleTypeLoader>();
 
@@ -25,37 +20,21 @@ namespace Careful.Module.Core.Modularity
         /// </summary>
         /// <param name="moduleInitializer">Service used for initialization of modules.</param>
         /// <param name="moduleCatalog">Catalog that enumerates the modules to be loaded and initialized.</param>
-        /// <param name="loggerFacade">Logger used during the load and initialization of modules.</param>
-        public ModuleManager(IModuleInitializer moduleInitializer, IModuleCatalog moduleCatalog, ILog loggerFacade)
+        public ModuleManager(IModuleInitializer moduleInitializer, IModuleCatalog moduleCatalog)
         {
-            if (moduleInitializer == null)
-            {
-                throw new ArgumentNullException("moduleInitializer");
-            }
-
-            if (moduleCatalog == null)
-            {
-                throw new ArgumentNullException("moduleCatalog");
-            }
-
-            if (loggerFacade == null)
-            {
-                throw new ArgumentNullException("loggerFacade");
-            }
-
-            this.moduleInitializer = moduleInitializer;
-            this.moduleCatalog = moduleCatalog;
-            this.loggerFacade = loggerFacade;
+            this.moduleInitializer = moduleInitializer ?? throw new ArgumentNullException(nameof(moduleInitializer));
+            ModuleCatalog = moduleCatalog ?? throw new ArgumentNullException(nameof(moduleCatalog));
         }
 
         /// <summary>
         /// The module catalog specified in the constructor.
         /// </summary>
-        protected IModuleCatalog ModuleCatalog
-        {
-            get { return this.moduleCatalog; }
-        }
+        protected IModuleCatalog ModuleCatalog { get; }
 
+        /// <summary>
+        /// Gets all the <see cref="IModuleInfo"/> classes that are in the <see cref="IModuleCatalog"/>.
+        /// </summary>
+        public IEnumerable<IModuleInfo> Modules => ModuleCatalog.Modules;
 
         /// <summary>
         /// Raised repeatedly to provide progress as modules are loaded in the background.
@@ -64,10 +43,7 @@ namespace Careful.Module.Core.Modularity
 
         private void RaiseModuleDownloadProgressChanged(ModuleDownloadProgressChangedEventArgs e)
         {
-            if (this.ModuleDownloadProgressChanged != null)
-            {
-                this.ModuleDownloadProgressChanged(this, e);
-            }
+            ModuleDownloadProgressChanged?.Invoke(this, e);
         }
 
         /// <summary>
@@ -75,17 +51,14 @@ namespace Careful.Module.Core.Modularity
         /// </summary>
         public event EventHandler<LoadModuleCompletedEventArgs> LoadModuleCompleted;
 
-        private void RaiseLoadModuleCompleted(ModuleInfo moduleInfo, Exception error)
+        private void RaiseLoadModuleCompleted(IModuleInfo moduleInfo, Exception error)
         {
             this.RaiseLoadModuleCompleted(new LoadModuleCompletedEventArgs(moduleInfo, error));
         }
 
         private void RaiseLoadModuleCompleted(LoadModuleCompletedEventArgs e)
         {
-            if (this.LoadModuleCompleted != null)
-            {
-                this.LoadModuleCompleted(this, e);
-            }
+            this.LoadModuleCompleted?.Invoke(this, e);
         }
 
         /// <summary>
@@ -93,25 +66,25 @@ namespace Careful.Module.Core.Modularity
         /// </summary>
         public void Run()
         {
-            this.moduleCatalog.Initialize();
+            this.ModuleCatalog.Initialize();
 
             this.LoadModulesWhenAvailable();
         }
 
 
         /// <summary>
-        /// Loads and initializes the module on the <see cref="ModuleCatalog"/> with the name <paramref name="moduleName"/>.
+        /// Loads and initializes the module on the <see cref="IModuleCatalog"/> with the name <paramref name="moduleName"/>.
         /// </summary>
         /// <param name="moduleName">Name of the module requested for initialization.</param>
         public void LoadModule(string moduleName)
         {
-            IEnumerable<ModuleInfo> module = this.moduleCatalog.Modules.Where(m => m.ModuleName == moduleName);
+            var module = this.ModuleCatalog.Modules.Where(m => m.ModuleName == moduleName);
             if (module == null || module.Count() != 1)
             {
-                throw new ModuleNotFoundException(moduleName, string.Format(CultureInfo.CurrentCulture, Application.Current.FindResource("ModuleNotFound").ToString() , moduleName));
+                throw new ModuleNotFoundException(moduleName, string.Format(CultureInfo.CurrentCulture, "ModuleNotFound", moduleName));
             }
 
-            IEnumerable<ModuleInfo> modulesToLoad = this.moduleCatalog.CompleteListWithDependencies(module);
+            var modulesToLoad = this.ModuleCatalog.CompleteListWithDependencies(module);
 
             this.LoadModuleTypes(modulesToLoad);
         }
@@ -121,14 +94,15 @@ namespace Careful.Module.Core.Modularity
         /// </summary>
         /// <param name="moduleInfo">Module that is being checked if needs retrieval.</param>
         /// <returns></returns>
-        protected virtual bool ModuleNeedsRetrieval(ModuleInfo moduleInfo)
+        protected virtual bool ModuleNeedsRetrieval(IModuleInfo moduleInfo)
         {
-            if (moduleInfo == null) throw new ArgumentNullException("moduleInfo");
+            if (moduleInfo == null)
+                throw new ArgumentNullException(nameof(moduleInfo));
 
             if (moduleInfo.State == ModuleState.NotStarted)
             {
-                // If we can instantiate the type, that means the module's assembly is already loaded into 
-                // the AppDomain and we don't need to retrieve it. 
+                // If we can instantiate the type, that means the module's assembly is already loaded into
+                // the AppDomain and we don't need to retrieve it.
                 bool isAvailable = Type.GetType(moduleInfo.ModuleType) != null;
                 if (isAvailable)
                 {
@@ -143,22 +117,22 @@ namespace Careful.Module.Core.Modularity
 
         private void LoadModulesWhenAvailable()
         {
-            IEnumerable<ModuleInfo> whenAvailableModules = this.moduleCatalog.Modules.Where(m => m.InitializationMode == InitializationMode.WhenAvailable);
-            IEnumerable<ModuleInfo> modulesToLoadTypes = this.moduleCatalog.CompleteListWithDependencies(whenAvailableModules);
+            var whenAvailableModules = this.ModuleCatalog.Modules.Where(m => m.InitializationMode == InitializationMode.WhenAvailable);
+            var modulesToLoadTypes = this.ModuleCatalog.CompleteListWithDependencies(whenAvailableModules);
             if (modulesToLoadTypes != null)
             {
                 this.LoadModuleTypes(modulesToLoadTypes);
             }
         }
 
-        private void LoadModuleTypes(IEnumerable<ModuleInfo> moduleInfos)
+        private void LoadModuleTypes(IEnumerable<IModuleInfo> moduleInfos)
         {
             if (moduleInfos == null)
             {
                 return;
             }
 
-            foreach (ModuleInfo moduleInfo in moduleInfos)
+            foreach (var moduleInfo in moduleInfos)
             {
                 if (moduleInfo.State == ModuleState.NotStarted)
                 {
@@ -179,15 +153,15 @@ namespace Careful.Module.Core.Modularity
         /// <summary>
         /// Loads the modules that are not intialized and have their dependencies loaded.
         /// </summary>
-        protected void LoadModulesThatAreReadyForLoad()
+        protected virtual void LoadModulesThatAreReadyForLoad()
         {
             bool keepLoading = true;
             while (keepLoading)
             {
                 keepLoading = false;
-                IEnumerable<ModuleInfo> availableModules = this.moduleCatalog.Modules.Where(m => m.State == ModuleState.ReadyForInitialization);
+                var availableModules = this.ModuleCatalog.Modules.Where(m => m.State == ModuleState.ReadyForInitialization);
 
-                foreach (ModuleInfo moduleInfo in availableModules)
+                foreach (var moduleInfo in availableModules)
                 {
                     if ((moduleInfo.State != ModuleState.Initialized) && (this.AreDependenciesLoaded(moduleInfo)))
                     {
@@ -198,11 +172,11 @@ namespace Careful.Module.Core.Modularity
                     }
                 }
             }
-        }        
+        }
 
-        private void BeginRetrievingModule(ModuleInfo moduleInfo)
+        private void BeginRetrievingModule(IModuleInfo moduleInfo)
         {
-            ModuleInfo moduleInfoToLoadType = moduleInfo;
+            var moduleInfoToLoadType = moduleInfo;
             IModuleTypeLoader moduleTypeLoader = this.GetTypeLoaderForModule(moduleInfoToLoadType);
             moduleInfoToLoadType.State = ModuleState.LoadingTypes;
 
@@ -251,32 +225,30 @@ namespace Careful.Module.Core.Modularity
 
         /// <summary>
         /// Handles any exception occurred in the module typeloading process,
-        /// logs the error using the <see cref="ILog"/> and throws a <see cref="ModuleTypeLoadingException"/>.
-        /// This method can be overridden to provide a different behavior. 
+        /// and throws a <see cref="ModuleTypeLoadingException"/>.
+        /// This method can be overridden to provide a different behavior.
         /// </summary>
         /// <param name="moduleInfo">The module metadata where the error happenened.</param>
         /// <param name="exception">The exception thrown that is the cause of the current error.</param>
         /// <exception cref="ModuleTypeLoadingException"></exception>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "1")]
-        protected virtual void HandleModuleTypeLoadingError(ModuleInfo moduleInfo, Exception exception)
+        protected virtual void HandleModuleTypeLoadingError(IModuleInfo moduleInfo, Exception exception)
         {
-            if (moduleInfo == null) throw new ArgumentNullException("moduleInfo");
+            if (moduleInfo == null)
+                throw new ArgumentNullException(nameof(moduleInfo));
 
-            ModuleTypeLoadingException moduleTypeLoadingException = exception as ModuleTypeLoadingException;
 
-            if (moduleTypeLoadingException == null)
+            if (!(exception is ModuleTypeLoadingException moduleTypeLoadingException))
             {
                 moduleTypeLoadingException = new ModuleTypeLoadingException(moduleInfo.ModuleName, exception.Message, exception);
             }
 
-            this.loggerFacade.Log(moduleTypeLoadingException.Message, LogLevel.Exception, Priority.High);
-
             throw moduleTypeLoadingException;
         }
 
-        private bool AreDependenciesLoaded(ModuleInfo moduleInfo)
+        private bool AreDependenciesLoaded(IModuleInfo moduleInfo)
         {
-            IEnumerable<ModuleInfo> requiredModules = this.moduleCatalog.GetDependentModules(moduleInfo);
+            var requiredModules = this.ModuleCatalog.GetDependentModules(moduleInfo);
             if (requiredModules == null)
             {
                 return true;
@@ -288,7 +260,7 @@ namespace Careful.Module.Core.Modularity
             return notReadyRequiredModuleCount == 0;
         }
 
-        private IModuleTypeLoader GetTypeLoaderForModule(ModuleInfo moduleInfo)
+        private IModuleTypeLoader GetTypeLoaderForModule(IModuleInfo moduleInfo)
         {
             foreach (IModuleTypeLoader typeLoader in this.ModuleTypeLoaders)
             {
@@ -298,10 +270,10 @@ namespace Careful.Module.Core.Modularity
                 }
             }
 
-            throw new ModuleTypeLoaderNotFoundException(moduleInfo.ModuleName, String.Format(CultureInfo.CurrentCulture, Application.Current.FindResource("NoRetrieverCanRetrieveModule").ToString() , moduleInfo.ModuleName), null);
+            throw new ModuleTypeLoaderNotFoundException(moduleInfo.ModuleName, string.Format(CultureInfo.CurrentCulture, "NoRetrieverCanRetrieveModule", moduleInfo.ModuleName), null);
         }
 
-        private void InitializeModule(ModuleInfo moduleInfo)
+        private void InitializeModule(IModuleInfo moduleInfo)
         {
             if (moduleInfo.State == ModuleState.Initializing)
             {
@@ -332,8 +304,7 @@ namespace Careful.Module.Core.Modularity
         {
             foreach (IModuleTypeLoader typeLoader in this.ModuleTypeLoaders)
             {
-                IDisposable disposableTypeLoader = typeLoader as IDisposable;
-                if (disposableTypeLoader != null)
+                if (typeLoader is IDisposable disposableTypeLoader)
                 {
                     disposableTypeLoader.Dispose();
                 }

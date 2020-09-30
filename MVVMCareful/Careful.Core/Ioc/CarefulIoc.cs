@@ -145,7 +145,7 @@ namespace Careful.Core.Ioc
                     _constructorInfos.Add(classType, GetConstructorInfo(classType));
                 }
 
-                Func<TInterface> factory = MakeInstance<TInterface>;
+                Func<TInterface> factory = new Func<TInterface>(()=> { return (TInterface)obj; });
                 DoRegister(interfaceType, factory, _defaultKey);
 
             }

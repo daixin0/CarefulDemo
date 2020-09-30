@@ -1,5 +1,4 @@
-// Copyright (c) Microsoft Corporation. All rights reserved. See License.txt in the project root for license information.
-
+using Careful.Core.Ioc;
 
 namespace Careful.Module.Core.Modularity
 {
@@ -9,8 +8,13 @@ namespace Careful.Module.Core.Modularity
     public interface IModule
     {
         /// <summary>
-        /// Notifies the module that it has be initialized.
+        /// Used to register types with the container that will be used by your application.
         /// </summary>
-        void Initialize();
+        void RegisterTypes(IContainerRegistry containerRegistry);
+
+        /// <summary>
+        /// Notifies the module that it has been initialized.
+        /// </summary>
+        void OnInitialized(IContainerProvider containerProvider);
     }
 }

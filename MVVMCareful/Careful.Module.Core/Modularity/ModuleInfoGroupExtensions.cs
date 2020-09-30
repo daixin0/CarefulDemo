@@ -1,7 +1,8 @@
-// Copyright (c) Microsoft Corporation. All rights reserved. See License.txt in the project root for license information.
+
 
 using Careful.Core.Extensions;
 using System;
+using System.Collections.ObjectModel;
 
 namespace Careful.Module.Core.Modularity
 {
@@ -24,8 +25,11 @@ namespace Careful.Module.Core.Modularity
                     Type moduleType,
                     params string[] dependsOn)
         {
-            if (moduleType == null) throw new ArgumentNullException("moduleType");
-            if (moduleInfoGroup == null) throw new ArgumentNullException("moduleInfoGroup");
+            if (moduleType == null)
+                throw new ArgumentNullException(nameof(moduleType));
+
+            if (moduleInfoGroup == null)
+                throw new ArgumentNullException(nameof(moduleInfoGroup));
 
             ModuleInfo moduleInfo = new ModuleInfo(moduleName, moduleType.AssemblyQualifiedName);
             moduleInfo.DependsOn.AddRange(dependsOn);
@@ -46,7 +50,9 @@ namespace Careful.Module.Core.Modularity
                     Type moduleType,
                     params string[] dependsOn)
         {
-            if (moduleType == null) throw new ArgumentNullException("moduleType");
+            if (moduleType == null)
+                throw new ArgumentNullException(nameof(moduleType));
+
             return AddModule(moduleInfoGroup, moduleType.Name, moduleType, dependsOn);
         }
     }

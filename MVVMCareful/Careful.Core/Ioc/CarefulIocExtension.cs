@@ -17,20 +17,12 @@ namespace Careful.Core.Ioc
 
         public IScopedProvider CurrentScope => throw new NotImplementedException();
 
-
-        /// <summary>
-        /// Constructs a default <see cref="UnityContainerExtension" />
-        /// </summary>
         [PreferredConstructorAttribute]
         public CarefulIocExtension()
             : this(new CarefulIoc())
         {
         }
 
-        /// <summary>
-        /// Constructs a <see cref="UnityContainerExtension" /> with the specified <see cref="IUnityContainer" />
-        /// </summary>
-        /// <param name="container"></param>
         public CarefulIocExtension(ICarefulIoc container)
         {
             Instance = container;
@@ -144,7 +136,7 @@ namespace Careful.Core.Ioc
 
         public bool IsRegistered(Type type)
         {
-            throw new NotImplementedException();
+            return Instance.IsRegistered(type);
         }
 
         public bool IsRegistered(Type type, string name)

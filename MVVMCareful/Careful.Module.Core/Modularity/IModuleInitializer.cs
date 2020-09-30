@@ -1,4 +1,4 @@
-// Copyright (c) Microsoft Corporation. All rights reserved. See License.txt in the project root for license information.
+
 
 namespace Careful.Module.Core.Modularity
 {
@@ -11,6 +11,6 @@ namespace Careful.Module.Core.Modularity
         /// Initializes the specified module.
         /// </summary>
         /// <param name="moduleInfo">The module to initialize</param>
-        void Initialize(ModuleInfo moduleInfo);
+        void Initialize(IModuleInfo moduleInfo);
     }
 }

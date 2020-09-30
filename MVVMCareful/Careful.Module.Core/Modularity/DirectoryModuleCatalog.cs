@@ -1,14 +1,12 @@
-// Copyright (c) Microsoft Corporation. All rights reserved. See License.txt in the project root for license information.
-
 using Careful.Core.Extensions;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Security.Policy;
-using System.Windows;
 
 namespace Careful.Module.Core.Modularity
 {
@@ -20,7 +18,7 @@ namespace Careful.Module.Core.Modularity
     /// <see cref="IModule"/> and add them to the catalog based on contents in their associated <see cref="ModuleAttribute"/>.
     /// Assemblies are loaded into a new application domain with ReflectionOnlyLoad.  The application domain is destroyed
     /// once the assemblies have been discovered.
-    /// 
+    ///
     /// The diretory catalog does not continue to monitor the directory after it has created the initialze catalog.
     /// </remarks>
     public class DirectoryModuleCatalog : ModuleCatalog
@@ -36,11 +34,11 @@ namespace Careful.Module.Core.Modularity
         protected override void InnerLoad()
         {
             if (string.IsNullOrEmpty(this.ModulePath))
-                throw new InvalidOperationException(Application.Current.FindResource("ModulePathCannotBeNullOrEmpty").ToString());
+                throw new InvalidOperationException("ModulePathCannotBeNullOrEmpty");
 
             if (!Directory.Exists(this.ModulePath))
                 throw new InvalidOperationException(
-                    string.Format(CultureInfo.CurrentCulture, Application.Current.FindResource("DirectoryNotFound").ToString(), this.ModulePath));
+                    string.Format(CultureInfo.CurrentCulture, "DirectoryNotFound", this.ModulePath));
 
             AppDomain childDomain = this.BuildChildDomain(AppDomain.CurrentDomain);
 
@@ -51,8 +49,10 @@ namespace Careful.Module.Core.Modularity
                 var assemblies = (
                                      from Assembly assembly in AppDomain.CurrentDomain.GetAssemblies()
                                      where !(assembly is System.Reflection.Emit.AssemblyBuilder)
-										&& assembly.GetType().FullName != "System.Reflection.Emit.InternalAssemblyBuilder"
-                                        && !String.IsNullOrEmpty(assembly.Location)
+                                        && assembly.GetType().FullName != "System.Reflection.Emit.InternalAssemblyBuilder"
+                                        // TODO: Do this in a less hacky way... probably never gonna happen
+                                        && !assembly.GetName().Name.StartsWith("xunit")
+                                        && !string.IsNullOrEmpty(assembly.Location)
                                      select assembly.Location
                                  );
 
@@ -84,16 +84,17 @@ namespace Careful.Module.Core.Modularity
         /// <remarks>
         /// Grabs the <paramref name="parentDomain"/> evidence and uses it to construct the new
         /// <see cref="AppDomain"/> because in a ClickOnce execution environment, creating an
-        /// <see cref="AppDomain"/> will by default pick up the partial trust environment of 
-        /// the AppLaunch.exe, which was the root executable. The AppLaunch.exe does a 
-        /// create domain and applies the evidence from the ClickOnce manifests to 
-        /// create the domain that the application is actually executing in. This will 
-        /// need to be Full Trust for Prism applications.
+        /// <see cref="AppDomain"/> will by default pick up the partial trust environment of
+        /// the AppLaunch.exe, which was the root executable. The AppLaunch.exe does a
+        /// create domain and applies the evidence from the ClickOnce manifests to
+        /// create the domain that the application is actually executing in. This will
+        /// need to be Full Trust for Careful.Module.Core applications.
         /// </remarks>
         /// <exception cref="ArgumentNullException">An <see cref="ArgumentNullException"/> is thrown if <paramref name="parentDomain"/> is null.</exception>
         protected virtual AppDomain BuildChildDomain(AppDomain parentDomain)
         {
-            if (parentDomain == null) throw new System.ArgumentNullException("parentDomain");
+            if (parentDomain == null)
+                throw new ArgumentNullException(nameof(parentDomain));
 
             Evidence evidence = new Evidence(parentDomain.Evidence);
             AppDomainSetup setup = parentDomain.SetupInformation;
@@ -108,7 +109,7 @@ namespace Careful.Module.Core.Modularity
                 DirectoryInfo directory = new DirectoryInfo(path);
 
                 ResolveEventHandler resolveEventHandler =
-                    delegate(object sender, ResolveEventArgs args) { return OnReflectionOnlyResolve(args, directory); };
+                    delegate (object sender, ResolveEventArgs args) { return OnReflectionOnlyResolve(args, directory); };
 
                 AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += resolveEventHandler;
 
@@ -117,14 +118,14 @@ namespace Careful.Module.Core.Modularity
                         asm => asm.FullName == typeof(IModule).Assembly.FullName);
                 Type IModuleType = moduleReflectionOnlyAssembly.GetType(typeof(IModule).FullName);
 
-                IEnumerable<ModuleInfo> modules = GetNotAllreadyLoadedModuleInfos(directory, IModuleType);
+                IEnumerable<ModuleInfo> modules = GetNotAlreadyLoadedModuleInfos(directory, IModuleType);
 
                 var array = modules.ToArray();
                 AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve -= resolveEventHandler;
                 return array;
             }
 
-            private static IEnumerable<ModuleInfo> GetNotAllreadyLoadedModuleInfos(DirectoryInfo directory, Type IModuleType)
+            private static IEnumerable<ModuleInfo> GetNotAlreadyLoadedModuleInfos(DirectoryInfo directory, Type IModuleType)
             {
                 List<FileInfo> validAssemblies = new List<FileInfo>();
                 Assembly[] alreadyLoadedAssemblies = AppDomain.CurrentDomain.ReflectionOnlyGetAssemblies();
@@ -135,7 +136,7 @@ namespace Careful.Module.Core.Modularity
                                        assembly =>
                                        String.Compare(Path.GetFileName(assembly.Location), file.Name,
                                                       StringComparison.OrdinalIgnoreCase) == 0) == null);
-                
+
                 foreach (FileInfo fileInfo in fileInfos)
                 {
                     try
@@ -207,17 +208,17 @@ namespace Careful.Module.Core.Modularity
                         switch (argumentName)
                         {
                             case "ModuleName":
-                                moduleName = (string) argument.TypedValue.Value;
+                                moduleName = (string)argument.TypedValue.Value;
                                 break;
 
                             case "OnDemand":
-                                onDemand = (bool) argument.TypedValue.Value;
+                                onDemand = (bool)argument.TypedValue.Value;
                                 break;
 
                             case "StartupLoaded":
-                                onDemand = !((bool) argument.TypedValue.Value);
+                                onDemand = !((bool)argument.TypedValue.Value);
                                 break;
-                        }                           
+                        }
                     }
                 }
 
@@ -227,17 +228,17 @@ namespace Careful.Module.Core.Modularity
 
                 foreach (CustomAttributeData cad in moduleDependencyAttributes)
                 {
-                    dependsOn.Add((string) cad.ConstructorArguments[0].Value);
+                    dependsOn.Add((string)cad.ConstructorArguments[0].Value);
                 }
 
                 ModuleInfo moduleInfo = new ModuleInfo(moduleName, type.AssemblyQualifiedName)
-                                            {
-                                                InitializationMode =
+                {
+                    InitializationMode =
                                                     onDemand
                                                         ? InitializationMode.OnDemand
                                                         : InitializationMode.WhenAvailable,
-                                                Ref = type.Assembly.CodeBase,
-                                            };
+                    Ref = type.Assembly.EscapedCodeBase,
+                };
                 moduleInfo.DependsOn.AddRange(dependsOn);
                 return moduleInfo;
             }

@@ -1,39 +1,37 @@
-// Copyright (c) Microsoft Corporation. All rights reserved. See License.txt in the project root for license information.
 
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Windows;
 
 namespace Careful.Module.Core.Modularity
 {
     /// <summary>
-    /// Represents a group of <see cref="ModuleInfo"/> instances that are usually deployed together. <see cref="ModuleInfoGroup"/>s 
-    /// are also used by the <see cref="ModuleCatalog"/> to prevent common deployment problems such as having a module that's required 
-    /// at startup that depends on modules that will only be downloaded on demand. 
-    /// 
-    /// The group also forwards <see cref="Ref"/> and <see cref="InitializationMode"/> values to the <see cref="ModuleInfo"/>s that it
-    /// contains. 
+    /// Represents a group of <see cref="IModuleInfo"/> instances that are usually deployed together. <see cref="ModuleInfoGroup"/>s
+    /// are also used by the <see cref="IModuleCatalog"/> to prevent common deployment problems such as having a module that's required
+    /// at startup that depends on modules that will only be downloaded on demand.
+    ///
+    /// The group also forwards <see cref="Ref"/> and <see cref="InitializationMode"/> values to the <see cref="IModuleInfo"/>s that it
+    /// contains.
     /// </summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix")]
-    public class ModuleInfoGroup : IModuleCatalogItem, IList<ModuleInfo>, IList // IList must be supported in Silverlight 2 to be able to add items from XAML
+    public class ModuleInfoGroup : IModuleInfoGroup
     {
-        private readonly Collection<ModuleInfo> modules = new Collection<ModuleInfo>();
+        private readonly Collection<IModuleInfo> _modules = new Collection<IModuleInfo>();
 
         /// <summary>
-        /// Gets or sets the <see cref="ModuleInfo.InitializationMode"/> for the whole group. Any <see cref="ModuleInfo"/> classes that are
+        /// Gets or sets the <see cref="IModuleInfo.InitializationMode"/> for the whole group. Any <see cref="IModuleInfo"/> classes that are
         /// added after setting this value will also get this <see cref="InitializationMode"/>.
         /// </summary>
-        /// <see cref="ModuleInfo.InitializationMode"/>
+        /// <see cref="IModuleInfo.InitializationMode"/>
         /// <value>The initialization mode.</value>
         public InitializationMode InitializationMode { get; set; }
 
         /// <summary>
-        /// Gets or sets the <see cref="ModuleInfo.Ref"/> value for the whole group. Any <see cref="ModuleInfo"/> classes that are
+        /// Gets or sets the <see cref="IModuleInfo.Ref"/> value for the whole group. Any <see cref="IModuleInfo"/> classes that are
         /// added after setting this value will also get this <see cref="Ref"/>.
-        /// 
-        /// The ref value will also be used by the <see cref="IModuleManager"/> to determine which  <see cref="IModuleTypeLoader"/> to use. 
+        ///
+        /// The ref value will also be used by the <see cref="IModuleManager"/> to determine which  <see cref="IModuleTypeLoader"/> to use.
         /// For example, using an "file://" prefix with a valid URL will cause the FileModuleTypeLoader to be used
         /// (Only available in the desktop version of CAL).
         /// </summary>
@@ -42,15 +40,22 @@ namespace Careful.Module.Core.Modularity
         public string Ref { get; set; }
 
         /// <summary>
-        /// Adds an <see cref="ModuleInfo"/> moduleInfo to the <see cref="ModuleInfoGroup"/>.
+        /// Adds an <see cref="IModuleInfo"/> moduleInfo to the <see cref="ModuleInfoGroup"/>.
         /// </summary>
-        /// <param name="item">The <see cref="ModuleInfo"/> to the <see cref="ModuleInfoGroup"/>.</param>
-        public void Add(ModuleInfo item)
+        /// <param name="item">The <see cref="IModuleInfo"/> to the <see cref="ModuleInfoGroup"/>.</param>
+        public void Add(IModuleInfo item)
         {
-            this.ForwardValues(item);
-            this.modules.Add(item);
+            ForwardValues(item);
+            _modules.Add(item);
         }
 
+        internal void UpdateModulesRef()
+        {
+            foreach(var module in _modules)
+            {
+                module.Ref = Ref;
+            }            
+        }
 
         /// <summary>
         /// Forwards <see cref="InitializationMode"/> and <see cref="Ref"/> properties from this <see cref="ModuleInfoGroup"/>
@@ -58,27 +63,26 @@ namespace Careful.Module.Core.Modularity
         /// </summary>
         /// <param name="moduleInfo">The module info to forward values to.</param>
         /// <exception cref="ArgumentNullException">An <see cref="ArgumentNullException"/> is thrown if <paramref name="moduleInfo"/> is <see langword="null"/>.</exception>
-        protected void ForwardValues(ModuleInfo moduleInfo)
+        protected void ForwardValues(IModuleInfo moduleInfo)
         {
-            if (moduleInfo == null) throw new System.ArgumentNullException("moduleInfo");
+            if (moduleInfo == null)
+                throw new ArgumentNullException(nameof(moduleInfo));
+
             if (moduleInfo.Ref == null)
             {
-                moduleInfo.Ref = this.Ref;
+                moduleInfo.Ref = Ref;
             }
 
-            if (moduleInfo.InitializationMode == InitializationMode.WhenAvailable && this.InitializationMode != InitializationMode.WhenAvailable)
+            if (moduleInfo.InitializationMode == InitializationMode.WhenAvailable && InitializationMode != InitializationMode.WhenAvailable)
             {
-                moduleInfo.InitializationMode = this.InitializationMode;
+                moduleInfo.InitializationMode = InitializationMode;
             }
         }
 
         /// <summary>
-        /// Removes all <see cref="ModuleInfo"/>s from the <see cref="ModuleInfoGroup"/>.
+        /// Removes all <see cref="IModuleInfo"/>s from the <see cref="ModuleInfoGroup"/>.
         /// </summary>
-        public void Clear()
-        {
-            this.modules.Clear();
-        }
+        public void Clear() => _modules.Clear();
 
         /// <summary>
         /// Determines whether the <see cref="ModuleInfoGroup"/> contains a specific value.
@@ -87,10 +91,7 @@ namespace Careful.Module.Core.Modularity
         /// <returns>
         /// true if <paramref name="item"/> is found in the <see cref="ModuleInfoGroup"/>; otherwise, false.
         /// </returns>
-        public bool Contains(ModuleInfo item)
-        {
-            return this.modules.Contains(item);
-        }
+        public bool Contains(IModuleInfo item) => _modules.Contains(item);
 
         /// <summary>
         /// Copies the elements of the <see cref="ModuleInfoGroup"/> to an <see cref="T:System.Array"/>, starting at a particular <see cref="T:System.Array"/> index.
@@ -110,9 +111,9 @@ namespace Careful.Module.Core.Modularity
         /// -or-
         /// The number of elements in the source <see cref="ModuleInfoGroup"/> is greater than the available space from <paramref name="arrayIndex"/> to the end of the destination <paramref name="array"/>.
         /// </exception>
-        public void CopyTo(ModuleInfo[] array, int arrayIndex)
+        public void CopyTo(IModuleInfo[] array, int arrayIndex)
         {
-            this.modules.CopyTo(array, arrayIndex);
+            _modules.CopyTo(array, arrayIndex);
         }
 
         /// <summary>
@@ -122,10 +123,7 @@ namespace Careful.Module.Core.Modularity
         /// <returns>
         /// The number of elements contained in the <see cref="ModuleInfoGroup"/>.
         /// </returns>
-        public int Count
-        {
-            get { return this.modules.Count; }
-        }
+        public int Count => _modules.Count;
 
         /// <summary>
         /// Gets a value indicating whether the <see cref="ModuleInfoGroup"/> is read-only.
@@ -133,10 +131,7 @@ namespace Careful.Module.Core.Modularity
         /// <value></value>
         /// <returns>false, because the <see cref="ModuleInfoGroup"/> is not Read-Only.
         /// </returns>
-        public bool IsReadOnly
-        {
-            get { return false; }
-        }
+        public bool IsReadOnly => false;
 
         /// <summary>
         /// Removes the first occurrence of a specific object from the <see cref="ModuleInfoGroup"/>.
@@ -145,10 +140,7 @@ namespace Careful.Module.Core.Modularity
         /// <returns>
         /// true if <paramref name="item"/> was successfully removed from the <see cref="ModuleInfoGroup"/>; otherwise, false. This method also returns false if <paramref name="item"/> is not found in the original <see cref="ModuleInfoGroup"/>.
         /// </returns>
-        public bool Remove(ModuleInfo item)
-        {
-            return this.modules.Remove(item);
-        }
+        public bool Remove(IModuleInfo item) => _modules.Remove(item);
 
         /// <summary>
         /// Returns an enumerator that iterates through the collection.
@@ -156,10 +148,7 @@ namespace Careful.Module.Core.Modularity
         /// <returns>
         /// A <see cref="T:System.Collections.Generic.IEnumerator`1"/> that can be used to iterate through the collection.
         /// </returns>
-        public IEnumerator<ModuleInfo> GetEnumerator()
-        {
-            return this.modules.GetEnumerator();
-        }
+        public IEnumerator<IModuleInfo> GetEnumerator() => _modules.GetEnumerator();
 
         /// <summary>
         /// Returns an enumerator that iterates through a collection.
@@ -167,10 +156,7 @@ namespace Careful.Module.Core.Modularity
         /// <returns>
         /// An <see cref="T:System.Collections.IEnumerator"/> object that can be used to iterate through the collection.
         /// </returns>
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return this.GetEnumerator();
-        }
+        IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
 
         /// <summary>
         /// Adds an item to the <see cref="ModuleInfoGroup"/>.
@@ -184,7 +170,7 @@ namespace Careful.Module.Core.Modularity
         /// </returns>
         int IList.Add(object value)
         {
-            this.Add((ModuleInfo)value);
+            this.Add((IModuleInfo)value);
             return 1;
         }
 
@@ -193,20 +179,21 @@ namespace Careful.Module.Core.Modularity
         /// </summary>
         /// <param name="value">
         /// The <see cref="T:System.Object"/> to locate in the <see cref="ModuleInfoGroup"/>.
-        /// Must be of type <see cref="ModuleInfo"/>
+        /// Must be of type <see cref="IModuleInfo"/>
         /// </param>
         /// <returns>
         /// true if the <see cref="T:System.Object"/> is found in the <see cref="ModuleInfoGroup"/>; otherwise, false.
         /// </returns>
         bool IList.Contains(object value)
         {
-            if (value == null) throw new ArgumentNullException("value");
-            ModuleInfo moduleInfo = value as ModuleInfo;
+            if (value == null)
+                throw new ArgumentNullException(nameof(value));
 
-            if (moduleInfo == null)
-                throw new ArgumentException(Application.Current.FindResource("ValueMustBeOfTypeModuleInfo").ToString(), "value");
 
-            return this.Contains(moduleInfo);
+            if (!(value is IModuleInfo moduleInfo))
+                throw new ArgumentException("ValueMustBeOfTypeModuleInfo", nameof(value));
+
+            return Contains(moduleInfo);
         }
 
         /// <summary>
@@ -219,10 +206,7 @@ namespace Careful.Module.Core.Modularity
         /// <returns>
         /// The index of <paramref name="value"/> if found in the list; otherwise, -1.
         /// </returns>
-        public int IndexOf(object value)
-        {
-            return this.modules.IndexOf((ModuleInfo)value);
-        }
+        public int IndexOf(object value) => _modules.IndexOf((IModuleInfo)value);
 
         /// <summary>
         /// Inserts an item to the <see cref="ModuleInfoGroup"/> at the specified index.
@@ -230,7 +214,7 @@ namespace Careful.Module.Core.Modularity
         /// <param name="index">The zero-based index at which <paramref name="value"/> should be inserted.</param>
         /// <param name="value">
         /// The <see cref="T:System.Object"/> to insert into the <see cref="ModuleInfoGroup"/>.
-        /// Must be of type <see cref="ModuleInfo"/>
+        /// Must be of type <see cref="IModuleInfo"/>
         /// </param>
         /// <exception cref="T:System.ArgumentOutOfRangeException">
         /// 	<paramref name="index"/> is not a valid index in the <see cref="ModuleInfoGroup"/>.
@@ -239,19 +223,18 @@ namespace Careful.Module.Core.Modularity
         /// If <paramref name="value"/> is null.
         /// </exception>
         /// <exception cref="ArgumentException">
-        /// If <paramref name="value"/> is not of type <see cref="ModuleInfo"/>
+        /// If <paramref name="value"/> is not of type <see cref="IModuleInfo"/>
         /// </exception>
         public void Insert(int index, object value)
         {
-            if (value == null) 
-                throw new ArgumentNullException("value");
+            if (value == null)
+                throw new ArgumentNullException(nameof(value));
 
-            ModuleInfo moduleInfo = value as ModuleInfo;
 
-            if (moduleInfo == null)
-                throw new ArgumentException(Application.Current.FindResource("ValueMustBeOfTypeModuleInfo").ToString(), "value");
+            if (!(value is IModuleInfo moduleInfo))
+                throw new ArgumentException("ValueMustBeOfTypeModuleInfo", nameof(value));
 
-            this.modules.Insert(index, moduleInfo);
+            _modules.Insert(index, moduleInfo);
         }
 
         /// <summary>
@@ -259,21 +242,18 @@ namespace Careful.Module.Core.Modularity
         /// </summary>
         /// <returns>false, because the <see cref="ModuleInfoGroup"/> does not have a fixed length.
         /// </returns>
-        public bool IsFixedSize
-        {
-            get { return false; }
-        }
+        public bool IsFixedSize => false;
 
         /// <summary>
         /// Removes the first occurrence of a specific object from the <see cref="ModuleInfoGroup"/>.
         /// </summary>
         /// <param name="value">
-        /// The <see cref="T:System.Object"/> to remove from the <see cref="ModuleInfoGroup"/>. 
+        /// The <see cref="T:System.Object"/> to remove from the <see cref="ModuleInfoGroup"/>.
         /// Must be of type <see cref="ModuleInfo"/>
         /// </param>
         void IList.Remove(object value)
         {
-            this.Remove((ModuleInfo)value);
+            Remove((IModuleInfo)value);
         }
 
         /// <summary>
@@ -286,19 +266,16 @@ namespace Careful.Module.Core.Modularity
         /// <exception cref="T:System.NotSupportedException">
         /// The <see cref="T:System.Collections.Generic.IList`1"/> is read-only.
         /// </exception>
-        public void RemoveAt(int index)
-        {
-            this.modules.RemoveAt(index);
-        }
+        public void RemoveAt(int index) => _modules.RemoveAt(index);
 
         /// <summary>
-        /// Gets or sets the <see cref="System.Object"/> at the specified index.
+        /// Gets or sets the <see cref="object"/> at the specified index.
         /// </summary>
         /// <value></value>
         object IList.this[int index]
         {
-            get { return this[index]; }
-            set { this[index] = (ModuleInfo)value; }
+            get => this[index];
+            set => this[index] = (ModuleInfo)value;
         }
 
         /// <summary>
@@ -322,10 +299,8 @@ namespace Careful.Module.Core.Modularity
         /// <exception cref="T:System.ArgumentException">
         /// The type of the source <see cref="T:System.Collections.ICollection"/> cannot be cast automatically to the type of the destination <paramref name="array"/>.
         /// </exception>
-        void ICollection.CopyTo(Array array, int index)
-        {
-            ((ICollection)this.modules).CopyTo(array, index);
-        }
+        void ICollection.CopyTo(Array array, int index) => 
+            ((ICollection)_modules).CopyTo(array, index);
 
         /// <summary>
         /// Gets a value indicating whether access to the <see cref="T:System.Collections.ICollection"/> is synchronized (thread safe).
@@ -333,10 +308,7 @@ namespace Careful.Module.Core.Modularity
         /// <value></value>
         /// <returns>true if access to the <see cref="T:System.Collections.ICollection"/> is synchronized (thread safe); otherwise, false.
         /// </returns>
-        public bool IsSynchronized
-        {
-            get { return ((ICollection)this.modules).IsSynchronized; }
-        }
+        public bool IsSynchronized => ((ICollection)_modules).IsSynchronized;
 
         /// <summary>
         /// Gets an object that can be used to synchronize access to the <see cref="T:System.Collections.ICollection"/>.
@@ -345,10 +317,7 @@ namespace Careful.Module.Core.Modularity
         /// <returns>
         /// An object that can be used to synchronize access to the <see cref="T:System.Collections.ICollection"/>.
         /// </returns>
-        public object SyncRoot
-        {
-            get { return ((ICollection)this.modules).SyncRoot; }
-        }
+        public object SyncRoot => ((ICollection)_modules).SyncRoot;
 
         /// <summary>
         /// Determines the index of a specific item in the <see cref="T:System.Collections.Generic.IList`1"/>.
@@ -357,10 +326,7 @@ namespace Careful.Module.Core.Modularity
         /// <returns>
         /// The index of <paramref name="item"/> if found in the list; otherwise, -1.
         /// </returns>
-        public int IndexOf(ModuleInfo item)
-        {
-            return this.modules.IndexOf(item);
-        }
+        public int IndexOf(IModuleInfo item) => _modules.IndexOf(item);
 
         /// <summary>
         /// Inserts an item to the <see cref="T:System.Collections.Generic.IList`1"/> at the specified index.
@@ -370,19 +336,16 @@ namespace Careful.Module.Core.Modularity
         /// <exception cref="T:System.ArgumentOutOfRangeException">
         /// 	<paramref name="index"/> is not a valid index in the <see cref="T:System.Collections.Generic.IList`1"/>.
         /// </exception>
-        public void Insert(int index, ModuleInfo item)
-        {
-            this.modules.Insert(index, item);
-        }
+        public void Insert(int index, IModuleInfo item) => _modules.Insert(index, item);
 
         /// <summary>
-        /// Gets or sets the <see cref="ModuleInfo"/> at the specified index.
+        /// Gets or sets the <see cref="IModuleInfo"/> at the specified index.
         /// </summary>
-        /// <value>The <see cref="ModuleInfo"/> at the specified index </value>
-        public ModuleInfo this[int index]
+        /// <value>The <see cref="IModuleInfo"/> at the specified index </value>
+        public IModuleInfo this[int index]
         {
-            get { return this.modules[index]; }
-            set { this.modules[index] = value; }
+            get => _modules[index];
+            set => _modules[index] = value;
         }
     }
 }

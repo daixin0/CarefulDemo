@@ -1,4 +1,4 @@
-// Copyright (c) Microsoft Corporation. All rights reserved. See License.txt in the project root for license information.
+
 
 using System;
 
@@ -16,20 +16,6 @@ namespace Careful.Module.Core.Modularity
         /// </summary>
         /// <value>The name of the module.</value>
         public string ModuleName { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether the module should be loaded at startup. 
-        /// </summary>
-        /// When <see langword="true"/> (default value), it indicates that this module should be loaded at startup. 
-        /// Otherwise you should explicitly load this module on demand.
-        /// <value>A <see cref="bool"/> value.</value>
-        [Obsolete("StartupLoaded has been replaced by the OnDemand property.")]
-        public bool StartupLoaded
-        {
-            get { return !OnDemand; }
-            set { OnDemand = !value; }
-        }
-
 
         /// <summary>
         /// Gets or sets the value indicating whether the module should be loaded OnDemand.

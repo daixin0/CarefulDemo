@@ -1,11 +1,11 @@
-// Copyright (c) Microsoft Corporation. All rights reserved. See License.txt in the project root for license information.
+
+
 
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Windows;
 
 namespace Careful.Module.Core.Modularity
 {
@@ -37,12 +37,12 @@ namespace Careful.Module.Core.Modularity
 
             if (assemblyUri == null)
             {
-                throw new ArgumentException(Application.Current.FindResource("InvalidArgumentAssemblyUri").ToString(), "assemblyFilePath");
+                throw new ArgumentException("InvalidArgumentAssemblyUri", nameof(assemblyFilePath));
             }
 
             if (!File.Exists(assemblyUri.LocalPath))
             {
-                throw new FileNotFoundException();
+                throw new FileNotFoundException(null, assemblyUri.LocalPath);
             }
 
             AssemblyName assemblyName = AssemblyName.GetAssemblyName(assemblyUri.LocalPath);

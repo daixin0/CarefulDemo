@@ -1,8 +1,8 @@
-// Copyright (c) Microsoft Corporation. All rights reserved. See License.txt in the project root for license information.
+
 
 using System;
 using System.Globalization;
-using System.Windows;
+
 
 namespace Careful.Module.Core.Modularity
 {
@@ -60,7 +60,7 @@ namespace Careful.Module.Core.Modularity
         public ModuleInitializeException(string moduleName, string moduleAssembly, string message, Exception innerException)
             : base(
                 moduleName,
-                String.Format(CultureInfo.CurrentCulture, Application.Current.FindResource("FailedToLoadModule").ToString(), moduleName, moduleAssembly, message),
+                String.Format(CultureInfo.CurrentCulture, "FailedToLoadModule", moduleName, moduleAssembly, message),
                 innerException)
         {
         }
@@ -75,7 +75,7 @@ namespace Careful.Module.Core.Modularity
         public ModuleInitializeException(string moduleName, string message, Exception innerException)
             : base(
                 moduleName,
-                String.Format(CultureInfo.CurrentCulture, Application.Current.FindResource("FailedToLoadModuleNoAssemblyInfo").ToString(), moduleName, message),
+                String.Format(CultureInfo.CurrentCulture, "FailedToLoadModuleNoAssemblyInfo", moduleName, message),
                 innerException)
         {
         }

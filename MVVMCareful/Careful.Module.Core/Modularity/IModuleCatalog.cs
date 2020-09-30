@@ -1,5 +1,3 @@
-// Copyright (c) Microsoft Corporation. All rights reserved. See License.txt in the project root for license information.
-
 using System.Collections.Generic;
 
 namespace Careful.Module.Core.Modularity
@@ -13,27 +11,27 @@ namespace Careful.Module.Core.Modularity
     public interface IModuleCatalog
     {
         /// <summary>
-        /// Gets all the <see cref="ModuleInfo"/> classes that are in the <see cref="ModuleCatalog"/>.
+        /// Gets all the <see cref="IModuleInfo"/> classes that are in the <see cref="IModuleCatalog"/>.
         /// </summary>
-        IEnumerable<ModuleInfo> Modules { get; }
+        IEnumerable<IModuleInfo> Modules { get; }
 
         /// <summary>
-        /// Return the list of <see cref="ModuleInfo"/>s that <paramref name="moduleInfo"/> depends on.
+        /// Return the list of <see cref="IModuleInfo"/>s that <paramref name="moduleInfo"/> depends on.
         /// </summary>
-        /// <param name="moduleInfo">The <see cref="ModuleInfo"/> to get the </param>
-        /// <returns>An enumeration of <see cref="ModuleInfo"/> that <paramref name="moduleInfo"/> depends on.</returns>
-        IEnumerable<ModuleInfo> GetDependentModules(ModuleInfo moduleInfo);
+        /// <param name="moduleInfo">The <see cref="IModuleInfo"/> to get the </param>
+        /// <returns>An enumeration of <see cref="IModuleInfo"/> that <paramref name="moduleInfo"/> depends on.</returns>
+        IEnumerable<IModuleInfo> GetDependentModules(IModuleInfo moduleInfo);
 
         /// <summary>
-        /// Returns the collection of <see cref="ModuleInfo"/>s that contain both the <see cref="ModuleInfo"/>s in 
+        /// Returns the collection of <see cref="IModuleInfo"/>s that contain both the <see cref="IModuleInfo"/>s in 
         /// <paramref name="modules"/>, but also all the modules they depend on. 
         /// </summary>
         /// <param name="modules">The modules to get the dependencies for.</param>
         /// <returns>
-        /// A collection of <see cref="ModuleInfo"/> that contains both all <see cref="ModuleInfo"/>s in <paramref name="modules"/>
-        /// and also all the <see cref="ModuleInfo"/> they depend on.
+        /// A collection of <see cref="IModuleInfo"/> that contains both all <see cref="IModuleInfo"/>s in <paramref name="modules"/>
+        /// and also all the <see cref="IModuleInfo"/> they depend on.
         /// </returns>
-        IEnumerable<ModuleInfo> CompleteListWithDependencies(IEnumerable<ModuleInfo> modules);
+        IEnumerable<IModuleInfo> CompleteListWithDependencies(IEnumerable<IModuleInfo> modules);
 
         /// <summary>
         /// Initializes the catalog, which may load and validate the modules.
@@ -41,10 +39,10 @@ namespace Careful.Module.Core.Modularity
         void Initialize();
 
         /// <summary>
-        /// Adds a <see cref="ModuleInfo"/> to the <see cref="ModuleCatalog"/>.
+        /// Adds a <see cref="IModuleInfo"/> to the <see cref="IModuleCatalog"/>.
         /// </summary>
-        /// <param name="moduleInfo">The <see cref="ModuleInfo"/> to add.</param>
-        /// <returns>The <see cref="ModuleCatalog"/> for easily adding multiple modules.</returns>
-        void AddModule(ModuleInfo moduleInfo);
+        /// <param name="moduleInfo">The <see cref="IModuleInfo"/> to add.</param>
+        /// <returns>The <see cref="IModuleCatalog"/> for easily adding multiple modules.</returns>
+        IModuleCatalog AddModule(IModuleInfo moduleInfo);
     }
 }

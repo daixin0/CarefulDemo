@@ -1,8 +1,8 @@
-// Copyright (c) Microsoft Corporation. All rights reserved. See License.txt in the project root for license information.
+
 
 using System;
 using System.Globalization;
-using System.Windows;
+
 
 namespace Careful.Module.Core.Modularity
 {
@@ -59,7 +59,7 @@ namespace Careful.Module.Core.Modularity
         /// <param name="innerException">The exception that is the cause of the current exception, 
         /// or a <see langword="null"/> reference if no inner exception is specified.</param>
         public ModuleTypeLoadingException(string moduleName, string message, Exception innerException)
-            : base(moduleName, String.Format(CultureInfo.CurrentCulture, Application.Current.FindResource("FailedToRetrieveModule").ToString() , moduleName, message), innerException)
+            : base(moduleName, String.Format(CultureInfo.CurrentCulture, "FailedToRetrieveModule", moduleName, message), innerException)
         {
         }
     }
