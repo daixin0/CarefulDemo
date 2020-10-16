@@ -8,32 +8,50 @@ using System.Windows.Media;
 
 namespace Careful.Core.DialogServices
 {
-    public static class MessageWindow
+    public class MessageWindow
     {
-        public static IMessageView MessageView { get; set; }
-
-        public static void Show(string title,string message,MessageBoxType messageBoxType,PathGeometry logoPath=null)
+        public MessageWindow(IMessageView messageView)
         {
-            MessageView.Title = title;
-            MessageView.Message = message;
-            MessageView.MessageBoxType = messageBoxType;
-            MessageView.LogoPath = logoPath;
-            if (MessageView is Window view)
+            MessageView = messageView;
+        }
+        private IMessageView MessageView { get; set; }
+
+        public void Show(string title, string message, MessageBoxType messageBoxType, Geometry logoPath = null, MessageButtonType messageButtonType = MessageButtonType.Default, string determineText = "是", string cancelText = "否", double button1Width = 60, double button2Width = 60)
+        {
+            if (MessageView is Window)
             {
-                view.Owner = WindowOperation.GetCurrentActivatedWindow();
-                view.Show();
+                Window view = Activator.CreateInstance(MessageView.WindowType) as Window;
+                MessageView = view as IMessageView;
+                MessageView.Title = title;
+                MessageView.Message = message;
+                MessageView.MessageBoxType = messageBoxType;
+                MessageView.LogoPath = logoPath;
+                MessageView.MessageButtonType = messageButtonType;
+                MessageView.DetermineText = determineText;
+                MessageView.CancelText = cancelText;
+                MessageView.Button1Width = button1Width;
+                MessageView.Button2Width = button2Width;
+                (MessageView as Window).Owner = WindowOperation.GetCurrentActivatedWindow();
+                (MessageView as Window).Show();
             }
         }
-        public static bool? ShowDialog(string title, string message, MessageBoxType messageBoxType, PathGeometry logoPath = null)
+        public bool? ShowDialog(string title, string message, MessageBoxType messageBoxType, Geometry logoPath = null, MessageButtonType messageButtonType = MessageButtonType.Default, string determineText = "是", string cancelText = "否", double button1Width = 60, double button2Width = 60)
         {
-            MessageView.Title = title;
-            MessageView.Message = message;
-            MessageView.MessageBoxType = messageBoxType;
-            MessageView.LogoPath = logoPath;
-            if (MessageView is Window view)
+            if (MessageView is Window)
             {
-                view.Owner = WindowOperation.GetCurrentActivatedWindow();
-                return view.ShowDialog();
+                Window view = Activator.CreateInstance(MessageView.WindowType) as Window;
+                MessageView = view as IMessageView;
+                MessageView.Title = title;
+                MessageView.Message = message;
+                MessageView.MessageBoxType = messageBoxType;
+                MessageView.LogoPath = logoPath;
+                MessageView.MessageButtonType = messageButtonType;
+                MessageView.DetermineText = determineText;
+                MessageView.CancelText = cancelText;
+                MessageView.Button1Width = button1Width;
+                MessageView.Button2Width = button2Width;
+                (MessageView as Window).Owner = WindowOperation.GetCurrentActivatedWindow();
+                return (MessageView as Window).ShowDialog();
             }
             else
             {

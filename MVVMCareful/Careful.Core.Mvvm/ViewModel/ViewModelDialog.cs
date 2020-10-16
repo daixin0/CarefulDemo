@@ -10,12 +10,9 @@ namespace Careful.Core.Mvvm.ViewModel
     public class ViewModelDialog : ViewModelBase, IDialogWindow
     {
         private readonly IContainerExtension _containerExtension;
-
-        protected IDialogService DialogService { get; set; }
-
         public ViewModelDialog()
         {
-            DialogService = new DialogService(null);
+
         }
         public ViewModelDialog(IContainerExtension containerExtension)
         {

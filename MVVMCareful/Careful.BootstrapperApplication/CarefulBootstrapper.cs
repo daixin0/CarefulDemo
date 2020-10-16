@@ -2,6 +2,7 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using Careful.Controls.MessageBoxControl;
 using Careful.Core.DialogServices;
 using Careful.Core.Extensions;
 using Careful.Core.Ioc;
@@ -100,8 +101,8 @@ namespace Careful.BootstrapperApplication
             Container.Register<IModuleManager, ModuleManager>(true);
             //Container.Register<RegionAdapterMappings>(true);
             Container.Register<IEventAggregator, EventAggregator>(true);
+            Container.Register<IMessageView, MessageBoxWindow>(true);
             
-
             //Container.Register<IRegionManager, RegionManager>(true);
             //Container.Register<IRegionViewRegistry, RegionViewRegistry>(true);
             //Container.Register<IRegionBehaviorFactory, RegionBehaviorFactory>(true);

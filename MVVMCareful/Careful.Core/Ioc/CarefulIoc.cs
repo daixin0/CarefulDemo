@@ -142,12 +142,36 @@ namespace Careful.Core.Ioc
                 else
                 {
                     _interfaceToClassMap.Add(interfaceType, classType);
+                }
+                Func<TInterface> factory = new Func<TInterface>(() => { return (TInterface)obj; });
+                DoRegister(interfaceType, factory, _defaultKey);
+            }
+        }
+        public void RegisterInstanceConstructor<TInterface>(object obj)
+        {
+            lock (_syncLock)
+            {
+                var interfaceType = typeof(TInterface);
+                var classType = obj.GetType();
+
+                if (_interfaceToClassMap.ContainsKey(interfaceType))
+                {
+                    if (_interfaceToClassMap[interfaceType] != classType)
+                    {
+                        throw new InvalidOperationException(
+                            string.Format(
+                                CultureInfo.InvariantCulture,
+                                "There is already a class registered for {0}.",
+                                interfaceType.FullName));
+                    }
+                }
+                else
+                {
+                    _interfaceToClassMap.Add(interfaceType, classType);
                     _constructorInfos.Add(classType, GetConstructorInfo(classType));
                 }
-
-                Func<TInterface> factory = new Func<TInterface>(()=> { return (TInterface)obj; });
+                Func<TInterface> factory = new Func<TInterface>(() => { return (TInterface)obj; });
                 DoRegister(interfaceType, factory, _defaultKey);
-
             }
         }
         public bool IsRegistered(Type type)

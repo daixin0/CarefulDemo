@@ -10,7 +10,7 @@ using System.Windows.Media;
 
 namespace Careful.Controls.MessageBoxControl
 {
-    public class MessageBox:Control
+    public class MessageBox : Control
     {
 
         public string Title
@@ -35,6 +35,32 @@ namespace Careful.Controls.MessageBoxControl
             DependencyProperty.Register("Message", typeof(string), typeof(MessageBox));
 
 
+
+        public double Button1Width
+        {
+            get { return (double)GetValue(Button1WidthProperty); }
+            set { SetValue(Button1WidthProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Button1Width.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty Button1WidthProperty =
+            DependencyProperty.Register("Button1Width", typeof(double), typeof(MessageBox), new PropertyMetadata(60.0));
+
+
+
+        public double Button2Width
+        {
+            get { return (double)GetValue(Button2WidthProperty); }
+            set { SetValue(Button2WidthProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Button2Width.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty Button2WidthProperty =
+            DependencyProperty.Register("Button2Width", typeof(double), typeof(MessageBox), new PropertyMetadata(60.0));
+
+
+
+
         public ButtonResult MessageResult
         {
             get { return (ButtonResult)GetValue(MessageResultProperty); }
@@ -44,6 +70,18 @@ namespace Careful.Controls.MessageBoxControl
         // Using a DependencyProperty as the backing store for MessageResule.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty MessageResultProperty =
             DependencyProperty.Register("MessageResult", typeof(ButtonResult), typeof(MessageBox));
+
+
+
+        public MessageButtonType MessageButtonTextType
+        {
+            get { return (MessageButtonType)GetValue(MessageButtonTextTypeProperty); }
+            set { SetValue(MessageButtonTextTypeProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for MessageButtonTextType.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty MessageButtonTextTypeProperty =
+            DependencyProperty.Register("MessageButtonTextType", typeof(MessageButtonType), typeof(MessageBox));
 
 
 
@@ -70,7 +108,7 @@ namespace Careful.Controls.MessageBoxControl
 
 
 
-        public PathGeometry MessagePath
+        public Geometry MessagePath
         {
             get { return (PathGeometry)GetValue(MessagePathProperty); }
             set { SetValue(MessagePathProperty, value); }
@@ -78,7 +116,7 @@ namespace Careful.Controls.MessageBoxControl
 
         // Using a DependencyProperty as the backing store for MessagePath.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty MessagePathProperty =
-            DependencyProperty.Register("MessagePath", typeof(PathGeometry), typeof(MessageBox));
+            DependencyProperty.Register("MessagePath", typeof(Geometry), typeof(MessageBox));
 
 
 
@@ -160,7 +198,7 @@ namespace Careful.Controls.MessageBoxControl
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
-            
+
             DetermineVisiable = Visibility.Collapsed;
             CancelVisiable = Visibility.Collapsed;
             switch (MessageType)
@@ -169,23 +207,39 @@ namespace Careful.Controls.MessageBoxControl
                     MessageButtonType = MessageBoxButton.Ok;
                     DetermineVisiable = Visibility.Visible;
                     DetermineText = "确定";
-                    MessagePath = this.Template.Resources["pathInformation"] as PathGeometry;
+                    MessagePath = this.Template.Resources["pathInformation"] as StreamGeometry;
                     break;
                 case MessageBoxType.Question:
                     MessageButtonType = MessageBoxButton.YesNo;
                     DetermineVisiable = Visibility.Visible;
                     CancelVisiable = Visibility.Visible;
-                    DetermineText = "是";
-                    CancelText = "否";
-                    MessagePath = this.Template.Resources["pathQuestion"] as PathGeometry;
+                    switch (MessageButtonTextType)
+                    {
+                        case Core.DialogServices.MessageButtonType.Default:
+                            DetermineText = "是";
+                            CancelText = "否";
+                            break;
+                        case Core.DialogServices.MessageButtonType.Custom:
+                            break;
+                    }
+
+                    MessagePath = this.Template.Resources["pathQuestion"] as StreamGeometry;
                     break;
                 case MessageBoxType.Confirm:
                     MessageButtonType = MessageBoxButton.OkCancel;
                     DetermineVisiable = Visibility.Visible;
                     CancelVisiable = Visibility.Visible;
-                    DetermineText = "确定";
-                    CancelText = "取消";
-                    MessagePath = this.Template.Resources["pathQuestion"] as PathGeometry;
+                    switch (MessageButtonTextType)
+                    {
+                        case Core.DialogServices.MessageButtonType.Default:
+                            DetermineText = "确定";
+                            CancelText = "取消";
+                            break;
+                        case Core.DialogServices.MessageButtonType.Custom:
+                            break;
+                    }
+
+                    MessagePath = this.Template.Resources["pathInformation"] as StreamGeometry;
                     break;
             }
 

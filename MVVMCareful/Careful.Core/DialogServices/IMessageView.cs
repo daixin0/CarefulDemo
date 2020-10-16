@@ -12,8 +12,18 @@ namespace Careful.Core.DialogServices
         string Title { get; set; }
         string Message { get; set; }
 
+        MessageButtonType MessageButtonType { get; set; }
+
+        string DetermineText { get; set; }
+        string CancelText { get; set; }
+
+        double Button1Width { get; set; }
+        double Button2Width { get; set; }
+
         MessageBoxType MessageBoxType { get; set; }
 
-        PathGeometry LogoPath { get; set; }
+        Geometry LogoPath { get; set; }
+
+        Type WindowType { get; set; }
     }
 }

@@ -53,6 +53,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\ControlLibrary\ControlResource\Careful.Controls.csproj">
+      <Project>{96E0CF6A-E9CC-470B-8E07-32E1D3250499}</Project>
+      <Name>Careful.Controls</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Careful.Core.MessageFrame\Careful.Core.MessageFrame.csproj">
       <Project>{5abf0785-531b-4575-ad7d-3184d564746d}</Project>
       <Name>Careful.Core.MessageFrame</Name>

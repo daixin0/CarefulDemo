@@ -9,14 +9,16 @@ namespace Careful.Core.DialogServices
 {
     public class DialogService : IDialogService
     {
-        public DialogService(ILog log)
+        public DialogService(ILog log, IMessageView messageView)
         {
             Log = log;
-            if(Log==null)
+            if (Log == null)
             {
                 Log = new FileLogger();
             }
+            MessageWindow = new MessageWindow(messageView);
         }
+        private MessageWindow MessageWindow { get; set; }
         public ILog Log { get; private set; }
 
         private void SetErrorInfo(StringBuilder errorMessage, Exception ex, int level)
@@ -59,7 +61,7 @@ namespace Careful.Core.DialogServices
             message.AppendLine(ex.ToString());
             message.AppendLine(ex.InnerException?.Message);
 #endif
-            
+
         }
 
         public void ShowExceptionLog(string title, string error)
@@ -119,7 +121,7 @@ namespace Careful.Core.DialogServices
             dialog.Filter = filter;
             dialog.CheckFileExists = true;
             dialog.InitialDirectory = defalutFileName;
-            
+
             var result = dialog.ShowDialog();
             if (result.HasValue && result.Value)
             {
@@ -157,11 +159,6 @@ namespace Careful.Core.DialogServices
                 return null;
             }
         }
-        public void Confirm(IDialogParameters parameters, Action<IDialogResult> callback)
-        {
-            
-        }
-
         public void ShowLog(string title, string log, LogLevel logLevel, Priority priority = Priority.None)
         {
             Log.Log(title + ":" + log, logLevel, priority);
@@ -172,16 +169,6 @@ namespace Careful.Core.DialogServices
             MessageWindow.ShowDialog(title, message, MessageBoxType.Information);
         }
 
-        public void ShowMessage(IDialogParameters parameters, Action<IDialogResult> callback)
-        {
-            
-        }
-
-        public void ShowMessageDialog(IDialogParameters parameters, Action<IDialogResult> callback)
-        {
-            
-        }
-
         public bool Confirm(string message, string title = "询问")
         {
             return MessageWindow.ShowDialog(title, message, MessageBoxType.Confirm).Value;
@@ -190,6 +177,11 @@ namespace Careful.Core.DialogServices
         public void ShowMessage(string message, string title = "提示")
         {
             MessageWindow.Show(title, message, MessageBoxType.Information);
+        }
+
+        public bool Confirm(string message, string title, MessageButtonType messageButtonType, string determineText, string cancelText, double button1Width, double button2Width)
+        {
+            return MessageWindow.ShowDialog(title, message, MessageBoxType.Confirm, null, MessageButtonType.Custom, determineText, cancelText, button1Width, button2Width).Value;
         }
     }
 }

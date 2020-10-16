@@ -62,6 +62,7 @@
     <Compile Include="DialogServices\DialogService.cs" />
     <Compile Include="DialogServices\IMessageView.cs" />
     <Compile Include="DialogServices\MessageBoxType.cs" />
+    <Compile Include="DialogServices\MessageButtonType.cs" />
     <Compile Include="DialogServices\MessageWindow.cs" />
     <Compile Include="Extensions\ActionOnDispose.cs" />
     <Compile Include="Extensions\CollectionExtensions.cs" />
