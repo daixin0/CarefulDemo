@@ -10,7 +10,7 @@ using System.Windows.Interactivity;
 
 namespace Careful.Core.PropertyValidation
 {
-    public class VerificationCommandAction : TriggerAction<UIElement>
+    public class ValidationCommandAction : TriggerAction<UIElement>
     {
         public ICommand CommandAction
         {
@@ -20,7 +20,7 @@ namespace Careful.Core.PropertyValidation
 
         // Using a DependencyProperty as the backing store for CommandAction.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CommandActionProperty =
-            DependencyProperty.Register("CommandAction", typeof(ICommand), typeof(VerificationCommandAction));
+            DependencyProperty.Register("CommandAction", typeof(ICommand), typeof(ValidationCommandAction));
 
 
         public object CommandParameter
@@ -31,7 +31,7 @@ namespace Careful.Core.PropertyValidation
 
         // Using a DependencyProperty as the backing store for CommandParameter.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CommandParameterProperty =
-            DependencyProperty.Register("CommandParameter", typeof(object), typeof(VerificationCommandAction));
+            DependencyProperty.Register("CommandParameter", typeof(object), typeof(ValidationCommandAction));
 
 
 
@@ -44,7 +44,7 @@ namespace Careful.Core.PropertyValidation
 
         // Using a DependencyProperty as the backing store for VerifivationModel.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty VerifivationModelProperty =
-            DependencyProperty.Register("VerifivationModel", typeof(object), typeof(VerificationCommandAction));
+            DependencyProperty.Register("VerifivationModel", typeof(object), typeof(ValidationCommandAction));
 
 
         public ICommand VerifivationResultCommand
@@ -55,7 +55,7 @@ namespace Careful.Core.PropertyValidation
 
         // Using a DependencyProperty as the backing store for VerifivationResultCommand.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty VerifivationResultCommandProperty =
-            DependencyProperty.Register("VerifivationResultCommand", typeof(ICommand), typeof(VerificationCommandAction));
+            DependencyProperty.Register("VerifivationResultCommand", typeof(ICommand), typeof(ValidationCommandAction));
 
 
         public Func<bool> CustomValidationAction
@@ -66,7 +66,7 @@ namespace Careful.Core.PropertyValidation
 
         // Using a DependencyProperty as the backing store for CustomValidationAction.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CustomValidationActionProperty =
-            DependencyProperty.Register("CustomValidationAction", typeof(Func<bool>), typeof(VerificationCommandAction));
+            DependencyProperty.Register("CustomValidationAction", typeof(Func<bool>), typeof(ValidationCommandAction));
 
 
         public int ValidationErrorCount
@@ -77,14 +77,14 @@ namespace Careful.Core.PropertyValidation
 
         // Using a DependencyProperty as the backing store for ValidationErrorCount.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ValidationErrorCountProperty =
-            DependencyProperty.Register("ValidationErrorCount", typeof(int), typeof(VerificationCommandAction));
+            DependencyProperty.Register("ValidationErrorCount", typeof(int), typeof(ValidationCommandAction));
 
 
 
         protected override void Invoke(object parameter)
         {
             if (VerifivationModel != null)
-                if (VerificationHelper.VerifivationObject(VerifivationModel, new Action<ValidationResult>(p =>
+                if (ValidationFactory.VerifivationObject(VerifivationModel, new Action<ValidationResult>(p =>
                 {
                     if (VerifivationResultCommand != null)
                         VerifivationResultCommand.Execute(p);

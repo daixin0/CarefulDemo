@@ -51,13 +51,14 @@
     <Compile Include="ErrorsContainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertySupport.cs" />
+    <Compile Include="ValidationAttributeRule.cs" />
+    <Compile Include="ValidationCommandAction.cs" />
+    <Compile Include="ValidationDescriptionAttribute.cs" />
     <Compile Include="ValidationExceptionBehavior.cs" />
+    <Compile Include="ValidationFactory.cs" />
+    <Compile Include="ValidationHelper.cs" />
     <Compile Include="ValidationObject.cs" />
-    <Compile Include="VerificationAttribute.cs" />
-    <Compile Include="VerificationAttributeRule.cs" />
-    <Compile Include="VerificationCommandAction.cs" />
-    <Compile Include="VerificationHelper.cs" />
-    <Compile Include="VerificationType.cs" />
+    <Compile Include="ValidationType.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Careful.Core\Careful.Core.csproj">

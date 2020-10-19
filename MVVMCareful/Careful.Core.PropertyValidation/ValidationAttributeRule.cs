@@ -9,14 +9,14 @@ using System.Windows.Controls;
 
 namespace Careful.Core.PropertyValidation
 {
-    public class VerificationAttributeRule : ValidationRule
+    public class ValidationAttributeRule : ValidationRule
     {
         public ValidationObject ValidationModel { get; set; }
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             ValidationResult result = null;
             
-            VerificationHelper.VerifivationProrperty(ValidationModel, value, new Action<ValidationResult>(p =>
+            ValidationFactory.VerifivationProrperty(ValidationModel, value, new Action<ValidationResult>(p =>
             {
                 result = p;
             }));
