@@ -20,7 +20,7 @@ namespace Careful.Core.PropertyValidation
             Regex regex = new Regex("^1[34578]\\d{9}$");
             return regex.IsMatch(phoneNumber);
         }
-        public static bool GreaterThanEqual(Type propertyType, object obj, decimal data1)
+        public static bool GreaterThanEqual(Type propertyType, object obj, double data1)
         {
             if (obj is null)
                 return false;
@@ -28,7 +28,7 @@ namespace Careful.Core.PropertyValidation
             if (value.EndsWith("."))
                 return false;
             if (propertyType == typeof(decimal))
-                return decimal.TryParse(value, out decimal number) && number >= data1;
+                return double.TryParse(value, out double number) && number >= data1;
             else if (propertyType == typeof(int))
                 return int.TryParse(value, out int number) && number >= data1;
             else if (propertyType == typeof(double))
@@ -36,15 +36,67 @@ namespace Careful.Core.PropertyValidation
             else
                 return false;
         }
-
-
-        public static bool Section(object obj, decimal number1, decimal number2)
+        public static bool GreaterThan(Type propertyType, object obj, double data1)
+        {
+            if (obj is null)
+                return false;
+            string value = obj.ToString();
+            if (value.EndsWith("."))
+                return false;
+            if (propertyType == typeof(decimal))
+                return double.TryParse(value, out double number) && number > data1;
+            else if (propertyType == typeof(int))
+                return int.TryParse(value, out int number) && number > data1;
+            else if (propertyType == typeof(double))
+                return double.TryParse(value, out double number) && number > double.Parse(data1.ToString());
+            else
+                return false;
+        }
+        public static bool LessThan(Type propertyType, object obj, double data1)
+        {
+            if (obj is null)
+                return false;
+            string value = obj.ToString();
+            if (value.EndsWith("."))
+                return false;
+            if (propertyType == typeof(decimal))
+                return double.TryParse(value, out double number) && number < data1;
+            else if (propertyType == typeof(int))
+                return int.TryParse(value, out int number) && number < data1;
+            else if (propertyType == typeof(double))
+                return double.TryParse(value, out double number) && number < double.Parse(data1.ToString());
+            else
+                return false;
+        }
+        public static bool LessThanEqual(Type propertyType, object obj, double data1)
+        {
+            if (obj is null)
+                return false;
+            string value = obj.ToString();
+            if (value.EndsWith("."))
+                return false;
+            if (propertyType == typeof(decimal))
+                return double.TryParse(value, out double number) && number <= data1;
+            else if (propertyType == typeof(int))
+                return int.TryParse(value, out int number) && number <= data1;
+            else if (propertyType == typeof(double))
+                return double.TryParse(value, out double number) && number <= double.Parse(data1.ToString());
+            else
+                return false;
+        }
+        public static bool Section(object obj, double number1, double number2)
         {
             if (obj == null) return true;
-            decimal value = (decimal)obj;
-            if (value <= number2 && value >= number1)
-                return true;
-            else return false;
+            double value = 0.0;
+            if (double.TryParse(obj?.ToString(), out value))
+            {
+                if (value <= number2 && value >= number1)
+                    return true;
+                else return false;
+            }
+            else
+                return false;
+            
         }
         public static bool GreaterThanDigit(object obj, int number)
         {

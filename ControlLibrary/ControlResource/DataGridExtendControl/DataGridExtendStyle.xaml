@@ -1,0 +1,183 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
+    xmlns:local="clr-namespace:Careful.Controls.DataGridExtendControl"
+    xmlns:toggle="clr-namespace:Careful.Controls.ToggleExtendControl"
+    xmlns:command="clr-namespace:Careful.Core.Mvvm.Command;assembly=Careful.Core.Mvvm"
+    xmlns:textbox="clr-namespace:Careful.Controls.TextBoxExtendControl"
+    xmlns:listbox="clr-namespace:Careful.Controls.ListBoxExtendControl"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:converter="clr-namespace:Careful.Core.CommonConverter;assembly=Careful.Core">
+    <local:BoolAsHeightConverter x:Key="conHeight" />
+    <PathGeometry x:Key="pathFilter">M746.101 141a57.559 57.559 0 0 1 35 11.862c25.211 19.31 29.98 55.384 10.65 80.57l-240.649 313.56v367.325a43.64 43.64 0 0 1-4.632 19.566l-0.52 1.006c-11.374 21.277-37.858 29.316-59.157 17.954L379.92 895.83c-26.222-13.989-42.598-41.272-42.598-70.97V548.217L94.933 233.51a57.432 57.432 0 0 1-11.922-33.893L83 198.467C83 166.729 108.754 141 140.522 141z m192.987 694.197c16.52 0 29.912 13.38 29.912 29.883 0 16.268-13.012 29.5-29.206 29.874l-0.706 0.008H653.771c-16.52 0-29.911-13.378-29.911-29.882 0-16.268 13.012-29.5 29.205-29.875l0.706-0.008h285.317z m-197.65-634.434H145.193l251.951 327.122v296.976A20.685 20.685 0 0 0 408.1 843.11l83.18 44.373v-360.76l250.158-325.96z m197.65 473.528c16.52 0 29.912 13.378 29.912 29.882 0 16.268-13.012 29.5-29.206 29.875l-0.706 0.008H653.771c-16.52 0-29.911-13.38-29.911-29.883 0-16.268 13.012-29.5 29.205-29.874l0.706-0.008h285.317z m0-160.907c16.52 0 29.912 13.379 29.912 29.883 0 16.268-13.012 29.5-29.206 29.874l-0.706 0.008H653.771c-16.52 0-29.911-13.379-29.911-29.882 0-16.268 13.012-29.5 29.205-29.875l0.706-0.008h285.317z</PathGeometry>
+    <converter:BoolAsVisiableConverter x:Key="BoolAsVisiable"></converter:BoolAsVisiableConverter>
+    <Style x:Key="ColumnHeaderGripperStyle" TargetType="{x:Type Thumb}">
+        <Setter Property="Width" Value="8" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Cursor" Value="SizeWE" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Thumb}">
+                    <Border Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="DataGridExtendColumnHeaderStyle" TargetType="{x:Type DataGridColumnHeader}">
+        <Setter Property="Foreground" Value="#323232" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="Background" Value="#DCEAFC" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="MinHeight" Value="30" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type DataGridColumnHeader}">
+                    <Grid
+                        x:Name="Root"
+                        HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                        VerticalAlignment="{TemplateBinding VerticalAlignment}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="{TemplateBinding Height}" />
+                            <RowDefinition Height="{Binding Path=CanUserFilter, Converter={StaticResource conHeight}, RelativeSource={RelativeSource AncestorType={x:Type local:DataGridExtend}, Mode=FindAncestor}}" />
+                        </Grid.RowDefinitions>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Loaded">
+                                <command:EventToCommand PassEventArgsToCommand="True" Command="{Binding Tag.ColumnLoadCommand,RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}}"></command:EventToCommand>
+                                <command:EventToCommand PassEventArgsToCommand="True" Command="{Binding ColumnHeaderInitCommand,RelativeSource={RelativeSource AncestorType={x:Type local:DataGridExtend},Mode=FindAncestor}}"></command:EventToCommand>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <Grid
+                            MinHeight="{TemplateBinding MinHeight}"
+                            HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                            Background="{TemplateBinding Background}">
+                            <Themes:DataGridHeaderBorder
+                                Padding="{TemplateBinding Padding}"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="Transparent"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                IsClickable="{TemplateBinding CanUserSort}"
+                                IsHovered="{TemplateBinding IsMouseOver}"
+                                IsPressed="{TemplateBinding IsPressed}"
+                                SeparatorBrush="{TemplateBinding SeparatorBrush}"
+                                SeparatorVisibility="{TemplateBinding SeparatorVisibility}"
+                                SortDirection="{TemplateBinding SortDirection}">
+                                <Grid>
+                                    <ContentPresenter
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="Center"
+                                RecognizesAccessKey="True"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                    <!--<StackPanel Visibility="{Binding IsVisiableSort,Converter={StaticResource conBool},RelativeSource={RelativeSource AncestorType={x:Type local:DataGridExtend},Mode=FindAncestor}}" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,5,0">
+                                        <Path x:Name="pAscending" Visibility="Collapsed" Fill="Red" Width="8" Height="8" Stretch="Fill" Data="M832.185 704.019h-640.37l320.184-384.016z" ></Path>
+                                        <Path x:Name="pDescending" Visibility="Collapsed" Fill="Red" Width="8" Height="8" Stretch="Fill" Data="M191.815 319.981h640.37l-320.184 384.016z" ></Path>
+                                    </StackPanel>-->
+                                    <toggle:ToggleExtend x:Name="teFilter" Visibility="{Binding Tag.IsVisiable,Converter={StaticResource BoolAsVisiable},RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}}" HorizontalAlignment="Right" Width="20" Height="20">
+                                        <toggle:ToggleExtend.Content>
+                                            <Path Fill="{TemplateBinding Foreground}" Width="10" Height="10" Stretch="Uniform" Data="{DynamicResource pathFilter}" ></Path>
+                                        </toggle:ToggleExtend.Content>
+                                        <toggle:ToggleExtend.PressedContent>
+                                            <Path Fill="{TemplateBinding Foreground}" Width="10" Height="10" Stretch="Uniform" Data="{DynamicResource pathFilter}" ></Path>
+                                        </toggle:ToggleExtend.PressedContent>
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="Click">
+                                                <command:EventToCommand PassEventArgsToCommand="True" Command="{Binding Tag.FilterLoadCommand,RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}}"></command:EventToCommand>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </toggle:ToggleExtend>
+
+                                    <Popup Width="254" Height="280" StaysOpen="False" PlacementTarget="{Binding ElementName=teFilter}" Placement="Bottom" IsOpen="{Binding ElementName=teFilter,Path=IsChecked}">
+                                        <Border BorderThickness="1" BorderBrush="#D6D6D6" Background="#F5F5F5">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="50"></RowDefinition>
+                                                    <RowDefinition></RowDefinition>
+                                                    <RowDefinition Height="50"></RowDefinition>
+                                                </Grid.RowDefinitions>
+                                                <textbox:TextBoxExtend x:Name="txtSearch" PathWidth="12" PathHeight="12" Height="24" Width="230" WaterText="请输入关键词进行过滤" Data="M919.179 879.676L743.601 705.143c-0.25-0.249-0.508-0.485-0.765-0.723 54.864-64.213 87.997-147.552 87.997-238.632 0-202.998-164.562-367.56-367.56-367.56S95.713 262.79 95.713 465.788s164.562 367.56 367.56 367.56c91.779 0 175.699-33.641 240.109-89.261 0.242 0.26 0.485 0.52 0.739 0.773l175.578 174.533a27.912 27.912 0 0 0 19.739 8.142c7.194 0 14.387-2.755 19.859-8.26 10.901-10.968 10.849-28.697-0.118-39.599z m-334.65-126.789c-38.375 16.231-79.171 24.461-121.256 24.461-42.085 0-82.881-8.23-121.256-24.461-37.094-15.689-70.419-38.162-99.05-66.793-28.631-28.631-51.104-61.956-66.793-99.05-16.231-38.375-24.461-79.171-24.461-121.256 0-42.085 8.23-82.881 24.461-121.256 15.689-37.094 38.162-70.419 66.793-99.05 28.631-28.631 61.956-51.104 99.05-66.793 38.375-16.231 79.171-24.461 121.256-24.461 42.085 0 82.881 8.23 121.256 24.461 37.094 15.689 70.419 38.162 99.05 66.793 28.631 28.631 51.104 61.956 66.793 99.05 16.231 38.375 24.461 79.171 24.461 121.256 0 42.085-8.23 82.881-24.461 121.256-15.689 37.094-38.162 70.419-66.793 99.05-28.631 28.631-61.956 51.103-99.05 66.793z">
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="TextChanged">
+                                                            <i:InvokeCommandAction Command="{Binding Tag.SearchFilterCateoryCommand,RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}}" CommandParameter="{Binding ElementName=txtSearch,Path=Text}"></i:InvokeCommandAction>
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+                                                </textbox:TextBoxExtend>
+                                                <listbox:ListBoxExtend Grid.Row="1" Width="230" ItemsSource="{Binding Tag.CategoryFilter,RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}}">
+                                                    <listbox:ListBoxExtend.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <CheckBox IsChecked="{Binding IsSelected,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Content="{Binding DiaplayValue}"></CheckBox>
+                                                        </DataTemplate>
+                                                    </listbox:ListBoxExtend.ItemTemplate>
+                                                </listbox:ListBoxExtend>
+                                                <Grid Grid.Row="2">
+                                                    <Button Margin="12,0,0,0" Content="清除筛选" VerticalAlignment="Center" Style="{DynamicResource LinkButtonStyle}" HorizontalAlignment="Left">
+                                                        <i:Interaction.Triggers>
+                                                            <i:EventTrigger EventName="Click">
+                                                                <command:EventToCommand PassEventArgsToCommand="True" Command="{Binding Tag.ClearFilterCommand,RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}}"></command:EventToCommand>
+                                                            </i:EventTrigger>
+                                                        </i:Interaction.Triggers>
+                                                    </Button>
+                                                    <Button Height="24" Width="72" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,12,0" BorderThickness="0" Background="#4F98EF" Foreground="White" Content="确定">
+                                                        <i:Interaction.Triggers>
+                                                            <i:EventTrigger EventName="Click">
+                                                                <command:EventToCommand PassEventArgsToCommand="True" Command="{Binding Tag.FilterCommand,RelativeSource={RelativeSource AncestorType=DataGridColumnHeader}}"></command:EventToCommand>
+                                                            </i:EventTrigger>
+                                                        </i:Interaction.Triggers>
+                                                    </Button>
+                                                </Grid>
+                                            </Grid>
+                                        </Border>
+                                    </Popup>
+                                </Grid>
+                            </Themes:DataGridHeaderBorder>
+                            <Thumb
+                                x:Name="PART_LeftHeaderGripper"
+                                HorizontalAlignment="Left"
+                                Style="{StaticResource ColumnHeaderGripperStyle}" />
+                            <Thumb
+                                x:Name="PART_RightHeaderGripper"
+                                HorizontalAlignment="Right"
+                                Style="{StaticResource ColumnHeaderGripperStyle}" />
+                            <Rectangle
+                                Width="1"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Stretch"
+                                Fill="#FFD8DADA" />
+                        </Grid>
+                        <Border
+                            Grid.Row="1"
+                            BorderBrush="#FFC9CACA"
+                            BorderThickness="0,0,1,1"
+                            Visibility="{Binding Path=CanUserFilter, Converter={StaticResource BoolAsVisiable}, RelativeSource={RelativeSource AncestorType={x:Type local:DataGridExtend}, Mode=FindAncestor}}">
+                            <local:ColumnFilterControl Margin="0,0,0,1" />
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Tag" Value="{x:Null}">
+                            <Setter Property="Opacity" TargetName="teFilter" Value="0" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style TargetType="{x:Type local:DataGridExtend}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="CanUserFreeze" Value="True"></Setter>
+        <Setter Property="CanUserSelectDistinct" Value="True"></Setter>
+        <Setter Property='AutoGenerateColumns' Value='False' />
+        <Setter Property="HeadersVisibility" Value="Column"></Setter>
+        <Setter Property="CanUserAddRows" Value="False" />
+        <Setter Property='CanUserSortColumns' Value='True' />
+        <Setter Property="CanUserResizeColumns" Value="True"></Setter>
+        <Setter Property="CanUserReorderColumns" Value="True"></Setter>
+        <Setter Property="SelectionUnit" Value="FullRow" />
+        <Setter Property="SelectionMode" Value="Single" />
+        <Setter Property="GridLinesVisibility" Value="None" />
+        <Setter Property="RowHeight" Value="28" />
+        <Setter Property="IsReadOnly" Value="True" />
+        <Setter Property="ColumnHeaderStyle" Value="{StaticResource DataGridExtendColumnHeaderStyle}"></Setter>
+    </Style>
+</ResourceDictionary>

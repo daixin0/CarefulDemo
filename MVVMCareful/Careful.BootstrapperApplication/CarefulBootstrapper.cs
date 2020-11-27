@@ -1,4 +1,6 @@
 using System;
+using System.IO;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -90,19 +92,17 @@ namespace Careful.BootstrapperApplication
             Container.RegisterInstance<ILog>(Logger);
 
             this.Logger.Log("adding careful bootstrapper extension to container", LogLevel.Debug, Priority.Low);
-
-            Container.RegisterInstance<IModuleCatalog>(this.ModuleCatalog);
-
+            //Container.RegisterInstance<ICarefulIoc>(Container);
+            this.Container.RegisterInstance<IModuleCatalog>(this.ModuleCatalog);
+            Container.RegisterInstance<ILog>(Logger);
             Container.Register<IDialogService, DialogService>();
 
             Container.RegisterInstance<IServiceLocator>(CarefulIoc.Default);
-            Container.Register<IContainerExtension, CarefulIocExtension>(true);
-            Container.Register<IModuleInitializer, ModuleInitializer>(true);
-            Container.Register<IModuleManager, ModuleManager>(true);
+            Container.Register<IModuleInitializer, ModuleInitializer>();
+            Container.Register<IModuleManager, ModuleManager>();
+            Container.Register<IEventAggregator, EventAggregator>();
+            Container.Register<IContainerExtension, CarefulIocExtension>();
             //Container.Register<RegionAdapterMappings>(true);
-            Container.Register<IEventAggregator, EventAggregator>(true);
-            Container.Register<IMessageView, MessageBoxWindow>(true);
-            
             //Container.Register<IRegionManager, RegionManager>(true);
             //Container.Register<IRegionViewRegistry, RegionViewRegistry>(true);
             //Container.Register<IRegionBehaviorFactory, RegionBehaviorFactory>(true);
@@ -110,8 +110,6 @@ namespace Careful.BootstrapperApplication
             //Container.Register<IRegionNavigationJournal, RegionNavigationJournal>(false);
             //Container.Register<IRegionNavigationContentLoader, RegionNavigationContentLoader>(false);
             //Container.Register<IRegionNavigationService, RegionNavigationService>(false);
-
-
         }
 
         /// <summary>
@@ -125,71 +123,19 @@ namespace Careful.BootstrapperApplication
         protected virtual void ConfigureModuleCatalog(IModuleCatalog moduleCatalog) { }
         protected virtual void ConfigureViewModelLocator()
         {
-            InitializationExtensions.ConfigureViewModelLocator();
-        }
-        protected virtual void ConfigureRegionAdapterMappings(RegionAdapterMappings regionAdapterMappings)
-        {
-            regionAdapterMappings?.RegisterDefaultRegionAdapterMappings();
-        }
-
-        protected virtual void ConfigureDefaultRegionBehaviors(IRegionBehaviorFactory regionBehaviors)
-        {
-            regionBehaviors?.RegisterDefaultRegionBehaviors();
-        }
-
-        /// <summary>
-        /// Configures the default region adapter mappings to use in the application, in order
-        /// to adapt UI controls defined in XAML to use a region and register it automatically.
-        /// May be overwritten in a derived class to add specific mappings required by the application.
-        /// </summary>
-        /// <returns>The <see cref="RegionAdapterMappings"/> instance containing all the mappings.</returns>
-        protected virtual RegionAdapterMappings ConfigureRegionAdapterMappings()
-        {
-            RegionAdapterMappings regionAdapterMappings = ServiceLocator.Current.GetInstance<RegionAdapterMappings>();
-            if (regionAdapterMappings != null)
+            ViewModelLocationProvider.SetDefaultViewModelFactory((view, type, isSingle) =>
             {
-                regionAdapterMappings.RegisterMapping(typeof(Selector), ServiceLocator.Current.GetInstance<SelectorRegionAdapter>());
-                regionAdapterMappings.RegisterMapping(typeof(ItemsControl), ServiceLocator.Current.GetInstance<ItemsControlRegionAdapter>());
-                regionAdapterMappings.RegisterMapping(typeof(ContentControl), ServiceLocator.Current.GetInstance<ContentControlRegionAdapter>());
-            }
+                if (isSingle)
+                {
+                    return ContainerLocator.Container.Resolve(type);
+                }
+                else
+                {
+                    return ContainerLocator.Container.Resolve(type, Guid.NewGuid().ToString());
+                }
 
-            return regionAdapterMappings;
+            });
         }
-        /// <summary>
-        /// Configures the <see cref="IRegionBehaviorFactory"/>. 
-        /// This will be the list of default behaviors that will be added to a region. 
-        /// </summary>
-        protected virtual IRegionBehaviorFactory ConfigureDefaultRegionBehaviors()
-        {
-            var defaultRegionBehaviorTypesDictionary = ServiceLocator.Current.GetInstance<IRegionBehaviorFactory>();
-
-            if (defaultRegionBehaviorTypesDictionary != null)
-            {
-                defaultRegionBehaviorTypesDictionary.AddIfMissing(BindRegionContextToDependencyObjectBehavior.BehaviorKey,
-                                                                  typeof(BindRegionContextToDependencyObjectBehavior));
-
-                defaultRegionBehaviorTypesDictionary.AddIfMissing(RegionActiveAwareBehavior.BehaviorKey,
-                                                                  typeof(RegionActiveAwareBehavior));
-
-                defaultRegionBehaviorTypesDictionary.AddIfMissing(SyncRegionContextWithHostBehavior.BehaviorKey,
-                                                                  typeof(SyncRegionContextWithHostBehavior));
-
-                defaultRegionBehaviorTypesDictionary.AddIfMissing(RegionManagerRegistrationBehavior.BehaviorKey,
-                                                                  typeof(RegionManagerRegistrationBehavior));
-
-                defaultRegionBehaviorTypesDictionary.AddIfMissing(RegionMemberLifetimeBehavior.BehaviorKey,
-                                                  typeof(RegionMemberLifetimeBehavior));
-
-                defaultRegionBehaviorTypesDictionary.AddIfMissing(ClearChildViewsRegionBehavior.BehaviorKey,
-                                                  typeof(ClearChildViewsRegionBehavior));
-
-                defaultRegionBehaviorTypesDictionary.AddIfMissing(AutoPopulateRegionBehavior.BehaviorKey,
-                                                  typeof(AutoPopulateRegionBehavior));
-            }
-
-            return defaultRegionBehaviorTypesDictionary;
-        }
-
         #endregion
 
         /// <summary>
@@ -200,7 +146,7 @@ namespace Careful.BootstrapperApplication
         /// </remarks>
         protected virtual IModuleCatalog CreateModuleCatalog()
         {
-            return new DirectoryModuleCatalog() { ModulePath = AppDomain.CurrentDomain.BaseDirectory };
+            return new DirectoryModuleCatalog() { ModulePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) };
         }
 
         protected virtual void Initialize()
@@ -211,8 +157,8 @@ namespace Careful.BootstrapperApplication
                 throw new InvalidOperationException("log created faild");
             }
 
-            ConfigureViewModelLocator();
 
+            ConfigureViewModelLocator();
             this.Logger.Log("log created success", LogLevel.Debug, Priority.Low);
 
             this.Logger.Log("create module catelog", LogLevel.Debug, Priority.Low);
@@ -243,19 +189,16 @@ namespace Careful.BootstrapperApplication
 
             ContainerExtension = ContainerLocator.Current;
 
-            //To Do :region register
 
             //RegisterRequiredTypes(ContainerExtension);
             //RegisterTypes(ContainerExtension);
             //ContainerExtension.FinalizeExtension();
 
-            //this.Logger.Log("configuring region adapter", LogLevel.Debug, Priority.Low);
+            this.Logger.Log("configuring region adapter", LogLevel.Debug, Priority.Low);
             //this.ConfigureRegionAdapterMappings();
 
-            //this.Logger.Log("configuring default region behaviors", LogLevel.Debug, Priority.Low);
-            //this.ConfigureDefaultRegionBehaviors();
 
-            //this.Logger.Log("registering frameworkd excetion type", LogLevel.Debug, Priority.Low);
+            this.Logger.Log("registering frameworkd excetion type", LogLevel.Debug, Priority.Low);
             this.RegisterFrameworkExceptionTypes();
 
             this.Logger.Log("create shell", LogLevel.Debug, Priority.Low);
@@ -264,12 +207,6 @@ namespace Careful.BootstrapperApplication
             if (this.Shell != null)
             {
                 MvvmHelpers.AutowireViewModel(Shell);
-
-                this.Logger.Log("setting region management", LogLevel.Debug, Priority.Low);
-                RegionManager.SetRegionManager(this.Shell, this.Container.GetInstance<IRegionManager>());
-
-                this.Logger.Log("updating region", LogLevel.Debug, Priority.Low);
-                RegionManager.UpdateRegions();
 
                 this.Logger.Log("initialize shell", LogLevel.Debug, Priority.Low);
                 this.OnInitialized();
@@ -284,7 +221,7 @@ namespace Careful.BootstrapperApplication
             this.Logger.Log("bootstrapper sequence completed", LogLevel.Debug, Priority.Low);
 
 
-           
+
             //var regionAdapterMappins = ContainerExtension.Resolve<RegionAdapterMappings>();
             //ConfigureRegionAdapterMappings(regionAdapterMappins);
 
@@ -304,7 +241,12 @@ namespace Careful.BootstrapperApplication
             if (ModuleCatalog == null)
                 throw new InvalidOperationException("IModuleCatalog");
 
-            containerRegistry.RegisterRequiredTypes(ModuleCatalog);
+            containerRegistry.RegisterInstance(ModuleCatalog);
+            containerRegistry.RegisterSingleton<IDialogService, DialogService>();
+            containerRegistry.RegisterSingleton<IModuleInitializer, ModuleInitializer>();
+            containerRegistry.RegisterSingleton<IModuleManager, ModuleManager>();
+            containerRegistry.RegisterSingleton<IEventAggregator, EventAggregator>();
+            //containerRegistry.Register<IDialogWindow, DialogWindow>(); //default dialog host
         }
         protected virtual void RegisterTypes(IContainerRegistry containerRegistry)
         {

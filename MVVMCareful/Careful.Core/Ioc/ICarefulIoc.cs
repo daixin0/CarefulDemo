@@ -14,6 +14,9 @@ namespace Careful.Core.Ioc
         bool IsRegistered(Type type);
         bool IsRegistered<T>(string key);
 
+        void Register(Type type);
+
+
         void Register<TInterface, TClass>()
             where TClass : class
             where TInterface : class;
@@ -30,7 +33,7 @@ namespace Careful.Core.Ioc
 
         void Register<TClass>(Func<TClass> factory)
             where TClass : class;
-        void Register(Type classType);
+
         void Register<TClass>(Func<TClass> factory, bool createInstanceImmediately)
             where TClass : class;
 

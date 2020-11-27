@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,7 +17,7 @@ namespace Careful.Core.Logs
         {
             try
             {
-                var dir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, LogFolder);
+                var dir = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), LogFolder);
                 if (!Directory.Exists(dir))
                 {
                     Directory.CreateDirectory(dir);
@@ -27,7 +28,7 @@ namespace Careful.Core.Logs
             }
         }
 
-        public string FilePath => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, LogFolder, LogFile);
+        public string FilePath => Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), LogFolder, LogFile);
 
         public override bool Equals(object obj)
         {

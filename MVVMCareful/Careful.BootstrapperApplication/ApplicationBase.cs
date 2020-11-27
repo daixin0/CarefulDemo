@@ -1,4 +1,6 @@
-﻿using Careful.Core.Ioc;
+﻿using Careful.Core.DialogServices;
+using Careful.Core.Ioc;
+using Careful.Core.MessageFrame.Events;
 using Careful.Core.Mvvm.ViewModel;
 using Careful.Module.Core.Modularity;
 using Careful.Module.Core.Regions;
@@ -48,7 +50,10 @@ namespace Careful.BootstrapperApplication
         /// </summary>
         protected virtual void ConfigureViewModelLocator()
         {
-            InitializationExtensions.ConfigureViewModelLocator();
+            ViewModelLocationProvider.SetDefaultViewModelFactory((view, type, isSingle) =>
+            {
+                return ContainerLocator.Container.Resolve(type);
+            });
         }
 
         /// <summary>
@@ -64,21 +69,12 @@ namespace Careful.BootstrapperApplication
             _containerExtension.FinalizeExtension();
 
             ConfigureModuleCatalog(_moduleCatalog);
-
-            var regionAdapterMappins = _containerExtension.Resolve<RegionAdapterMappings>();
-            ConfigureRegionAdapterMappings(regionAdapterMappins);
-
-            var defaultRegionBehaviors = _containerExtension.Resolve<IRegionBehaviorFactory>();
-            ConfigureDefaultRegionBehaviors(defaultRegionBehaviors);
-
             RegisterFrameworkExceptionTypes();
 
             var shell = CreateShell();
             if (shell != null)
             {
                 MvvmHelpers.AutowireViewModel(shell);
-                RegionManager.SetRegionManager(shell, _containerExtension.Resolve<IRegionManager>());
-                RegionManager.UpdateRegions();
                 InitializeShell(shell);
             }
 
@@ -108,33 +104,18 @@ namespace Careful.BootstrapperApplication
         /// <param name="containerRegistry"></param>
         protected virtual void RegisterRequiredTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterRequiredTypes(_moduleCatalog);
+            containerRegistry.RegisterInstance(_moduleCatalog);
+            containerRegistry.RegisterSingleton<IDialogService, DialogService>();
+            containerRegistry.RegisterSingleton<IModuleInitializer, ModuleInitializer>();
+            containerRegistry.RegisterSingleton<IModuleManager, ModuleManager>();
+            containerRegistry.RegisterSingleton<IEventAggregator, EventAggregator>();
+            //containerRegistry.Register<IDialogWindow, DialogWindow>(); //default dialog host
         }
 
         /// <summary>
         /// Used to register types with the container that will be used by your application.
         /// </summary>
         protected abstract void RegisterTypes(IContainerRegistry containerRegistry);
-
-        /// <summary>
-        /// Configures the <see cref="IRegionBehaviorFactory"/>. 
-        /// This will be the list of default behaviors that will be added to a region. 
-        /// </summary>
-        protected virtual void ConfigureDefaultRegionBehaviors(IRegionBehaviorFactory regionBehaviors)
-        {
-            regionBehaviors?.RegisterDefaultRegionBehaviors();
-        }
-
-        /// <summary>
-        /// Configures the default region adapter mappings to use in the application, in order
-        /// to adapt UI controls defined in XAML to use a region and register it automatically.
-        /// May be overwritten in a derived class to add specific mappings required by the application.
-        /// </summary>
-        /// <returns>The <see cref="RegionAdapterMappings"/> instance containing all the mappings.</returns>
-        protected virtual void ConfigureRegionAdapterMappings(RegionAdapterMappings regionAdapterMappings)
-        {
-            regionAdapterMappings?.RegisterDefaultRegionAdapterMappings();
-        }
 
         /// <summary>
         /// Registers the <see cref="Type"/>s of the Exceptions that are not considered 
@@ -176,7 +157,8 @@ namespace Careful.BootstrapperApplication
         /// </summary>
         protected virtual void InitializeModules()
         {
-            InitializationExtensions.RunModuleManager(Container);
+            IModuleManager manager = Container.Resolve<IModuleManager>();
+            manager.Run();
         }
     }
 }

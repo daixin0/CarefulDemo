@@ -1,9 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:controls="clr-namespace:Careful.Controls.WindowBaseControl"
+                    xmlns:window="clr-namespace:Careful.Controls.WindowBaseControl"
+                    xmlns:toggle="clr-namespace:Careful.Controls.ToggleExtendControl"
                     xmlns:convert="clr-namespace:Careful.Core.CommonConverter;assembly=Careful.Core">
     <convert:BoolAsVisiableConverter x:Key="BoolAsVisiable"></convert:BoolAsVisiableConverter>
-
     <PathGeometry x:Key="pathClose">M64 985.408a25.6 25.6 0 0 1-18.112-43.712L941.44 46.144a25.6 25.6 0 0 1 36.224 36.224L82.112 977.92a25.472 25.472 0 0 1-18.112 7.488z M960 985.408a25.6 25.6 0 0 1-18.112-7.488L46.336 82.304A25.6 25.6 0 0 1 82.56 46.08l895.552 895.616a25.6 25.6 0 0 1-18.112 43.712z</PathGeometry>
     <PathGeometry x:Key="pathMin">M972.8 537.6H51.2a25.6 25.6 0 1 1 0-51.2h921.6a25.6 25.6 0 1 1 0 51.2z</PathGeometry>
     <PathGeometry x:Key="pathMax">M923.072 972.8H100.992a49.856 49.856 0 0 1-49.792-49.728V100.992c0-27.456 22.336-49.792 49.792-49.792h822.08c27.456 0 49.792 22.336 49.792 49.792v822.08a49.856 49.856 0 0 1-49.728 49.792zM921.6 100.992L100.992 102.4 102.4 923.072l819.2-1.472V100.992z</PathGeometry>
@@ -31,99 +31,115 @@
         </Setter>
     </Style>
     <DropShadowEffect x:Key="ShadowWindow" Color="Gray" Direction="270" ShadowDepth="1" BlurRadius="8" Opacity="0.6"/>
-    <!--  Window模板  -->
-    <ControlTemplate x:Key="BaseWindowControlTemplate" TargetType="{x:Type Window}">
-        <Grid Name="WindowGrid">
-            <Grid Name="grid" Margin="5" Effect="{StaticResource ShadowWindow}">
-                <!--  内容  -->
-                <Border BorderThickness="0" BorderBrush="#FFE2E2E2" Background="{TemplateBinding Background}" CornerRadius="{Binding WindowCornerRadius,RelativeSource={RelativeSource AncestorType=Window}}">
-                    <Grid>
-                        <Border Name="borderTitle"
-                                Height="50"
+
+
+    <Style x:Key="BaseWindowStyle" TargetType="{x:Type window:BaseWindow}">
+        <Setter Property="WindowStyle" Value="None" />
+        <Setter Property="AllowsTransparency" Value="True" />
+        <!--<Setter Property="ResizeMode" Value="NoResize" />-->
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type window:BaseWindow}">
+                    <Grid Name="WindowGrid">
+                        <Grid Name="grid" Margin="5" Effect="{StaticResource ShadowWindow}">
+                            <!--  内容  -->
+                            <Border BorderThickness="0" BorderBrush="#FFE2E2E2" Background="{TemplateBinding Background}" CornerRadius="{Binding WindowCornerRadius,RelativeSource={RelativeSource AncestorType=Window}}">
+                                <Grid>
+                                    <Border Name="borderTitle"
+                                Height="{Binding TitleHeight,RelativeSource={RelativeSource AncestorType={x:Type window:BaseWindow}}}"
                                 VerticalAlignment="Top" Panel.ZIndex="1"
                                 Background="Transparent">
-                        </Border>
-                        <StackPanel HorizontalAlignment="Right"
+                                    </Border>
+                                    <StackPanel HorizontalAlignment="Right"
                                     VerticalAlignment="Top"
                                     Orientation="Horizontal" Margin="0,8,20,0" Panel.ZIndex="1" Height="20">
-                            
-                            <Button x:Name="btnMin" Focusable="False" Foreground="#FF878787" Width="16" Height="16" Margin="5 0" Visibility="{Binding IsMinButton,RelativeSource={RelativeSource AncestorType={x:Type Window}},Converter={StaticResource BoolAsVisiable}}" Style="{DynamicResource PathButtonStyle}">
-                                <Path Data="{DynamicResource pathMin}" Height="1"></Path>
-                            </Button>
-                            <controls:ToggleStateControl x:Name="btnMax" Foreground="#FF878787" Width="20" Height="20" Margin="5,0" Visibility="{Binding IsMaxButton,RelativeSource={RelativeSource AncestorType={x:Type Window}},Converter={StaticResource BoolAsVisiable}}">
-                                <controls:ToggleStateControl.Content>
-                                    <Path Data="{DynamicResource pathMax}" Width="16" Height="16" Fill="#FF878787" Stretch="Uniform"></Path>
-                                </controls:ToggleStateControl.Content>
-                                <controls:ToggleStateControl.PressedContent>
-                                    <Path Data="{DynamicResource pathReduction}" Width="16" Height="16" Fill="#FF878787" Stretch="Uniform"></Path>
-                                </controls:ToggleStateControl.PressedContent>
-                            </controls:ToggleStateControl>
-                            <Button x:Name="btnClose" Margin="5,0,0,0" Style="{DynamicResource PathButtonStyle}">
-                                <Path Data="{DynamicResource pathClose}" Width="8" Height="8" Stroke="#323232" StrokeThickness="1" Fill="#323232" Stretch="Uniform"></Path>
-                            </Button>
-                        </StackPanel>
 
-                        <AdornerDecorator>
-                            <ContentPresenter />
-                        </AdornerDecorator>
+                                        <Button x:Name="btnMin" Focusable="False" Foreground="#FF878787" Width="16" Height="16" Margin="5 0" Visibility="{Binding IsMinButton,RelativeSource={RelativeSource AncestorType={x:Type Window}},Converter={StaticResource BoolAsVisiable}}" Style="{DynamicResource PathButtonStyle}">
+                                            <Path Data="{DynamicResource pathMin}" Height="1" Width="8" Fill="#323232" Stretch="Uniform"></Path>
+                                        </Button>
+                                        <toggle:ToggleExtend x:Name="btnMax" Width="20" Height="20" Margin="5,0" Visibility="{Binding IsMaxButton,RelativeSource={RelativeSource AncestorType={x:Type window:BaseWindow}},Converter={StaticResource BoolAsVisiable}}">
+                                            <toggle:ToggleExtend.Content>
+                                                <Path Data="{DynamicResource pathMax}" Width="8" Height="8" Fill="#323232" Stretch="Uniform"></Path>
+                                            </toggle:ToggleExtend.Content>
+                                            <toggle:ToggleExtend.PressedContent>
+                                                <Path Data="{DynamicResource pathReduction}" Width="8" Height="8" Fill="#323232" Stretch="Uniform"></Path>
+                                            </toggle:ToggleExtend.PressedContent>
+                                        </toggle:ToggleExtend>
+                                        <Button x:Name="btnClose" Margin="5,0,0,0" Style="{DynamicResource PathButtonStyle}">
+                                            <Path Data="{DynamicResource pathClose}" Width="8" Height="8" Stroke="#323232" StrokeThickness="1" Fill="#323232" Stretch="Uniform"></Path>
+                                        </Button>
+                                    </StackPanel>
+
+                                    <AdornerDecorator>
+                                        <ContentPresenter />
+                                    </AdornerDecorator>
+
+                                </Grid>
+                            </Border>
+                        </Grid>
+
+                        <!--  窗体拖拽缩放  -->
+                        <Rectangle x:Name="topRec"
+                       Height="10"
+                       Margin="10,0,10,0"
+                       HorizontalAlignment="Stretch"
+                       VerticalAlignment="Top"
+                       Visibility="{Binding IsResize,Converter={StaticResource BoolAsVisiable},RelativeSource={RelativeSource AncestorType=window:BaseWindow}}"
+                       Fill="Transparent" />
+                        <Rectangle x:Name="botRec"
+                       Height="10"
+                       Margin="10,0,10,0"
+                       HorizontalAlignment="Stretch"
+                       VerticalAlignment="Bottom"
+                       Visibility="{Binding IsResize,Converter={StaticResource BoolAsVisiable},RelativeSource={RelativeSource AncestorType=window:BaseWindow}}"
+                       Fill="Transparent" />
+                        <Rectangle x:Name="leftRec"
+                       Width="10"
+                       Margin="0,10,0,10"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Stretch"
+                       Visibility="{Binding IsResize,Converter={StaticResource BoolAsVisiable},RelativeSource={RelativeSource AncestorType=window:BaseWindow}}"
+                       Fill="Transparent" />
+                        <Rectangle x:Name="rightRec"
+                       Width="10"
+                       Margin="0,10,0,10"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Stretch"
+                       Visibility="{Binding IsResize,Converter={StaticResource BoolAsVisiable},RelativeSource={RelativeSource AncestorType=window:BaseWindow}}"
+                       Fill="Transparent" />
+                        <Rectangle x:Name="nwseUpRec"
+                       Width="10"
+                       Height="10"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       Visibility="{Binding IsResize,Converter={StaticResource BoolAsVisiable},RelativeSource={RelativeSource AncestorType=window:BaseWindow}}"
+                       Fill="Transparent" />
+                        <Rectangle x:Name="neswUpRec"
+                       Width="10"
+                       Height="10"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Top"
+                       Visibility="{Binding IsResize,Converter={StaticResource BoolAsVisiable},RelativeSource={RelativeSource AncestorType=window:BaseWindow}}"
+                       Fill="Transparent" />
+                        <Rectangle x:Name="neswDownRec"
+                       Width="10"
+                       Height="10"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Bottom"
+                       Visibility="{Binding IsResize,Converter={StaticResource BoolAsVisiable},RelativeSource={RelativeSource AncestorType=window:BaseWindow}}"
+                       Fill="Transparent" />
+                        <Rectangle x:Name="nwseDownRec"
+                       Width="10"
+                       Height="10"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Bottom"
+                       Visibility="{Binding IsResize,Converter={StaticResource BoolAsVisiable},RelativeSource={RelativeSource AncestorType=window:BaseWindow}}"
+                       Fill="Transparent" />
 
                     </Grid>
-                </Border>
-            </Grid>
 
-            <!--  窗体拖拽缩放  -->
-            <Rectangle x:Name="topRec"
-                       Height="10"
-                       Margin="10,0,10,0"
-                       HorizontalAlignment="Stretch"
-                       VerticalAlignment="Top"
-                       Fill="Transparent" />
-            <Rectangle x:Name="botRec"
-                       Height="10"
-                       Margin="10,0,10,0"
-                       HorizontalAlignment="Stretch"
-                       VerticalAlignment="Bottom"
-                       Fill="Transparent" />
-            <Rectangle x:Name="leftRec"
-                       Width="10"
-                       Margin="0,10,0,10"
-                       HorizontalAlignment="Left"
-                       VerticalAlignment="Stretch"
-                       Fill="Transparent" />
-            <Rectangle x:Name="rightRec"
-                       Width="10"
-                       Margin="0,10,0,10"
-                       HorizontalAlignment="Right"
-                       VerticalAlignment="Stretch"
-                       Fill="Transparent" />
-            <Rectangle x:Name="nwseUpRec"
-                       Width="10"
-                       Height="10"
-                       HorizontalAlignment="Left"
-                       VerticalAlignment="Top"
-                       Fill="Transparent" />
-            <Rectangle x:Name="neswUpRec"
-                       Width="10"
-                       Height="10"
-                       HorizontalAlignment="Right"
-                       VerticalAlignment="Top"
-                       Fill="Transparent" />
-            <Rectangle x:Name="neswDownRec"
-                       Width="10"
-                       Height="10"
-                       HorizontalAlignment="Left"
-                       VerticalAlignment="Bottom"
-                       Fill="Transparent" />
-            <Rectangle x:Name="nwseDownRec"
-                       Width="10"
-                       Height="10"
-                       HorizontalAlignment="Right"
-                       VerticalAlignment="Bottom"
-                       Fill="Transparent" />
-
-        </Grid>
-
-        <!--<ControlTemplate.Triggers>
+                    <!--<ControlTemplate.Triggers>
             <EventTrigger RoutedEvent="Window.Loaded">
                 <BeginStoryboard>
                     <Storyboard>
@@ -135,13 +151,8 @@
                 </BeginStoryboard>
             </EventTrigger>
         </ControlTemplate.Triggers>-->
-    </ControlTemplate>
-
-    <Style x:Key="BaseWindowStyle" TargetType="{x:Type Window}">
-        <Setter Property="WindowStyle" Value="None" />
-        <Setter Property="AllowsTransparency" Value="True" />
-        <Setter Property="ResizeMode" Value="CanResize" />
-        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-        <Setter Property="Template" Value="{StaticResource BaseWindowControlTemplate}" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 </ResourceDictionary>

@@ -29,6 +29,7 @@ namespace Careful.Core.PropertyValidation
     }
     public enum ValidationDescriptionType
     {
+        None,
         NotNull,
         Number,
         Digit,

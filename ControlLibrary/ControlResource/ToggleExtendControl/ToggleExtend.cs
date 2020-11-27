@@ -7,9 +7,9 @@ using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 
-namespace Careful.Controls.WindowBaseControl
+namespace Careful.Controls.ToggleExtendControl
 {
-    public class ToggleStateControl:ToggleButton
+    public class ToggleExtend : ToggleButton
     {
 
 
@@ -21,7 +21,7 @@ namespace Careful.Controls.WindowBaseControl
 
         // Using a DependencyProperty as the backing store for PressedContent.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty PressedContentProperty =
-            DependencyProperty.Register("PressedContent", typeof(object), typeof(ToggleStateControl));
+            DependencyProperty.Register("PressedContent", typeof(object), typeof(ToggleExtend));
 
     }
 }

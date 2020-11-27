@@ -14,26 +14,44 @@ using System.Windows.Controls.Primitives;
 using System.Runtime.InteropServices;
 using System.Windows.Interop;
 using Careful.Core;
+using Careful.Core.Mvvm.Views;
+using Careful.Core.Ioc;
+using Careful.Controls.ToggleExtendControl;
 
 namespace Careful.Controls.WindowBaseControl
 {
-
     public class BaseWindow : Window, INotifyPropertyChanged, IView
     {
-        ResourceDictionary style1;
-        //static BaseWindow()
-        //{
-        //    DefaultStyleKeyProperty.OverrideMetadata(typeof(BaseWindow), new FrameworkPropertyMetadata(typeof(BaseWindow)));
-        //}
+
         public BaseWindow()
         {
-            style1 = new ResourceDictionary();
-            style1.Source = new Uri("Careful.Controls;component/WindowBaseControl/BaseWindowStyle.xaml", UriKind.Relative);
-            this.Style = (System.Windows.Style)style1["BaseWindowStyle"];
+            Application application = CarefulIoc.Default.GetInstance<Application>();
+            this.Style = (Style)application.Resources["BaseWindowStyle"];
             this.DataContext = this;
             this.StateChanged += BaseWindow_StateChanged;
         }
+        //static BaseWindow()
+        //{
+        //    DefaultStyleKeyProperty.OverrideMetadata(typeof(BaseWindow), new FrameworkPropertyMetadata(typeof(BaseWindow)));
 
+        //    FrameworkPropertyMetadata metadata = new FrameworkPropertyMetadata();
+        //    metadata.Inherits = true;
+        //    metadata.DefaultValue = 2;
+        //    metadata.AffectsMeasure = true;
+        //    metadata.PropertyChangedCallback += (d, e) => { };
+
+        //    metadata = new FrameworkPropertyMetadata();
+        //    metadata.Inherits = true;
+        //    metadata.DefaultValue = 40;
+        //    metadata.AffectsMeasure = true;
+        //    metadata.PropertyChangedCallback += (d, e) => { };
+        //}
+
+        //public BaseWindow() : base()
+        //{
+        //    this.DataContext = this;
+        //    this.StateChanged += BaseWindow_StateChanged;
+        //}
         private void BaseWindow_StateChanged(object sender, EventArgs e)
         {
             if (WindowState == WindowState.Maximized)
@@ -51,6 +69,40 @@ namespace Careful.Controls.WindowBaseControl
             }
         }
 
+
+        public event RoutedEventHandler BeforeClose
+        {
+            add { AddHandler(BeforeCloseEvent, value); }
+            remove { RemoveHandler(BeforeCloseEvent, value); }
+        }
+
+        public static readonly RoutedEvent BeforeCloseEvent = EventManager.RegisterRoutedEvent(
+            "BeforeClose", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(BaseWindow));
+
+
+
+
+        public bool IsResize
+        {
+            get { return (bool)GetValue(IsResizeProperty); }
+            set { SetValue(IsResizeProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for IsResize.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsResizeProperty =
+            DependencyProperty.Register("IsResize", typeof(bool), typeof(BaseWindow));
+
+
+
+        public double TitleHeight
+        {
+            get { return (double)GetValue(TitleHeightProperty); }
+            set { SetValue(TitleHeightProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for TitleHeight.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty TitleHeightProperty =
+            DependencyProperty.Register("TitleHeight", typeof(double), typeof(BaseWindow), new PropertyMetadata(36.0));
 
 
 
@@ -104,16 +156,14 @@ namespace Careful.Controls.WindowBaseControl
         private void InitializeEvent()
         {
             this.MouseMove += BaseWindow_MouseMove;
-            ControlTemplate baseWindowTemplate = (ControlTemplate)style1["BaseWindowControlTemplate"];
-
             #region 窗体操作
 
-            Button minBtn = (Button)baseWindowTemplate.FindName("btnMin", this);
+            Button minBtn = (Button)Template.FindName("btnMin", this);
             minBtn.Click += delegate
             {
                 WindowState = WindowState.Minimized;
             };
-            ToggleStateControl btnMax = (ToggleStateControl)baseWindowTemplate.FindName("btnMax", this);
+            ToggleExtend btnMax = (ToggleExtend)Template.FindName("btnMax", this);
             btnMax.Click += delegate
             {
                 if (btnMax.IsChecked == true)
@@ -128,13 +178,15 @@ namespace Careful.Controls.WindowBaseControl
                 //NativeMethods.SetWindowRectanle(this);
             };
 
-            Button btnClose = (Button)baseWindowTemplate.FindName("btnClose", this);
+            Button btnClose = (Button)Template.FindName("btnClose", this);
             btnClose.Click += delegate
             {
+                RoutedEventArgs routedEventArgs = new RoutedEventArgs(BaseWindow.BeforeCloseEvent, this);
+                this.RaiseEvent(routedEventArgs);
                 this.Close();
             };
 
-            Border borderTitle = (Border)baseWindowTemplate.FindName("borderTitle", this);
+            Border borderTitle = (Border)Template.FindName("borderTitle", this);
 
             borderTitle.MouseMove += delegate (object sender, MouseEventArgs e)
             {
@@ -147,50 +199,63 @@ namespace Careful.Controls.WindowBaseControl
             };
             borderTitle.MouseLeftButtonDown += delegate (object sender, MouseButtonEventArgs e)
             {
-                if (e.ClickCount >= 2)
-                {
-                    if (WindowState == WindowState.Maximized)
+                if (IsMaxButton)
+                    if (e.ClickCount >= 2)
                     {
-                        WindowState = WindowState.Normal;
-                        btnMax.IsChecked = false;
+                        if (WindowState == WindowState.Maximized)
+                        {
+                            WindowState = WindowState.Normal;
+                            btnMax.IsChecked = false;
+                        }
+                        else
+                        {
+                            WindowState = WindowState.Maximized;
+                            btnMax.IsChecked = true;
+                        }
+                        //NativeMethods.SetWindowRectanle(this);
                     }
-                    else
-                    {
-                        WindowState = WindowState.Maximized;
-                        btnMax.IsChecked = true;
-                    }
-                    //NativeMethods.SetWindowRectanle(this);
-                }
             };
             #endregion
         }
         Rect NormalRect { get; set; }
+
+        public bool IsSingle
+        {
+            get { return (bool)GetValue(IsSingleProperty); }
+            set { SetValue(IsSingleProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for IsSingle.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsSingleProperty =
+            DependencyProperty.Register("IsSingle", typeof(bool), typeof(BaseWindow), new PropertyMetadata(false));
+
+
         private void SetWorkArea()
         {
             Rect rc = SystemParameters.WorkArea;
             int width, height;
-            Windows32Operation.WindowsLocation location = Windows32Operation.GetWindowsBarLocation(out width, out height);
+            WindowOperation.WindowsLocation location = WindowOperation.GetWindowsBarLocation(out width, out height);
             switch (location)
             {
-                case Windows32Operation.WindowsLocation.bottom:
+                case WindowOperation.WindowsLocation.bottom:
                     this.Left = 0;//设置位置
                     this.Top = 0;
                     this.Width = rc.Width;
                     this.Height = rc.Height;
                     break;
-                case Windows32Operation.WindowsLocation.left:
+                case WindowOperation.WindowsLocation.left:
                     this.Left = width;
                     this.Top = 0;
                     this.Width = rc.Width;
                     this.Height = rc.Height;
                     break;
-                case Windows32Operation.WindowsLocation.right:
+                case WindowOperation.WindowsLocation.right:
                     this.Left = 0;//设置位置
                     this.Top = 0;
                     this.Width = rc.Width;
                     this.Height = rc.Height;
                     break;
-                case Windows32Operation.WindowsLocation.top:
+                case WindowOperation.WindowsLocation.top:
                     this.Left = 0;
                     this.Top = height;
                     this.Width = rc.Width;
@@ -285,5 +350,4 @@ namespace Careful.Controls.WindowBaseControl
 
         #endregion
     }
-
 }

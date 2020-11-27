@@ -8,6 +8,7 @@
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="BorderBrush" Value="#FFDBDBDB"></Setter>
         <Setter Property="TextBoxCornerRadius" Value="2" />
+        <Setter Property="Foreground" Value="Black" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type controls:TextBoxExtend}">
@@ -41,8 +42,8 @@
                                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                <Path x:Name="pathHeadrt" Margin="3,0,0,0" Stretch="UniformToFill" Fill="#FFCCCCCC" Width="20" Height="20" Data="{TemplateBinding Data}"></Path>
-                               
+                                <Path x:Name="pathHeadrt" Margin="5,0,0,0" Stretch="UniformToFill" Fill="#FFCCCCCC" Width="{Binding PathWidth,RelativeSource={RelativeSource AncestorType=controls:TextBoxExtend}}" Height="{Binding PathHeight,RelativeSource={RelativeSource AncestorType=controls:TextBoxExtend}}" Data="{TemplateBinding Data}"></Path>
+
                                 <ScrollViewer
                                     x:Name="PART_ContentHost"
                                     VerticalAlignment="Center"

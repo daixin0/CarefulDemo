@@ -49,7 +49,6 @@
   <ItemGroup>
     <Compile Include="ApplicationBase.cs" />
     <Compile Include="CarefulBootstrapper.cs" />
-    <Compile Include="InitializationExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

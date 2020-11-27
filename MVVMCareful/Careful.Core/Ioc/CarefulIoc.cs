@@ -11,7 +11,7 @@ namespace Careful.Core.Ioc
     public class CarefulIoc : ICarefulIoc
     {
         private readonly Dictionary<Type, ConstructorInfo> _constructorInfos
-           = new Dictionary<Type, ConstructorInfo>();
+            = new Dictionary<Type, ConstructorInfo>();
 
         private readonly string _defaultKey = Guid.NewGuid().ToString();
 
@@ -121,59 +121,7 @@ namespace Careful.Core.Ioc
                 }
             }
         }
-        public void RegisterInstance<TInterface>(object obj)
-        {
-            lock (_syncLock)
-            {
-                var interfaceType = typeof(TInterface);
-                var classType = obj.GetType();
 
-                if (_interfaceToClassMap.ContainsKey(interfaceType))
-                {
-                    if (_interfaceToClassMap[interfaceType] != classType)
-                    {
-                        throw new InvalidOperationException(
-                            string.Format(
-                                CultureInfo.InvariantCulture,
-                                "There is already a class registered for {0}.",
-                                interfaceType.FullName));
-                    }
-                }
-                else
-                {
-                    _interfaceToClassMap.Add(interfaceType, classType);
-                }
-                Func<TInterface> factory = new Func<TInterface>(() => { return (TInterface)obj; });
-                DoRegister(interfaceType, factory, _defaultKey);
-            }
-        }
-        public void RegisterInstanceConstructor<TInterface>(object obj)
-        {
-            lock (_syncLock)
-            {
-                var interfaceType = typeof(TInterface);
-                var classType = obj.GetType();
-
-                if (_interfaceToClassMap.ContainsKey(interfaceType))
-                {
-                    if (_interfaceToClassMap[interfaceType] != classType)
-                    {
-                        throw new InvalidOperationException(
-                            string.Format(
-                                CultureInfo.InvariantCulture,
-                                "There is already a class registered for {0}.",
-                                interfaceType.FullName));
-                    }
-                }
-                else
-                {
-                    _interfaceToClassMap.Add(interfaceType, classType);
-                    _constructorInfos.Add(classType, GetConstructorInfo(classType));
-                }
-                Func<TInterface> factory = new Func<TInterface>(() => { return (TInterface)obj; });
-                DoRegister(interfaceType, factory, _defaultKey);
-            }
-        }
         public bool IsRegistered(Type type)
         {
             return _interfaceToClassMap.ContainsKey(type);
@@ -183,7 +131,42 @@ namespace Careful.Core.Ioc
         {
             Register<TClass>(false);
         }
+        public void Register(Type type)
+        {
+            if (type.IsInterface)
+            {
+                throw new ArgumentException("An interface cannot be registered alone.");
+            }
 
+            lock (_syncLock)
+            {
+                if (_factories.ContainsKey(type)
+                    && _factories[type].ContainsKey(_defaultKey))
+                {
+                    if (!_constructorInfos.ContainsKey(type))
+                    {
+                        throw new InvalidOperationException(
+                            string.Format(
+                                CultureInfo.InvariantCulture,
+                                "Class {0} is already registered.",
+                                type));
+                    }
+
+                    return;
+                }
+
+                if (!_interfaceToClassMap.ContainsKey(type))
+                {
+                    _interfaceToClassMap.Add(type, null);
+                }
+
+                _constructorInfos.Add(type, GetConstructorInfo(type));
+                Func<object> factory = new Func<object>(() => MakeInstance(type));
+                DoRegister(type, factory, _defaultKey);
+
+                GetInstance(type, _defaultKey);
+            }
+        }
         public void Register<TClass>(bool createInstanceImmediately)
             where TClass : class
         {
@@ -225,41 +208,7 @@ namespace Careful.Core.Ioc
                 }
             }
         }
-        public void Register(Type classType)
-        {
-            if (classType.IsInterface)
-            {
-                throw new ArgumentException("An interface cannot be registered alone.");
-            }
 
-            lock (_syncLock)
-            {
-                if (_factories.ContainsKey(classType)
-                    && _factories[classType].ContainsKey(_defaultKey))
-                {
-                    if (!_constructorInfos.ContainsKey(classType))
-                    {
-                        throw new InvalidOperationException(
-                            string.Format(
-                                CultureInfo.InvariantCulture,
-                                "Class {0} is already registered.",
-                                classType));
-                    }
-
-                    return;
-                }
-
-                if (!_interfaceToClassMap.ContainsKey(classType))
-                {
-                    _interfaceToClassMap.Add(classType, null);
-                }
-
-                _constructorInfos.Add(classType, GetConstructorInfo(classType));
-                Func<object> factory = new Func<object>(() => MakeInstance(classType));
-                DoRegister(classType, factory, _defaultKey);
-
-            }
-        }
         public void Register<TClass>(Func<TClass> factory)
             where TClass : class
         {
@@ -509,7 +458,59 @@ namespace Careful.Core.Ioc
                 return instance;
             }
         }
+        public void RegisterInstance<TInterface>(object obj)
+        {
+            lock (_syncLock)
+            {
+                var interfaceType = typeof(TInterface);
+                var classType = obj.GetType();
 
+                if (_interfaceToClassMap.ContainsKey(interfaceType))
+                {
+                    if (_interfaceToClassMap[interfaceType] != classType)
+                    {
+                        throw new InvalidOperationException(
+                            string.Format(
+                                CultureInfo.InvariantCulture,
+                                "There is already a class registered for {0}.",
+                                interfaceType.FullName));
+                    }
+                }
+                else
+                {
+                    _interfaceToClassMap.Add(interfaceType, classType);
+                }
+                Func<TInterface> factory = new Func<TInterface>(() => { return (TInterface)obj; });
+                DoRegister(interfaceType, factory, _defaultKey);
+            }
+        }
+        public void RegisterInstanceConstructor<TInterface>(object obj)
+        {
+            lock (_syncLock)
+            {
+                var interfaceType = typeof(TInterface);
+                var classType = obj.GetType();
+
+                if (_interfaceToClassMap.ContainsKey(interfaceType))
+                {
+                    if (_interfaceToClassMap[interfaceType] != classType)
+                    {
+                        throw new InvalidOperationException(
+                            string.Format(
+                                CultureInfo.InvariantCulture,
+                                "There is already a class registered for {0}.",
+                                interfaceType.FullName));
+                    }
+                }
+                else
+                {
+                    _interfaceToClassMap.Add(interfaceType, classType);
+                    _constructorInfos.Add(classType, GetConstructorInfo(classType));
+                }
+                Func<TInterface> factory = new Func<TInterface>(() => { return (TInterface)obj; });
+                DoRegister(interfaceType, factory, _defaultKey);
+            }
+        }
         private void DoRegister<TClass>(Type classType, Func<TClass> factory, string key)
         {
             if (_factories.ContainsKey(classType))
@@ -637,7 +638,6 @@ namespace Careful.Core.Ioc
         }
         private object MakeInstance(Type serviceType)
         {
-
             var constructor = _constructorInfos.ContainsKey(serviceType)
                                   ? _constructorInfos[serviceType]
                                   : GetConstructorInfo(serviceType);

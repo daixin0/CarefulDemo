@@ -95,6 +95,7 @@
     <Compile Include="ViewModel\ViewModelDialog.cs" />
     <Compile Include="ViewModel\ViewModelLocationProvider.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="Views\IView.cs" />
     <Compile Include="Views\WindowDialogResult.cs" />
   </ItemGroup>
   <ItemGroup>

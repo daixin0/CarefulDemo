@@ -1,0 +1,129 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!--  Windows 10  -->
+
+    <Style x:Key="MahApps.Styles.Thumb.Slider.Win10" TargetType="Thumb">
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Thumb">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="4"
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="MahApps.Styles.RepeatButton.Slider.HorizontalTrack.Win10Left" TargetType="{x:Type RepeatButton}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="OverridesDefaultStyle" Value="True" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RepeatButton}">
+                    <Grid Background="{TemplateBinding Background}">
+                        <Border Height="6" CornerRadius="4,0,0,4" Background="{TemplateBinding Foreground}" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="MahApps.Styles.RepeatButton.Slider.HorizontalTrack.Win10Right" TargetType="{x:Type RepeatButton}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="OverridesDefaultStyle" Value="True" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RepeatButton}">
+                    <Grid Background="{TemplateBinding Background}">
+                        <Border Height="6" CornerRadius="0,4,4,0" Background="{TemplateBinding Foreground}" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--  HorizontalSlider  -->
+    <ControlTemplate x:Key="MahApps.Templates.Slider.Horizontal.Win10" TargetType="{x:Type Slider}">
+        <Grid x:Name="HorizontalTemplate"
+              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+              Background="{TemplateBinding Background}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" MinHeight="{TemplateBinding Slider.MinHeight}" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <TickBar x:Name="TopTick"
+                     Grid.Row="0"
+                     Height="6"
+                     Fill="{TemplateBinding Foreground}"
+                     Placement="Top"
+                     Visibility="Collapsed" />
+            <TickBar x:Name="BottomTick"
+                     Grid.Row="2"
+                     Height="6"
+                     Fill="{TemplateBinding Foreground}"
+                     Placement="Bottom"
+                     Visibility="Collapsed" />
+            <Track x:Name="PART_Track"
+                   Grid.Row="0"
+                   Grid.RowSpan="3">
+                <Track.DecreaseRepeatButton>
+                    <RepeatButton x:Name="HorizontalTrackDecrease"
+                                  Command="{x:Static Slider.DecreaseLarge}"
+                                  Foreground="#4F98EF"
+                                  Style="{DynamicResource MahApps.Styles.RepeatButton.Slider.HorizontalTrack.Win10Left}" />
+                </Track.DecreaseRepeatButton>
+                <Track.IncreaseRepeatButton>
+                    <RepeatButton x:Name="HorizontalTrackIncrease"
+                                  Command="{x:Static Slider.IncreaseLarge}"
+                                  Foreground="#D6D6D6"
+                                  Style="{DynamicResource MahApps.Styles.RepeatButton.Slider.HorizontalTrack.Win10Right}" />
+                </Track.IncreaseRepeatButton>
+                <Track.Thumb>
+                    <Thumb>
+                        <Thumb.Template>
+                            <ControlTemplate>
+                                <Ellipse Cursor="Hand"  Stroke="#4F98EF" StrokeThickness="1" Width="24" Height="24" Fill="#FFFFFF" HorizontalAlignment="Left" Canvas.Left="{Binding Path=Width,ElementName=PART_Indicator}" >
+                                    
+                                </Ellipse>
+                            </ControlTemplate>
+                        </Thumb.Template>
+                    </Thumb>
+                   
+                </Track.Thumb>
+            </Track>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="TickPlacement" Value="TopLeft">
+                <Setter TargetName="TopTick" Property="Visibility" Value="Visible" />
+            </Trigger>
+            <Trigger Property="TickPlacement" Value="BottomRight">
+                <Setter TargetName="BottomTick" Property="Visibility" Value="Visible" />
+            </Trigger>
+            <Trigger Property="TickPlacement" Value="Both">
+                <Setter TargetName="BottomTick" Property="Visibility" Value="Visible" />
+                <Setter TargetName="TopTick" Property="Visibility" Value="Visible" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <Style TargetType="{x:Type Slider}">
+        <Setter Property="BorderBrush" Value="{DynamicResource MahApps.Brushes.Control.Border}" />
+        <Setter Property="BorderThickness" Value="6" />
+        <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Gray2}" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="IsMoveToPointEnabled" Value="True" />
+        <Setter Property="Maximum" Value="100" />
+        <Setter Property="Minimum" Value="0" />
+        <Setter Property="Template" Value="{DynamicResource MahApps.Templates.Slider.Horizontal.Win10}" />
+        <Setter Property="Value" Value="0" />
+        <Setter Property="VerticalContentAlignment" Value="Stretch" />
+    </Style>
+</ResourceDictionary>

@@ -33,6 +33,30 @@ namespace Careful.Controls.TextBoxExtendControl
 
 
 
+        public double PathWidth
+        {
+            get { return (double)GetValue(PathWidthProperty); }
+            set { SetValue(PathWidthProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for PathWidth.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty PathWidthProperty =
+            DependencyProperty.Register("PathWidth", typeof(double), typeof(TextBoxExtend));
+
+
+
+        public double PathHeight
+        {
+            get { return (double)GetValue(PathHeightProperty); }
+            set { SetValue(PathHeightProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for PathHeight.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty PathHeightProperty =
+            DependencyProperty.Register("PathHeight", typeof(double), typeof(TextBoxExtend));
+
+
+
         public CornerRadius TextBoxCornerRadius
         {
             get { return (CornerRadius)GetValue(TextBoxCornerRadiusProperty); }
@@ -41,7 +65,7 @@ namespace Careful.Controls.TextBoxExtendControl
 
         // Using a DependencyProperty as the backing store for TextBoxCornerRadius.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty TextBoxCornerRadiusProperty =
-            DependencyProperty.Register("TextBoxCornerRadius", typeof(CornerRadius), typeof(TextBoxExtend),new PropertyMetadata(new CornerRadius(2)));
+            DependencyProperty.Register("TextBoxCornerRadius", typeof(CornerRadius), typeof(TextBoxExtend), new PropertyMetadata(new CornerRadius(2)));
 
 
 
@@ -55,11 +79,11 @@ namespace Careful.Controls.TextBoxExtendControl
         public static readonly DependencyProperty WaterTextProperty =
             DependencyProperty.Register("WaterText", typeof(string), typeof(TextBoxExtend));
 
-        
+
 
         public AlignmentX AlignmentX
         {
-            get { return ( AlignmentX)GetValue(AlignmentXProperty); }
+            get { return (AlignmentX)GetValue(AlignmentXProperty); }
             set { SetValue(AlignmentXProperty, value); }
         }
 

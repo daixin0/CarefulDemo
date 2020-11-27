@@ -10,45 +10,8 @@ using System.Windows.Interactivity;
 
 namespace Careful.Core.Mvvm.ViewInvokeCommand
 {
-    /// <summary>
-    /// 用于打开指定窗口的行为(Action)，并可以在窗口关闭时执行指定方法或命令
-    /// </summary>
-    /// <remarks>
-    /// 已知 BUG:
-    /// 1) 当为 ContextMenu 中的 MenutItem 的 Click 事件设置此 Action 时，无法执行窗体关闭时的方法或命令
-    /// </remarks>
     public class OpenWindowAction : TriggerAction<DependencyObject>
     {
-        public static bool? GetDialogResult(DependencyObject obj)
-        {
-            return (bool?)obj.GetValue(DialogResultProperty);
-        }
-
-        public static void SetDialogResult(DependencyObject obj, bool? value)
-        {
-            obj.SetValue(DialogResultProperty, value);
-        }
-
-        // Using a DependencyProperty as the backing store for DialogResult.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty DialogResultProperty =
-            DependencyProperty.RegisterAttached("DialogResult", typeof(bool?), typeof(OpenWindowAction), new PropertyMetadata(OnDialogResultChanged));
-
-        private static void OnDialogResultChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            if (!(d is Window))
-            {
-                return;
-            }
-            var window = d as Window;
-            if ((bool?)e.NewValue == true)
-            {
-                window.DialogResult = true;
-            }
-            else if ((bool?)e.NewValue == false)
-            {
-                window.Close();
-            }
-        }
 
         public string WindowName
         {
@@ -93,6 +56,20 @@ namespace Careful.Core.Mvvm.ViewInvokeCommand
 
         public static readonly DependencyProperty WindowTypeProperty =
                             DependencyProperty.Register("WindowType", typeof(Type), typeof(OpenWindowAction), new PropertyMetadata(null));
+
+
+
+
+        public bool IsHandleWindow
+        {
+            get { return (bool)GetValue(IsHandleWindowProperty); }
+            set { SetValue(IsHandleWindowProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for IsHandleWindow.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsHandleWindowProperty =
+            DependencyProperty.Register("IsHandleWindow", typeof(bool), typeof(OpenWindowAction));
+
 
         public Func<bool> ChenckingFuncBeforeOpenning
         {
@@ -179,7 +156,117 @@ namespace Careful.Core.Mvvm.ViewInvokeCommand
             set { SetValue(WindowTypeProperty, value); }
         }
 
-        protected override async void Invoke(object parameter)
+
+        public bool MethodEnd
+        {
+            get { return (bool)GetValue(MethodEndProperty); }
+            set { SetValue(MethodEndProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for MethodEnd.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty MethodEndProperty =
+            DependencyProperty.Register("MethodEnd", typeof(bool), typeof(OpenWindowAction), new PropertyMetadata(MethodEndChanged));
+
+        private static void MethodEndChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs changedEventArgs)
+        {
+            OpenWindowAction openWindowAction = dependencyObject as OpenWindowAction;
+            if ((bool)changedEventArgs.NewValue)
+            {
+                openWindowAction.WindowShow();
+            }
+        }
+
+
+        private void WindowShow()
+        {
+            if (WindowType == null)
+            {
+                WindowType = ContainerExtension.GetWindowObject(WindowName);
+            }
+
+            var windowObj = Activator.CreateInstance(WindowType);
+
+            var window = windowObj as Window;
+            window.Closed += (s, e) =>
+            {
+                // 获取 Return Value
+                object returnValue = null;
+
+                if (window.DataContext != null)
+                {
+                    if (window.DataContext is IDialogResult dialogResult)
+                    {
+                        returnValue = dialogResult;
+                    }
+                }
+
+                // 先调用 Command（如果设置了），再调用方法（如果同样设置了）
+                // TODO: 这里临时这样做，如果没有返回值，则在调用 After Close 系列方法时，传入 Parameter 参数
+                //if (returnValue == null)
+                //{
+                //    returnValue = Parameter;
+                //}
+                CommandAfterClose?.Execute(returnValue);
+
+                // 再调用方法
+                if (!string.IsNullOrWhiteSpace(MethodAfterClose))
+                {
+                    MethodInfo method = null;
+
+                    // 如果没有指定 MethodOfTargetObject，则默认为 AssociatedObject 的 DataContext (通常是 ViewModel)
+                    if (MethodOfTargetObject == null && MethodOfTargetObject is FrameworkElement)
+                    {
+                        var dataContext = (MethodOfTargetObject as FrameworkElement).DataContext;
+                        if (dataContext != null)
+                        {
+                            method = dataContext.GetType().GetMethod(MethodAfterClose, BindingFlags.Public | BindingFlags.Instance);
+                            method?.Invoke(dataContext, returnValue != null ? new object[] { returnValue } : null);
+                        }
+                    }
+                    else
+                    {
+                        method = MethodOfTargetObject?.GetType().GetMethod(MethodAfterClose, BindingFlags.Public | BindingFlags.Instance);
+                        method?.Invoke(MethodOfTargetObject, returnValue != null ? new object[] { returnValue } : null);
+                    }
+                }
+            };
+
+            if (window.DataContext != null && window.DataContext is IDialogResult)
+            {
+                (window.DataContext as IDialogResult).Parameters = Parameter as IDialogParameters;
+            }
+            else
+            {
+                window.Tag = Parameter;
+            }
+            if (IsHandleWindow)
+            {
+                if (IsModal)
+                {
+                    WindowHandleManagement.HandleShowDialogWindow(new IntPtr(1), window, true);
+                }
+                else
+                {
+                    WindowHandleManagement.HandleShowWindow(new IntPtr(1), window, true);
+                }
+            }
+            else
+            {
+                window.Owner = WindowOperation.GetCurrentActivatedWindow();
+                if (IsModal)
+                {
+                    window.ShowDialog();
+                }
+                else
+                {
+                    window.Show();
+                }
+            }
+
+
+        }
+
+        protected override void Invoke(object parameter)
         {
             try
             {
@@ -209,8 +296,6 @@ namespace Careful.Core.Mvvm.ViewInvokeCommand
                 if (!string.IsNullOrWhiteSpace(MethodBeforeOpen))
                 {
                     MethodInfo method = null;
-                    Task task = null;
-
                     // 如果没有指定 MethodOfTargetObject，则默认为 AssociatedObject 的 DataContext (通常是 ViewModel)
                     if (MethodOfTargetObject == null && MethodOfTargetObject is FrameworkElement)
                     {
@@ -218,90 +303,17 @@ namespace Careful.Core.Mvvm.ViewInvokeCommand
                         if (dataContext != null)
                         {
                             method = dataContext.GetType().GetMethod(MethodBeforeOpen, BindingFlags.Public | BindingFlags.Instance);
-                            task = (Task)method?.Invoke(dataContext, null);
+                            method?.Invoke(dataContext, null);
                         }
                     }
                     else
                     {
                         method = MethodOfTargetObject?.GetType().GetMethod(MethodBeforeOpen, BindingFlags.Public | BindingFlags.Instance);
-                        task = (Task)method?.Invoke(MethodOfTargetObject, null);
+                        method?.Invoke(MethodOfTargetObject, null);
                     }
-
-                    if (task != null)
-                    {
-                        await task;
-                    }
+                    return;
                 }
-                if (WindowType == null)
-                {
-                    WindowType = ContainerExtension.GetWindowObject(WindowName);
-                }
-
-                var windowObj = Activator.CreateInstance(WindowType);
-
-                var window = windowObj as Window;
-                window.Closed += (s, e) =>
-                {
-                    // 获取 Return Value
-                    object returnValue = null;
-
-                    if (window.DataContext != null)
-                    {
-                        if (window.DataContext is IDialogResult dialogResult)
-                        {
-                            returnValue = dialogResult;
-                        }
-                    }
-
-                    // 先调用 Command（如果设置了），再调用方法（如果同样设置了）
-                    // TODO: 这里临时这样做，如果没有返回值，则在调用 After Close 系列方法时，传入 Parameter 参数
-                    //if (returnValue == null)
-                    //{
-                    //    returnValue = Parameter;
-                    //}
-                    CommandAfterClose?.Execute(returnValue);
-
-                    // 再调用方法
-                    if (!string.IsNullOrWhiteSpace(MethodAfterClose))
-                    {
-                        MethodInfo method = null;
-
-                        // 如果没有指定 MethodOfTargetObject，则默认为 AssociatedObject 的 DataContext (通常是 ViewModel)
-                        if (MethodOfTargetObject == null && MethodOfTargetObject is FrameworkElement)
-                        {
-                            var dataContext = (MethodOfTargetObject as FrameworkElement).DataContext;
-                            if (dataContext != null)
-                            {
-                                method = dataContext.GetType().GetMethod(MethodAfterClose, BindingFlags.Public | BindingFlags.Instance);
-                                method?.Invoke(dataContext, returnValue != null ? new object[] { returnValue } : null);
-                            }
-                        }
-                        else
-                        {
-                            method = MethodOfTargetObject?.GetType().GetMethod(MethodAfterClose, BindingFlags.Public | BindingFlags.Instance);
-                            method?.Invoke(MethodOfTargetObject, returnValue != null ? new object[] { returnValue } : null);
-                        }
-                    }
-                };
-
-                if (window.DataContext != null && window.DataContext is IDialogResult)
-                {
-                    (window.DataContext as IDialogResult).Parameters = Parameter as IDialogParameters;
-                }
-                else
-                {
-                    window.Tag = Parameter;
-                }
-
-                if (IsModal)
-                {
-                    window.Owner = WindowOperation.GetCurrentActivatedWindow();
-                    window.ShowDialog();
-                }
-                else
-                {
-                    window.Show();
-                }
+                WindowShow();
             }
             catch (Exception ex)
             {

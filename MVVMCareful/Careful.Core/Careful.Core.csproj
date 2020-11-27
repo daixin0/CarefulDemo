@@ -89,7 +89,6 @@
     <Compile Include="Ioc\ICarefulIoc.cs" />
     <Compile Include="Ioc\PreferredConstructor.cs" />
     <Compile Include="Ioc\CarefulIoc.cs" />
-    <Compile Include="IView.cs" />
     <Compile Include="Logs\FileLogger.cs" />
     <Compile Include="Logs\ILog.cs" />
     <Compile Include="Logs\ILogExtensions.cs" />

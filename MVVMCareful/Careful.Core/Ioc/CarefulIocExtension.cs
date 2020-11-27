@@ -17,16 +17,10 @@ namespace Careful.Core.Ioc
 
         public IScopedProvider CurrentScope => throw new NotImplementedException();
 
-        [PreferredConstructorAttribute]
+
         public CarefulIocExtension()
-            : this(CarefulIoc.Default)
         {
-        }
-
-        public CarefulIocExtension(ICarefulIoc container)
-        {
-            Instance = container;
-
+            Instance = CarefulIoc.Default;
         }
 
         public void FinalizeExtension()
@@ -36,46 +30,29 @@ namespace Careful.Core.Ioc
 
         public object Resolve(Type type)
         {
-            var instance = Instance.GetInstance(type);
-            if (instance == null)
-            {
-                Instance.Register(type);
-                instance= Instance.GetInstance(type);
-            }
-            return instance;
-        }
-        public object Resolve(Type type,bool singleton)
-        {
-            if (singleton)
-            {
-                var instance = Instance.GetInstance(type);
-                if (instance == null)
-                {
-                    Instance.Register(type);
-                    instance = Instance.GetInstance(type);
-                }
-                return instance;
-            }
+            if (Instance.IsRegistered(type))
+                return Instance.GetInstance(type);
             else
             {
-                var instance = Instance.GetInstance(type, Guid.NewGuid().ToString());
-                if (instance == null)
-                {
-                    Instance.Register(type);
-                    instance = Instance.GetInstance(type, Guid.NewGuid().ToString());
-                }
-                return instance;
+                Instance.Register(type);
+                return Instance.GetInstance(type);
             }
-            
         }
+
         public object Resolve(Type type, params (Type Type, object Instance)[] parameters)
         {
             throw new NotImplementedException();
         }
 
-        public object Resolve(Type type, string name)
+        public object Resolve(Type type, string key)
         {
-            throw new NotImplementedException();
+            if (Instance.IsRegistered(type))
+                return Instance.GetInstance(type, key);
+            else
+            {
+                Instance.Register(type);
+                return Instance.GetInstance(type, key);
+            }
         }
 
         public object Resolve(Type type, string name, params (Type Type, object Instance)[] parameters)

@@ -25,106 +25,131 @@ namespace Careful.Core.PropertyValidation
             resultAction(new ValidationResult(true, null));
             return true;
         }
-        private static bool VerifivationFanction(PropertyInfo propertyInfo,object obj, Action<ValidationResult> resultAction = null)
+        private static bool VerifivationFanction(PropertyInfo propertyInfo, object obj, Action<ValidationResult> resultAction = null)
         {
-            object[] att = propertyInfo.GetCustomAttributes(typeof(ValidationDescriptionAttribute), true);
-            if (att.Length > 0)
+            var att = propertyInfo.GetCustomAttributes<ValidationDescriptionAttribute>();
+            if (att.Count() > 0)
             {
                 foreach (ValidationDescriptionAttribute verificationAttribute in att)
                 {
                     Type propertyType = propertyInfo.PropertyType;
-                    foreach (var item in verificationAttribute.ValidationObject)
-                    {
-                        switch (item.ValidationDescriptionType)
-                        {
-                            case ValidationDescriptionType.NotNull:
-                                if (propertyType == typeof(string))
-                                {
-                                    if (obj == null)
-                                    {
-                                        resultAction(new ValidationResult(false, verificationAttribute.Description));
-                                        return false;
-                                    }
 
-                                    string value = obj.ToString();
-                                    if (string.IsNullOrWhiteSpace(value))
-                                    {
-                                        resultAction(new ValidationResult(false, verificationAttribute.Description));
-                                        return false;
-                                    }
-                                }
-                                break;
-                            case ValidationDescriptionType.Number:
-                                DataValidation dataValidation = verificationAttribute.ValidationData as DataValidation;
-                                switch (item.DataValidationType)
-                                {
-                                    case DataValidationType.LessThan:
-                                        break;
-                                    case DataValidationType.LessThanEqual:
-                                        break;
-                                    case DataValidationType.GreaterThan:
-                                        break;
-                                    case DataValidationType.GreaterThanEqual:
-                                       
-                                        bool verifyResult = ValidationHelper.GreaterThanEqual(propertyType, obj, dataValidation.Data1);
-                                        if (!verifyResult)
-                                        {
-                                            resultAction(new ValidationResult(false, verificationAttribute.Description));
-                                            return false;
-                                        }
-                                        break;
-                                    case DataValidationType.Section:
-                                        bool sectionResult = ValidationHelper.Section(obj, dataValidation.Data1, dataValidation.Data2);
-                                        if (!sectionResult)
-                                        {
-                                            resultAction(new ValidationResult(false, verificationAttribute.Description));
-                                            return false;
-                                        }
-                                        break;
-                                    case DataValidationType.None:
-                                        break;
-                                }
-                                break;
-                            case ValidationDescriptionType.Digit:
-                                DigitValidation digitValidation = verificationAttribute.ValidationData as DigitValidation;
-                                switch (item.DigitValidationType)
-                                {
-                                    case DigitValidationType.LessThan:
-                                        break;
-                                    case DigitValidationType.LessThanEqual:
-                                        bool numberResult = ValidationHelper.LessThanEqualDigit(obj, digitValidation.DightNumber1);
-                                        if (!numberResult)
-                                        {
-                                            resultAction(new ValidationResult(false, verificationAttribute.Description));
-                                            return false;
-                                        }
-                                        break;
-                                    case DigitValidationType.GreaterThan:
-                                        bool passWordresult = ValidationHelper.GreaterThanDigit(obj, digitValidation.DightNumber1);
-                                        if (!passWordresult)
-                                        {
-                                            resultAction(new ValidationResult(false, verificationAttribute.Description));
-                                            return false;
-                                        }
-                                        break;
-                                    case DigitValidationType.GreaterThanEqual:
-                                        break;
-                                    case DigitValidationType.Section:
-                                        break;
-                                    case DigitValidationType.None:
-                                        break;
-                                }
-                                break;
-                            case ValidationDescriptionType.Letter:
-                                bool letterResult = ValidationHelper.Letter(obj);
-                                if (!letterResult)
+                    switch (verificationAttribute.ValidationDescriptionType)
+                    {
+                        case ValidationDescriptionType.NotNull:
+                            if (propertyType == typeof(string))
+                            {
+                                if (obj == null)
                                 {
                                     resultAction(new ValidationResult(false, verificationAttribute.Description));
                                     return false;
                                 }
-                                break;
-                        }
+
+                                string value = obj.ToString();
+                                if (string.IsNullOrWhiteSpace(value))
+                                {
+                                    resultAction(new ValidationResult(false, verificationAttribute.Description));
+                                    return false;
+                                }
+                            }
+                            break;
+                        case ValidationDescriptionType.Number:
+                            if (obj == null)
+                            {
+                                resultAction(new ValidationResult(false, verificationAttribute.Description));
+                                return false;
+                            }
+                            if (string.IsNullOrWhiteSpace(obj.ToString()))
+                            {
+                                resultAction(new ValidationResult(false, verificationAttribute.Description));
+                                return false;
+                            }
+                            switch (verificationAttribute.DataValidationType)
+                            {
+                                case DataValidationType.LessThan:
+                                    bool lessThanResult = ValidationHelper.LessThan(propertyType, obj, verificationAttribute.Data1);
+                                    if (!lessThanResult)
+                                    {
+                                        resultAction(new ValidationResult(false, verificationAttribute.Description));
+                                        return false;
+                                    }
+                                    break;
+                                case DataValidationType.LessThanEqual:
+                                    bool lessThanEqualResult = ValidationHelper.LessThanEqual(propertyType, obj, verificationAttribute.Data1);
+                                    if (!lessThanEqualResult)
+                                    {
+                                        resultAction(new ValidationResult(false, verificationAttribute.Description));
+                                        return false;
+                                    }
+                                    break;
+                                case DataValidationType.GreaterThan:
+                                    bool greaterThanResult = ValidationHelper.GreaterThan(propertyType, obj, verificationAttribute.Data1);
+                                    if (!greaterThanResult)
+                                    {
+                                        resultAction(new ValidationResult(false, verificationAttribute.Description));
+                                        return false;
+                                    }
+                                    break;
+                                case DataValidationType.GreaterThanEqual:
+                                    
+                                    bool verifyResult = ValidationHelper.GreaterThanEqual(propertyType, obj, verificationAttribute.Data1);
+                                    if (!verifyResult)
+                                    {
+                                        resultAction(new ValidationResult(false, verificationAttribute.Description));
+                                        return false;
+                                    }
+                                    break;
+                                case DataValidationType.Section:
+                                    bool sectionResult = ValidationHelper.Section(obj, verificationAttribute.Data1, verificationAttribute.Data2);
+                                    if (!sectionResult)
+                                    {
+                                        resultAction(new ValidationResult(false, verificationAttribute.Description));
+                                        return false;
+                                    }
+                                    break;
+                                case DataValidationType.None:
+                                    break;
+                            }
+                            break;
+                        case ValidationDescriptionType.Digit:
+                            switch (verificationAttribute.DigitValidationType)
+                            {
+                                case DigitValidationType.LessThan:
+                                    break;
+                                case DigitValidationType.LessThanEqual:
+                                    bool numberResult = ValidationHelper.LessThanEqualDigit(obj, verificationAttribute.DightNumber1);
+                                    if (!numberResult)
+                                    {
+                                        resultAction(new ValidationResult(false, verificationAttribute.Description));
+                                        return false;
+                                    }
+                                    break;
+                                case DigitValidationType.GreaterThan:
+                                    bool passWordresult = ValidationHelper.GreaterThanDigit(obj, verificationAttribute.DightNumber1);
+                                    if (!passWordresult)
+                                    {
+                                        resultAction(new ValidationResult(false, verificationAttribute.Description));
+                                        return false;
+                                    }
+                                    break;
+                                case DigitValidationType.GreaterThanEqual:
+                                    break;
+                                case DigitValidationType.Section:
+                                    break;
+                                case DigitValidationType.None:
+                                    break;
+                            }
+                            break;
+                        case ValidationDescriptionType.Letter:
+                            bool letterResult = ValidationHelper.Letter(obj);
+                            if (!letterResult)
+                            {
+                                resultAction(new ValidationResult(false, verificationAttribute.Description));
+                                return false;
+                            }
+                            break;
                     }
+
                 }
             }
             resultAction(new ValidationResult(true, null));
@@ -137,6 +162,6 @@ namespace Careful.Core.PropertyValidation
             return VerifivationFanction(propertyInfo, obj, resultAction);
         }
 
-        
+
     }
 }
