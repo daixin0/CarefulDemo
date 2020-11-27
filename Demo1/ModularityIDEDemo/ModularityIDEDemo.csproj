@@ -105,6 +105,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\ControlLibrary\ControlResource\Careful.Controls.csproj">
+      <Project>{96E0CF6A-E9CC-470B-8E07-32E1D3250499}</Project>
+      <Name>Careful.Controls</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Module.Test.Views\Module.Test.Views.csproj">
       <Project>{DC4BCA77-081D-45DA-A4B4-0B8A4E746E50}</Project>
       <Name>Module.Test.Views</Name>
@@ -112,6 +116,10 @@
     <ProjectReference Include="..\..\MVVMCareful\Careful.BootstrapperApplication\Careful.BootstrapperApplication.csproj">
       <Project>{ee637630-a4f2-44f2-92de-42a3d4255e29}</Project>
       <Name>Careful.BootstrapperApplication</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\MVVMCareful\Careful.Core\Careful.Core.csproj">
+      <Project>{9A2640B6-8161-462F-9F58-E8DF8D94FD49}</Project>
+      <Name>Careful.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
