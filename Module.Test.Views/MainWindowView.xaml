@@ -5,15 +5,36 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:vm="clr-namespace:Careful.Core.Mvvm.ViewModel;assembly=Careful.Core.Mvvm"
+        xmlns:proxy="clr-namespace:Careful.Core.Proxy;assembly=Careful.Core"
         xmlns:local="clr-namespace:Module.Test.Views"
-        mc:Ignorable="d"  vm:ViewModelLocator.AutoWireViewModel="True"
+        mc:Ignorable="d"  vm:ViewModelLocator.AutoWireViewModel="True" x:Name="window"
         Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <proxy:BindingProxy x:Key="proxy" Data="{Binding}"></proxy:BindingProxy>
+    </Window.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding LoadedCommand}"></i:InvokeCommandAction>
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid>
-        <TextBlock Text="ceshisadsads"></TextBlock>
+        <TreeView ItemsSource="{Binding TreeViewModel.Children}">
+            
+            <TreeView.ItemTemplate>
+                
+                <HierarchicalDataTemplate ItemsSource="{Binding Children}">
+                    <Grid>
+                        <Grid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="添加节点" Command="{Binding Data.AddCommand,Source={StaticResource proxy}}" CommandParameter="{Binding}"></MenuItem>
+                            </ContextMenu>
+                        </Grid.ContextMenu>
+                        <TextBlock Text="{Binding TreeName}"></TextBlock>
+                    </Grid>
+                   
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
     </Grid>
 </Window>
+    

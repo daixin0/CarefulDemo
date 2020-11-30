@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Module.Test.Views;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -18,6 +19,8 @@ namespace ModularityIDEDemo
             base.OnStartup(e);
             Bootstrapper bootstrapper = new Bootstrapper();
             bootstrapper.Run();
+            MainWindowView view = new MainWindowView();
+            view.ShowDialog();
         }
     }
 }

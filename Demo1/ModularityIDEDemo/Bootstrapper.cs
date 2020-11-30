@@ -38,19 +38,20 @@ namespace ModularityIDEDemo
             AppDomain.CurrentDomain.AssemblyResolve -= OnAssemblyResolve;
             AppDomain.CurrentDomain.AssemblyResolve += OnAssemblyResolve;
 
-            Application application = null;
-            if (!CarefulIoc.Default.IsRegistered<Application>())
-            {
-                application = new Application();
-                application.ShutdownMode = ShutdownMode.OnExplicitShutdown;
-                application.Exit += Application_Exit;
-                ResourceDictionary controlTheme = (ResourceDictionary)Application.LoadComponent(
-                            new Uri("/Longfor.Controls;component/Theme.xaml", UriKind.Relative));
+            //Application application = null;
+            //if (!CarefulIoc.Default.IsRegistered<Application>())
+            //{
+            //    application = new Application();
+            //    application.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+            //    application.Exit += Application_Exit;
+                
+            //}
+            //ResourceDictionary controlTheme = (ResourceDictionary)Application.LoadComponent(
+            //                new Uri("/Careful.Controls;component/Theme.xaml", UriKind.Relative));
 
-                application.Resources.MergedDictionaries.Add(controlTheme);
-                CarefulIoc.Default.RegisterInstance<Application>(application);
-                CarefulIoc.Default.Register<IMessageView, MessageBoxWindow>(false);
-            }
+            //Application.Current.Resources.MergedDictionaries.Add(controlTheme);
+            //CarefulIoc.Default.RegisterInstance<Application>(application);
+            CarefulIoc.Default.Register<IMessageView, MessageBoxWindow>(false);
         }
 
         private void Application_Exit(object sender, ExitEventArgs e)
