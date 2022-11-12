@@ -50,6 +50,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConfigHelper.cs" />
     <Compile Include="EnumHelper.cs" />
     <Compile Include="ExceptionBase\ResponseExceptionBase.cs" />
     <Compile Include="HttpHelper.cs" />
