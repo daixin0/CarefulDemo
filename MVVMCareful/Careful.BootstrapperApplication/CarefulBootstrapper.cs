@@ -148,9 +148,14 @@ namespace Careful.BootstrapperApplication
         {
             return new DirectoryModuleCatalog() { ModulePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) };
         }
+        protected virtual void InitIoc()
+        {
 
+        }
         protected virtual void Initialize()
         {
+
+            InitIoc();
             this.Logger = this.CreateLogger();
             if (this.Logger == null)
             {

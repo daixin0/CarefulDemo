@@ -245,6 +245,20 @@
     <Compile Include="ProgressBarDragControl\ProgressBarDrag.cs" />
     <Compile Include="ProgressBarDragControl\ProgressDragBehavior.cs" />
     <Compile Include="ProgressBarExtendControl\ProgressBarExtend.cs" />
+    <Compile Include="PropertyGridControl\Converters\BoolToOppositeConverter.cs" />
+    <Compile Include="PropertyGridControl\Converters\DoubleTypeConverter.cs" />
+    <Compile Include="PropertyGridControl\Converters\EnumTypeConverter.cs" />
+    <Compile Include="PropertyGridControl\Data\CompositeItem.cs" />
+    <Compile Include="PropertyGridControl\Data\ExpandableProperty.cs" />
+    <Compile Include="PropertyGridControl\Data\Item.cs" />
+    <Compile Include="PropertyGridControl\Data\Property.cs" />
+    <Compile Include="PropertyGridControl\Data\PropertyCategory.cs" />
+    <Compile Include="PropertyGridControl\Data\PropertyCollection.cs" />
+    <Compile Include="PropertyGridControl\FlatAttribute.cs" />
+    <Compile Include="PropertyGridControl\PropertyGrid.cs" />
+    <Compile Include="PropertyGridControl\PropertyTemplateSelector.cs" />
+    <Compile Include="PropertyGridControl\TypeEditors\IntegerTypeEditor.cs" />
+    <Compile Include="PropertyGridControl\TypeEditors\NumberTypeEditor.cs" />
     <Compile Include="RadioButtonControl\UserControlRadioBtn.xaml.cs">
       <DependentUpon>UserControlRadioBtn.xaml</DependentUpon>
     </Compile>
@@ -447,6 +461,102 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="PropertyGridControl\Themes\ExpressionBlend.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PropertyGridControl\Themes\ExpressionBlend\Brushes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PropertyGridControl\Themes\ExpressionBlend\CheckBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PropertyGridControl\Themes\ExpressionBlend\ComboBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PropertyGridControl\Themes\ExpressionBlend\Expander.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PropertyGridControl\Themes\ExpressionBlend\ListBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PropertyGridControl\Themes\ExpressionBlend\PropertyGrid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PropertyGridControl\Themes\ExpressionBlend\ScrollViewer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PropertyGridControl\Themes\ExpressionBlend\TextBlock.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PropertyGridControl\Themes\ExpressionBlend\TextBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PropertyGridControl\Themes\ExpressionBlend\WPGTemplates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PropertyGridControl\Themes\TypeEditors\IntegerTypeEditor.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PropertyGridControl\Themes\VisualStudio.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PropertyGridControl\Themes\VisualStudio\Brushes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PropertyGridControl\Themes\VisualStudio\CheckBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PropertyGridControl\Themes\VisualStudio\ComboBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PropertyGridControl\Themes\VisualStudio\Expander.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PropertyGridControl\Themes\VisualStudio\ListBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PropertyGridControl\Themes\VisualStudio\PropertyGrid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PropertyGridControl\Themes\VisualStudio\ScrollViewer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PropertyGridControl\Themes\VisualStudio\SearchTextBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PropertyGridControl\Themes\VisualStudio\TextBlock.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PropertyGridControl\Themes\VisualStudio\TextBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PropertyGridControl\Themes\VisualStudio\WPGTemplates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="RadioButtonControl\UserControlRadioBtn.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -570,6 +680,10 @@
     <Resource Include="CarefulDockControl\Style\Generic\Images\PinMenu.png" />
     <Resource Include="CarefulDockControl\Style\Generic\Images\PinRestore.png" />
     <Resource Include="CarefulDockControl\Style\Generic\Images\VTabGroup.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="PropertyGridControl\Themes\Icons\abc.png" />
+    <Content Include="PropertyGridControl\Themes\Icons\grouped.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

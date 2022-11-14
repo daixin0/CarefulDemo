@@ -117,6 +117,10 @@
       <Project>{ee637630-a4f2-44f2-92de-42a3d4255e29}</Project>
       <Name>Careful.BootstrapperApplication</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\MVVMCareful\Careful.Core.Mvvm\Careful.Core.Mvvm.csproj">
+      <Project>{32497025-c0ed-4450-a57d-2d8e4aa2fd8b}</Project>
+      <Name>Careful.Core.Mvvm</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\MVVMCareful\Careful.Core\Careful.Core.csproj">
       <Project>{9A2640B6-8161-462F-9F58-E8DF8D94FD49}</Project>
       <Name>Careful.Core</Name>

@@ -33,31 +33,41 @@ namespace ModularityIDEDemo
 
             return args.RequestingAssembly;
         }
-        public override void Run(bool runWithDefaultConfiguration)
+        protected override DependencyObject CreateShell()
         {
-            //AppDomain.CurrentDomain.AssemblyResolve -= OnAssemblyResolve;
-            //AppDomain.CurrentDomain.AssemblyResolve += OnAssemblyResolve;
-
-            //Application application = null;
+            return new MainWindow() ;
+        }
+        protected override void InitIoc()
+        {
+            Application application = null;
+            if (Application.Current != null)
+            {
+                application = Application.Current;
+            }
+            else
+            {
+                application = new Application();
+            }
             //if (!CarefulIoc.Default.IsRegistered<Application>())
             //{
-            //    application = new Application();
             //    application.ShutdownMode = ShutdownMode.OnExplicitShutdown;
             //    application.Exit += Application_Exit;
-                
+
             //}
             //ResourceDictionary controlTheme = (ResourceDictionary)Application.LoadComponent(
             //                new Uri("/Careful.Controls;component/Theme.xaml", UriKind.Relative));
 
             //Application.Current.Resources.MergedDictionaries.Add(controlTheme);
-            //CarefulIoc.Default.RegisterInstance<Application>(application);
+            CarefulIoc.Default.RegisterInstance<Application>(application);
             CarefulIoc.Default.Register<IMessageView, MessageBoxWindow>(false);
         }
-
-        protected override DependencyObject CreateShell()
+        public override void Run(bool runWithDefaultConfiguration)
         {
-            return new MainWindow();
+            AppDomain.CurrentDomain.AssemblyResolve -= OnAssemblyResolve;
+            AppDomain.CurrentDomain.AssemblyResolve += OnAssemblyResolve;
+
         }
+
         private void Application_Exit(object sender, ExitEventArgs e)
         {
 
