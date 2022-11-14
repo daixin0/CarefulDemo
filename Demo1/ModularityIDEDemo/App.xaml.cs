@@ -19,8 +19,6 @@ namespace ModularityIDEDemo
             base.OnStartup(e);
             Bootstrapper bootstrapper = new Bootstrapper();
             bootstrapper.Run();
-            MainWindowView view = new MainWindowView();
-            view.ShowDialog();
         }
     }
 }

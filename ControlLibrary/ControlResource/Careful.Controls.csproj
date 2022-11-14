@@ -61,6 +61,144 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ButtonExtendControl\ButtonExtend.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\AnchorablePaneDropTarget.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\AnchorablePaneTabPanel.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\AnchorablePaneTitle.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\AutoHideWindowManager.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\ContextMenuEx.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\DockingManagerDropTarget.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\DocumentPaneDropAsAnchorableTarget.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\DocumentPaneDropTarget.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\DocumentPaneGroupDropTarget.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\DocumentPaneTabPanel.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\DragService.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\DropArea.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\DropDownButton.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\DropDownControlArea.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\DropTarget.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\DropTargetBase.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\DropTargetType.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\Extensions.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\FocusElementManager.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\FullWeakDictionary.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\IDropTarget.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\IOverlayWindow.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\IOverlayWindowHost.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\LayoutAnchorableControl.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\LayoutAnchorableFloatingWindowControl.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\LayoutAnchorableItem.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\LayoutAnchorablePaneControl.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\LayoutAnchorablePaneGroupControl.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\LayoutAnchorableTabItem.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\LayoutAnchorControl.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\LayoutAnchorGroupControl.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\LayoutAnchorSideControl.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\LayoutAutoHideWindowControl.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\LayoutDocumentControl.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\LayoutDocumentFloatingWindowControl.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\LayoutDocumentItem.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\LayoutDocumentPaneControl.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\LayoutDocumentPaneGroupControl.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\LayoutDocumentTabItem.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\LayoutFloatingWindowControl.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\LayoutGridControl.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\LayoutGridResizerControl.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\LayoutItem.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\LayoutPanelControl.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\MenuItemEx.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\NamespaceDoc.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\NavigatorWindow.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\OverlayWindow.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\ReentrantFlag.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\Shell\NamespaceDoc.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\Shell\Standard\ComGuids.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\Shell\Standard\Debug.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\Shell\Standard\DoubleUtil.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\Shell\Standard\DpiHelper.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\Shell\Standard\ErrorCodes.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\Shell\Standard\MessageWindow.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\Shell\Standard\NamespaceDoc.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\Shell\Standard\NativeMethods.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\Shell\Standard\ShellProvider.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\Shell\Standard\StreamHelper.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\Shell\Standard\Utilities.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\Shell\Standard\Verify.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\Shell\SystemCommands.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\Shell\SystemParameters2.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\Shell\WindowChrome.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\Shell\WindowChromeWorker.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\TabControlEx.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\TransformExtentions.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\WeakDictionary.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\WindowActivateEventArgs.cs" />
+    <Compile Include="CarefulDockControl\ControlFunction\WindowHookHandler.cs" />
+    <Compile Include="CarefulDockControl\Converters\ActivateCommandLayoutItemFromLayoutModelConverter.cs" />
+    <Compile Include="CarefulDockControl\Converters\AnchorableContextMenuHideVisibilityConverter.cs" />
+    <Compile Include="CarefulDockControl\Converters\AnchorSideToAngleConverter.cs" />
+    <Compile Include="CarefulDockControl\Converters\AnchorSideToOrientationConverter.cs" />
+    <Compile Include="CarefulDockControl\Converters\AutoHideCommandLayoutItemFromLayoutModelConverter.cs" />
+    <Compile Include="CarefulDockControl\Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="CarefulDockControl\Converters\ConverterCreater.cs" />
+    <Compile Include="CarefulDockControl\Converters\HideCommandLayoutItemFromLayoutModelConverter.cs" />
+    <Compile Include="CarefulDockControl\Converters\InverseBoolToVisibilityConverter.cs" />
+    <Compile Include="CarefulDockControl\Converters\LayoutItemFromLayoutModelConverter.cs" />
+    <Compile Include="CarefulDockControl\Converters\NamespaceDoc.cs" />
+    <Compile Include="CarefulDockControl\Converters\NullToDoNothingConverter.cs" />
+    <Compile Include="CarefulDockControl\Converters\OverlayWindowToVisibilityConverter.cs" />
+    <Compile Include="CarefulDockControl\Converters\UriSourceToBitmapImageConverter.cs" />
+    <Compile Include="CarefulDockControl\DockingManager.cs" />
+    <Compile Include="CarefulDockControl\DocumentClosedEventArgs.cs" />
+    <Compile Include="CarefulDockControl\DocumentClosingEventArgs.cs" />
+    <Compile Include="CarefulDockControl\Extensions.cs" />
+    <Compile Include="CarefulDockControl\Layout\AnchorableShowStrategy.cs" />
+    <Compile Include="CarefulDockControl\Layout\AnchorSide.cs" />
+    <Compile Include="CarefulDockControl\Layout\ChildrenTreeChangedEventArgs.cs" />
+    <Compile Include="CarefulDockControl\Layout\Extensions.cs" />
+    <Compile Include="CarefulDockControl\Layout\IAdjustableSizeLayout.cs" />
+    <Compile Include="CarefulDockControl\Layout\ILayoutAnchorablePane.cs" />
+    <Compile Include="CarefulDockControl\Layout\ILayoutContainer.cs" />
+    <Compile Include="CarefulDockControl\Layout\ILayoutContentSelector.cs" />
+    <Compile Include="CarefulDockControl\Layout\ILayoutControl.cs" />
+    <Compile Include="CarefulDockControl\Layout\ILayoutDocumentPane.cs" />
+    <Compile Include="CarefulDockControl\Layout\ILayoutElement.cs" />
+    <Compile Include="CarefulDockControl\Layout\ILayoutElementForFloatingWindowExtension.cs" />
+    <Compile Include="CarefulDockControl\Layout\ILayoutElementWithVisibility.cs" />
+    <Compile Include="CarefulDockControl\Layout\ILayoutGroup.cs" />
+    <Compile Include="CarefulDockControl\Layout\ILayoutOrientableGroup.cs" />
+    <Compile Include="CarefulDockControl\Layout\ILayoutPane.cs" />
+    <Compile Include="CarefulDockControl\Layout\ILayoutPanelElement.cs" />
+    <Compile Include="CarefulDockControl\Layout\ILayoutPaneSerializable.cs" />
+    <Compile Include="CarefulDockControl\Layout\ILayoutPositionableElement.cs" />
+    <Compile Include="CarefulDockControl\Layout\ILayoutPreviousContainer.cs" />
+    <Compile Include="CarefulDockControl\Layout\ILayoutRoot.cs" />
+    <Compile Include="CarefulDockControl\Layout\ILayoutUpdateStrategy.cs" />
+    <Compile Include="CarefulDockControl\Layout\LayoutAnchorable.cs" />
+    <Compile Include="CarefulDockControl\Layout\LayoutAnchorableFloatingWindow.cs" />
+    <Compile Include="CarefulDockControl\Layout\LayoutAnchorablePane.cs" />
+    <Compile Include="CarefulDockControl\Layout\LayoutAnchorablePaneGroup.cs" />
+    <Compile Include="CarefulDockControl\Layout\LayoutAnchorGroup.cs" />
+    <Compile Include="CarefulDockControl\Layout\LayoutAnchorSide.cs" />
+    <Compile Include="CarefulDockControl\Layout\LayoutContent.cs" />
+    <Compile Include="CarefulDockControl\Layout\LayoutDocument.cs" />
+    <Compile Include="CarefulDockControl\Layout\LayoutDocumentFloatingWindow.cs" />
+    <Compile Include="CarefulDockControl\Layout\LayoutDocumentPane.cs" />
+    <Compile Include="CarefulDockControl\Layout\LayoutDocumentPaneGroup.cs" />
+    <Compile Include="CarefulDockControl\Layout\LayoutElement.cs" />
+    <Compile Include="CarefulDockControl\Layout\LayoutElementEventArgs.cs" />
+    <Compile Include="CarefulDockControl\Layout\LayoutFloatingWindow.cs" />
+    <Compile Include="CarefulDockControl\Layout\LayoutGroup.cs" />
+    <Compile Include="CarefulDockControl\Layout\LayoutGroupBase.cs" />
+    <Compile Include="CarefulDockControl\Layout\LayoutPanel.cs" />
+    <Compile Include="CarefulDockControl\Layout\LayoutPositionableGroup.cs" />
+    <Compile Include="CarefulDockControl\Layout\LayoutRoot.cs" />
+    <Compile Include="CarefulDockControl\Layout\NamespaceDoc.cs" />
+    <Compile Include="CarefulDockControl\Layout\Serialization\LayoutSerializationCallbackEventArgs.cs" />
+    <Compile Include="CarefulDockControl\Layout\Serialization\LayoutSerializer.cs" />
+    <Compile Include="CarefulDockControl\Layout\Serialization\NamespaceDoc.cs" />
+    <Compile Include="CarefulDockControl\Layout\Serialization\XmlLayoutSerializer.cs" />
+    <Compile Include="CarefulDockControl\MathHelper.cs" />
+    <Compile Include="CarefulDockControl\NamespaceDoc.cs" />
+    <Compile Include="CarefulDockControl\ReferenceEqualityComparer.cs" />
     <Compile Include="ComboBoxExtendControl\ComboBoxExtend.cs" />
     <Compile Include="Common\Animations\GridLengthAnimation.cs" />
     <Compile Include="Common\CheckSelectedEventArgs.cs" />
@@ -111,6 +249,7 @@
       <DependentUpon>UserControlRadioBtn.xaml</DependentUpon>
     </Compile>
     <Compile Include="TextBoxExtendControl\TextBoxExtend.cs" />
+    <Compile Include="Themes\Theme.cs" />
     <Compile Include="ToggleExtendControl\ToggleExtend.cs" />
     <Compile Include="TreeDataGridControl\TreeDataGrid.cs" />
     <Compile Include="ValueToProcessConverter.cs" />
@@ -216,7 +355,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="CarefulStyles\MenuItem.xaml">
+    <Page Include="CarefulDockControl\Style\generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CommonStyle\MenuItem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -312,7 +455,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="DefaultTheme.xaml">
+    <Page Include="Themes\DefaultTheme.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -398,6 +541,35 @@
       <Project>{9a2640b6-8161-462f-9f58-e8df8d94fd49}</Project>
       <Name>Careful.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CarefulStyles\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="CarefulDockControl\Style\Generic\Images\DockBottom.PNG" />
+    <Resource Include="CarefulDockControl\Style\Generic\Images\DockLeft.PNG" />
+    <Resource Include="CarefulDockControl\Style\Generic\Images\DockPane.PNG" />
+    <Resource Include="CarefulDockControl\Style\Generic\Images\DockPaneEmpty.png" />
+    <Resource Include="CarefulDockControl\Style\Generic\Images\DockRight.PNG" />
+    <Resource Include="CarefulDockControl\Style\Generic\Images\DockTop.PNG" />
+    <Resource Include="CarefulDockControl\Style\Generic\Images\HTabGroup.png" />
+    <Resource Include="CarefulDockControl\Style\Generic\Images\InnerDockDocPaneBottom.png" />
+    <Resource Include="CarefulDockControl\Style\Generic\Images\InnerDockDocPaneLeft.png" />
+    <Resource Include="CarefulDockControl\Style\Generic\Images\InnerDockDocPaneRight.png" />
+    <Resource Include="CarefulDockControl\Style\Generic\Images\InnerDockDocPaneTop.png" />
+    <Resource Include="CarefulDockControl\Style\Generic\Images\InnerDockPaneBottom.png" />
+    <Resource Include="CarefulDockControl\Style\Generic\Images\InnerDockPaneInside.png" />
+    <Resource Include="CarefulDockControl\Style\Generic\Images\InnerDockPaneLeft.png" />
+    <Resource Include="CarefulDockControl\Style\Generic\Images\InnerDockPaneRight.png" />
+    <Resource Include="CarefulDockControl\Style\Generic\Images\InnerDockPaneTop.png" />
+    <Resource Include="CarefulDockControl\Style\Generic\Images\Locked.png" />
+    <Resource Include="CarefulDockControl\Style\Generic\Images\PinAutoHide.png" />
+    <Resource Include="CarefulDockControl\Style\Generic\Images\PinClose.png" />
+    <Resource Include="CarefulDockControl\Style\Generic\Images\PinDocMenu.png" />
+    <Resource Include="CarefulDockControl\Style\Generic\Images\PinMaximize.png" />
+    <Resource Include="CarefulDockControl\Style\Generic\Images\PinMenu.png" />
+    <Resource Include="CarefulDockControl\Style\Generic\Images\PinRestore.png" />
+    <Resource Include="CarefulDockControl\Style\Generic\Images\VTabGroup.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

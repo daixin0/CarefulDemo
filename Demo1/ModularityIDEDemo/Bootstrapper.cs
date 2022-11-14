@@ -35,8 +35,8 @@ namespace ModularityIDEDemo
         }
         public override void Run(bool runWithDefaultConfiguration)
         {
-            AppDomain.CurrentDomain.AssemblyResolve -= OnAssemblyResolve;
-            AppDomain.CurrentDomain.AssemblyResolve += OnAssemblyResolve;
+            //AppDomain.CurrentDomain.AssemblyResolve -= OnAssemblyResolve;
+            //AppDomain.CurrentDomain.AssemblyResolve += OnAssemblyResolve;
 
             //Application application = null;
             //if (!CarefulIoc.Default.IsRegistered<Application>())
@@ -54,6 +54,10 @@ namespace ModularityIDEDemo
             CarefulIoc.Default.Register<IMessageView, MessageBoxWindow>(false);
         }
 
+        protected override DependencyObject CreateShell()
+        {
+            return new MainWindow();
+        }
         private void Application_Exit(object sender, ExitEventArgs e)
         {
 

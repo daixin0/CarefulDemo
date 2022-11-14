@@ -3,10 +3,71 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ModularityIDEDemo"
+        xmlns:docker="clr-namespace:Careful.Controls.CarefulDockControl;assembly=Careful.Controls"
+        xmlns:local="clr-namespace:ModularityIDEDemo" xmlns:layout="clr-namespace:Careful.Controls.CarefulDockControl.Layout;assembly=Careful.Controls"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="流程设计器" Height="450" Width="800">
+    <Grid Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Menu>
+            <MenuItem Header="流程"></MenuItem>
+            <MenuItem Header="调试"></MenuItem>
+        </Menu>
+        <Grid Grid.Row="2">
+            <docker:DockingManager x:Name="dockManager">
+                <layout:LayoutRoot>
+                    <layout:LayoutPanel Orientation="Horizontal">
+                        <layout:LayoutAnchorablePane DockWidth="220">
+                            <layout:LayoutAnchorable Title="工作流"
+                            CanClose="False"
+                            CanHide="False">
+                            </layout:LayoutAnchorable>
+                        </layout:LayoutAnchorablePane>
+                        <layout:LayoutDocumentPaneGroup>
+                            <layout:LayoutDocumentPane x:Name="LayoutDocumentPane">
+                                <layout:LayoutDocument
+                                Title="Document 1"
+                                ContentId="document1">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <Button
+                                        Height="28"
+                                        VerticalAlignment="Top"
+                                        Content="Click to add 2 documents" />
+                                        <TextBox Grid.Row="1" Text="Document 1 Content" />
+                                    </Grid>
+                                </layout:LayoutDocument>
+                                <layout:LayoutDocument Title="Document 2" ContentId="document2">
+                                    <TextBox
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    Foreground="White"
+                                    Text="" />
+                                </layout:LayoutDocument>
+                            </layout:LayoutDocumentPane>
+                        </layout:LayoutDocumentPaneGroup>
+                        <layout:LayoutAnchorablePaneGroup DockWidth="220" Orientation="Vertical">
+                            <layout:LayoutAnchorablePane>
+                                <layout:LayoutAnchorable Title="活动库" CanClose="False" CanHide="False">
+
+                                </layout:LayoutAnchorable>
+                            </layout:LayoutAnchorablePane>
+                            <layout:LayoutAnchorablePane>
+                                <layout:LayoutAnchorable Title="属性" CanClose="False" CanHide="False">
+
+                                </layout:LayoutAnchorable>
+                            </layout:LayoutAnchorablePane>
+                        </layout:LayoutAnchorablePaneGroup>
+                    </layout:LayoutPanel>
+                </layout:LayoutRoot>
+            </docker:DockingManager>
+        </Grid>
     </Grid>
 </Window>

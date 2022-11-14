@@ -237,25 +237,25 @@ namespace Careful.Controls.WindowBaseControl
             WindowOperation.WindowsLocation location = WindowOperation.GetWindowsBarLocation(out width, out height);
             switch (location)
             {
-                case WindowOperation.WindowsLocation.bottom:
+                case WindowOperation.WindowsLocation.Bottom:
                     this.Left = 0;//设置位置
                     this.Top = 0;
                     this.Width = rc.Width;
                     this.Height = rc.Height;
                     break;
-                case WindowOperation.WindowsLocation.left:
+                case WindowOperation.WindowsLocation.Left:
                     this.Left = width;
                     this.Top = 0;
                     this.Width = rc.Width;
                     this.Height = rc.Height;
                     break;
-                case WindowOperation.WindowsLocation.right:
+                case WindowOperation.WindowsLocation.Right:
                     this.Left = 0;//设置位置
                     this.Top = 0;
                     this.Width = rc.Width;
                     this.Height = rc.Height;
                     break;
-                case WindowOperation.WindowsLocation.top:
+                case WindowOperation.WindowsLocation.Top:
                     this.Left = 0;
                     this.Top = height;
                     this.Width = rc.Width;
