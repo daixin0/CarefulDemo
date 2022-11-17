@@ -139,6 +139,7 @@ namespace Careful.Controls.DesignerCanvasControl.Designer
             // update selection
             if (designer != null)
             {
+                designer.SelectedItem = this.Content;
                 if ((Keyboard.Modifiers & (ModifierKeys.Shift | ModifierKeys.Control)) != ModifierKeys.None)
                     if (this.IsSelected)
                     {

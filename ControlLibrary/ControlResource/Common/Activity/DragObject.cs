@@ -10,7 +10,8 @@ namespace Careful.Controls.Common.Activity
     public class DragObject
     {
         // Xaml string that represents the serialized content
-        public object Data { get; set; }
+        public object DesignControl { get; set; }
+        public object DesignData { get; set; }
 
         // Defines width and height of the DesignerItem
         // when this DragObject is dropped on the DesignerCanvas

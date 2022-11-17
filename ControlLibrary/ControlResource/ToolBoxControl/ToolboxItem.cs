@@ -1,4 +1,6 @@
-﻿using Careful.Controls.Common.Activity;
+﻿using Careful.Controls.ActivityControl;
+using Careful.Controls.Common.Activity;
+using Careful.Core.Extensions;
 using System;
 using System.IO;
 using System.Text;
@@ -38,20 +40,24 @@ namespace Careful.Controls.ToolBoxControl
 
             if (this.dragStartPoint.HasValue)
             {
-                var sb = new StringBuilder();
-                var writer = XmlWriter.Create(sb, new XmlWriterSettings
-                {
-                    Indent = true,
-                    ConformanceLevel = ConformanceLevel.Fragment,
-                    OmitXmlDeclaration = true,
-                    NamespaceHandling = NamespaceHandling.OmitDuplicates,
-                });
-                var mgr = new XamlDesignerSerializationManager(writer);
-                mgr.XamlWriterMode = XamlWriterMode.Expression;
-                XamlWriter.Save(this, mgr);
-                Object content = XamlReader.Load(XmlReader.Create(new StringReader(sb.ToString())));
+                if (!(e.OriginalSource is TextBlock))
+                    return;
+                Activity activity = new Activity();
+                activity.ActivityName = (e.OriginalSource as TextBlock).Text;
+                //var sb = new StringBuilder();
+                //var writer = XmlWriter.Create(sb, new XmlWriterSettings
+                //{
+                //    Indent = true,
+                //    ConformanceLevel = ConformanceLevel.Fragment,
+                //    OmitXmlDeclaration = true,
+                //    NamespaceHandling = NamespaceHandling.OmitDuplicates,
+                //});
+                //var mgr = new XamlDesignerSerializationManager(writer);
+                //mgr.XamlWriterMode = XamlWriterMode.Expression;
+                //XamlWriter.Save(activity, mgr);
+                //Object content = XamlReader.Load(XmlReader.Create(new StringReader(sb.ToString())));
                 DragObject dataObject = new DragObject();
-                dataObject.Data = content;
+                dataObject.DesignControl = activity;
 
                 WrapPanel panel = VisualTreeHelper.GetParent(this) as WrapPanel;
                 if (panel != null)

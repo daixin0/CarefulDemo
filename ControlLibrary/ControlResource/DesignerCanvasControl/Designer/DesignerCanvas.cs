@@ -16,6 +16,18 @@ namespace Careful.Controls.DesignerCanvasControl.Designer
 {
     public partial class DesignerCanvas : Canvas
     {
+        public object SelectedItem
+        {
+            get { return (object)GetValue(SelectedItemProperty); }
+            set { SetValue(SelectedItemProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for SelectedItem.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SelectedItemProperty =
+            DependencyProperty.Register("SelectedItem", typeof(object), typeof(DesignerCanvas));
+
+
+
         private Point? rubberbandSelectionStartPoint = null;
 
         private SelectionService selectionService;
@@ -77,10 +89,11 @@ namespace Careful.Controls.DesignerCanvasControl.Designer
         {
             base.OnDrop(e);
             DragObject dragObject = e.Data.GetData(typeof(DragObject)) as DragObject;
-            if (dragObject != null && dragObject.Data != null)
+            if (dragObject != null && dragObject.DesignControl != null)
             {
                 DesignerItem newItem = new DesignerItem();
-                newItem.Content = dragObject.Data;
+                newItem.Content = dragObject.DesignControl;
+                SelectedItem = dragObject.DesignControl;
                 Point position = e.GetPosition(this);
 
                 if (dragObject.DesiredSize.HasValue)

@@ -44,7 +44,7 @@
                                     <Grid>
                                         <ScrollViewer HorizontalScrollBarVisibility="Auto"
                       VerticalScrollBarVisibility="Auto">
-                                            <designer:DesignerCanvas AllowDrop="True" Focusable="true" x:Name="MyDesigner"
+                                            <designer:DesignerCanvas x:Name="MyDesigner" Focusable="true"
                             Background="{DynamicResource WindowBackgroundBrush}"
                             Margin="10" FocusVisualStyle="{x:Null}">
                                                 <designer:DesignerCanvas.ContextMenu>
@@ -61,9 +61,6 @@
                                         </ScrollViewer>
                                     </Grid>
                                 </layout:LayoutDocument>
-                                <layout:LayoutDocument Title="Document 2" ContentId="document2">
-                                    <Button x:Name="btn" Cursor="SizeAll"></Button>
-                                </layout:LayoutDocument>
                             </layout:LayoutDocumentPane>
                         </layout:LayoutDocumentPaneGroup>
                         <layout:LayoutAnchorablePaneGroup DockWidth="220" Orientation="Vertical">
@@ -74,7 +71,7 @@
                             </layout:LayoutAnchorablePane>
                             <layout:LayoutAnchorablePane>
                                 <layout:LayoutAnchorable Title="属性" CanClose="False" CanHide="False">
-                                    <propertyGrid:PropertyGrid Instance="{Binding ElementName=btn}"></propertyGrid:PropertyGrid>
+                                    <propertyGrid:PropertyGrid Instance="{Binding ElementName=MyDesigner,Path=SelectedItem}"></propertyGrid:PropertyGrid>
                                 </layout:LayoutAnchorable>
                             </layout:LayoutAnchorablePane>
                         </layout:LayoutAnchorablePaneGroup>

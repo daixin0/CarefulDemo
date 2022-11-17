@@ -7,7 +7,6 @@
              xmlns:mvvm="clr-namespace:Careful.Core.Mvvm.ViewModel;assembly=Careful.Core.Mvvm"
              xmlns:activity="clr-namespace:Careful.Controls.ActivityControl;assembly=Careful.Controls"
              xmlns:toolbox="clr-namespace:Careful.Controls.ToolBoxControl;assembly=Careful.Controls"
-             xmlns:designItem="clr-namespace:Careful.Controls.DesignerCanvasControl.Designer;assembly=Careful.Controls"
              xmlns:local="clr-namespace:Module.Test.Views"
              mc:Ignorable="d" mvvm:ViewModelLocator.AutoWireViewModel="True"
              d:DesignHeight="450" d:DesignWidth="800">
@@ -21,8 +20,7 @@
             <toolbox:Toolbox.ItemTemplate>
                 <DataTemplate>
                     <Grid >
-                        <activity:Activity ActivityName="{Binding ActivityName}">
-                        </activity:Activity>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding ActivityName}"></TextBlock>
                     </Grid>
                 </DataTemplate>
             </toolbox:Toolbox.ItemTemplate>
