@@ -6,6 +6,8 @@
         xmlns:lib="clr-namespace:Careful.Controls.WindowBaseControl;assembly=Careful.Controls"
         xmlns:docker="clr-namespace:Careful.Controls.CarefulDockControl;assembly=Careful.Controls"
         xmlns:propertyGrid="clr-namespace:Careful.Controls.PropertyGridControl;assembly=Careful.Controls"
+        xmlns:designer="clr-namespace:Careful.Controls.DesignerCanvasControl.Designer;assembly=Careful.Controls"
+        xmlns:uc="clr-namespace:Module.Test.Views;assembly=Module.Test.Views"
         xmlns:local="clr-namespace:ModularityIDEDemo" xmlns:layout="clr-namespace:Careful.Controls.CarefulDockControl.Layout;assembly=Careful.Controls"
         mc:Ignorable="d" x:Name="window" IsResize="True"
         Title="流程设计器" Height="450" Width="800">
@@ -40,18 +42,34 @@
                                 Title="Document 1"
                                 ContentId="document1">
                                     <Grid>
-                                        
+                                        <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                      VerticalScrollBarVisibility="Auto">
+                                            <designer:DesignerCanvas AllowDrop="True" Focusable="true" x:Name="MyDesigner"
+                            Background="{DynamicResource WindowBackgroundBrush}"
+                            Margin="10" FocusVisualStyle="{x:Null}">
+                                                <designer:DesignerCanvas.ContextMenu>
+                                                    <ContextMenu>
+                                                        <MenuItem Header="Paste" Command="{x:Static ApplicationCommands.Paste}">
+                                                            <MenuItem.Icon>
+                                                                <Image Source="/Careful.Controls;component/DesignerCanvasControl/Images/Paste.png" Width="16"/>
+                                                            </MenuItem.Icon>
+                                                        </MenuItem>
+                                                        <MenuItem Header="Select All" Command="{x:Static designer:DesignerCanvas.SelectAll}"/>
+                                                    </ContextMenu>
+                                                </designer:DesignerCanvas.ContextMenu>
+                                            </designer:DesignerCanvas>
+                                        </ScrollViewer>
                                     </Grid>
                                 </layout:LayoutDocument>
                                 <layout:LayoutDocument Title="Document 2" ContentId="document2">
-                                    <Button x:Name="btn"></Button>
+                                    <Button x:Name="btn" Cursor="SizeAll"></Button>
                                 </layout:LayoutDocument>
                             </layout:LayoutDocumentPane>
                         </layout:LayoutDocumentPaneGroup>
                         <layout:LayoutAnchorablePaneGroup DockWidth="220" Orientation="Vertical">
                             <layout:LayoutAnchorablePane>
                                 <layout:LayoutAnchorable Title="活动库" CanClose="False" CanHide="False">
-
+                                    <uc:ActivityListView></uc:ActivityListView>
                                 </layout:LayoutAnchorable>
                             </layout:LayoutAnchorablePane>
                             <layout:LayoutAnchorablePane>

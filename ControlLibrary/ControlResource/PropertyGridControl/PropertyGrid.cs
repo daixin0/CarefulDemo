@@ -99,10 +99,12 @@ namespace Careful.Controls.PropertyGridControl
                         {
                             if (Instance is FrameworkElement)
                                 ((TextBlock) myInstanceName).Text = ((FrameworkElement) Instance).Name;
+                            else
+                                ((TextBlock)myInstanceName).Text = "";
+                            //对Winform控件的支持
                             //else if (Instance is System.Windows.Forms.Control)
                             //    ((TextBlock) myInstanceName).Text = ((System.Windows.Forms.Control) Instance).Name;
-                            //else
-                            //    ((TextBlock) myInstanceName).Text = "";
+
                         }
                     }
                 }

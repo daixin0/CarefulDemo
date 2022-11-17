@@ -60,6 +60,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActivityControl\Activity.cs" />
     <Compile Include="ButtonExtendControl\ButtonExtend.cs" />
     <Compile Include="CarefulDockControl\ControlFunction\AnchorablePaneDropTarget.cs" />
     <Compile Include="CarefulDockControl\ControlFunction\AnchorablePaneTabPanel.cs" />
@@ -200,10 +201,13 @@
     <Compile Include="CarefulDockControl\NamespaceDoc.cs" />
     <Compile Include="CarefulDockControl\ReferenceEqualityComparer.cs" />
     <Compile Include="ComboBoxExtendControl\ComboBoxExtend.cs" />
+    <Compile Include="Common\Activity\IInputData.cs" />
+    <Compile Include="Common\Activity\IOutputData.cs" />
     <Compile Include="Common\Animations\GridLengthAnimation.cs" />
     <Compile Include="Common\CheckSelectedEventArgs.cs" />
     <Compile Include="Common\ControlAttach\CheckAttachProperty.cs" />
     <Compile Include="Common\ControlAttach\PasswordBinding.cs" />
+    <Compile Include="Common\Activity\IActivity.cs" />
     <Compile Include="Common\ICateoryFilter.cs" />
     <Compile Include="Common\IGroup.cs" />
     <Compile Include="Common\ISelected.cs" />
@@ -227,6 +231,21 @@
     <Compile Include="DateTimePickerControl\TimeMinuteAndSecond.cs" />
     <Compile Include="CircleProgressRingControl\ModernProgressRing.cs" />
     <Compile Include="Common\DrawingHelper\GeoHelper.cs" />
+    <Compile Include="DesignerCanvasControl\Base\PathFinder.cs" />
+    <Compile Include="Common\Activity\DragObject.cs" />
+    <Compile Include="DesignerCanvasControl\DragControl\ResizeThumb.cs" />
+    <Compile Include="DesignerCanvasControl\DragControl\RubberbandAdorner.cs" />
+    <Compile Include="DesignerCanvasControl\ConnectorControl\Connection.cs" />
+    <Compile Include="DesignerCanvasControl\ConnectorControl\ConnectionAdorner.cs" />
+    <Compile Include="DesignerCanvasControl\ConnectorControl\Connector.cs" />
+    <Compile Include="DesignerCanvasControl\ConnectorControl\ConnectorAdorner.cs" />
+    <Compile Include="DesignerCanvasControl\Designer\DesignerCanvas.Commands.cs" />
+    <Compile Include="DesignerCanvasControl\Designer\DesignerCanvas.cs" />
+    <Compile Include="DesignerCanvasControl\Designer\DesignerItem.cs" />
+    <Compile Include="DesignerCanvasControl\DragControl\DragThumb.cs" />
+    <Compile Include="DesignerCanvasControl\Base\IGroupable.cs" />
+    <Compile Include="DesignerCanvasControl\Base\ISelectable.cs" />
+    <Compile Include="DesignerCanvasControl\Base\SelectionService.cs" />
     <Compile Include="ListBoxExtendControl\ListBoxExtend.cs" />
     <Compile Include="MessageBoxControl\MessageBox.cs" />
     <Compile Include="MessageBoxControl\MessageBoxButton.cs" />
@@ -265,6 +284,8 @@
     <Compile Include="TextBoxExtendControl\TextBoxExtend.cs" />
     <Compile Include="Themes\Theme.cs" />
     <Compile Include="ToggleExtendControl\ToggleExtend.cs" />
+    <Compile Include="ToolBoxControl\Toolbox.cs" />
+    <Compile Include="ToolBoxControl\ToolboxItem.cs" />
     <Compile Include="TreeDataGridControl\TreeDataGrid.cs" />
     <Compile Include="ValueToProcessConverter.cs" />
     <Compile Include="DataGridControl\BoolAsVisiableConverter.cs" />
@@ -365,6 +386,10 @@
     <Compile Include="WindowBaseControl\NativeMethods.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="ActivityControl\ActivityStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ButtonExtendControl\ButtonExtendStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -429,6 +454,30 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="DesignerCanvasControl\Styles\Connection.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DesignerCanvasControl\Styles\DesignerItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DesignerCanvasControl\Styles\Expander.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DesignerCanvasControl\Styles\GroupBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DesignerCanvasControl\Styles\Shared.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DesignerCanvasControl\Theme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ListBoxExtendControl\ListBoxExtendStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -458,50 +507,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ProgressBarExtendControl\ProgressBarExtendStyle.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="PropertyGridControl\Themes\ExpressionBlend.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="PropertyGridControl\Themes\ExpressionBlend\Brushes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="PropertyGridControl\Themes\ExpressionBlend\CheckBox.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="PropertyGridControl\Themes\ExpressionBlend\ComboBox.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="PropertyGridControl\Themes\ExpressionBlend\Expander.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="PropertyGridControl\Themes\ExpressionBlend\ListBox.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="PropertyGridControl\Themes\ExpressionBlend\PropertyGrid.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="PropertyGridControl\Themes\ExpressionBlend\ScrollViewer.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="PropertyGridControl\Themes\ExpressionBlend\TextBlock.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="PropertyGridControl\Themes\ExpressionBlend\TextBox.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="PropertyGridControl\Themes\ExpressionBlend\WPGTemplates.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -621,6 +626,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="ToolBoxControl\ToolboxStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="TreeDataGridControl\TreeDataGridStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -654,6 +663,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CarefulStyles\" />
+    <Folder Include="ToolBarControl\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="CarefulDockControl\Style\Generic\Images\DockBottom.PNG" />
@@ -682,6 +692,29 @@
     <Resource Include="CarefulDockControl\Style\Generic\Images\VTabGroup.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="DesignerCanvasControl\Images\AlignObjectsBottom.png" />
+    <Resource Include="DesignerCanvasControl\Images\AlignObjectsCenteredHorizontal.png" />
+    <Resource Include="DesignerCanvasControl\Images\AlignObjectsCenteredVertical.png" />
+    <Resource Include="DesignerCanvasControl\Images\AlignObjectsLeft.png" />
+    <Resource Include="DesignerCanvasControl\Images\AlignObjectsRight.png" />
+    <Resource Include="DesignerCanvasControl\Images\AlignObjectsTop.png" />
+    <Resource Include="DesignerCanvasControl\Images\BringForward.png" />
+    <Resource Include="DesignerCanvasControl\Images\BringToFront.png" />
+    <Resource Include="DesignerCanvasControl\Images\Copy.png" />
+    <Resource Include="DesignerCanvasControl\Images\Cut.png" />
+    <Resource Include="DesignerCanvasControl\Images\Delete.png" />
+    <Resource Include="DesignerCanvasControl\Images\DistributeObjectsHorizontal.png" />
+    <Resource Include="DesignerCanvasControl\Images\DistributeObjectsVertical.png" />
+    <Resource Include="DesignerCanvasControl\Images\GenericDocument.png" />
+    <Resource Include="DesignerCanvasControl\Images\Group.png" />
+    <Resource Include="DesignerCanvasControl\Images\OpenFolder.png" />
+    <Resource Include="DesignerCanvasControl\Images\Paste.png" />
+    <Resource Include="DesignerCanvasControl\Images\PasteBig.png" />
+    <Resource Include="DesignerCanvasControl\Images\Print.png" />
+    <Resource Include="DesignerCanvasControl\Images\Save.png" />
+    <Resource Include="DesignerCanvasControl\Images\SendBackward.png" />
+    <Resource Include="DesignerCanvasControl\Images\SendToBack.png" />
+    <Resource Include="DesignerCanvasControl\Images\Ungroup.png" />
     <Content Include="PropertyGridControl\Themes\Icons\abc.png" />
     <Content Include="PropertyGridControl\Themes\Icons\grouped.png" />
   </ItemGroup>

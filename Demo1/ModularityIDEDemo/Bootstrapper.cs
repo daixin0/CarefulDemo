@@ -2,8 +2,8 @@
 using Careful.Controls.MessageBoxControl;
 using Careful.Core.DialogServices;
 using Careful.Core.Ioc;
+using Careful.Core.Mvvm.BindingExtension;
 using Microsoft.Practices.ServiceLocation;
-using Module.Test.Views;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,6 +12,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Data;
 
 namespace ModularityIDEDemo
 {
@@ -35,10 +36,14 @@ namespace ModularityIDEDemo
         }
         protected override DependencyObject CreateShell()
         {
+            
             return new MainWindow() ;
         }
         protected override void InitIoc()
         {
+            AppDomain.CurrentDomain.AssemblyResolve -= OnAssemblyResolve;
+            AppDomain.CurrentDomain.AssemblyResolve += OnAssemblyResolve;
+
             Application application = null;
             if (Application.Current != null)
             {
@@ -60,12 +65,13 @@ namespace ModularityIDEDemo
             //Application.Current.Resources.MergedDictionaries.Add(controlTheme);
             CarefulIoc.Default.RegisterInstance<Application>(application);
             CarefulIoc.Default.Register<IMessageView, MessageBoxWindow>(false);
+
+
         }
         public override void Run(bool runWithDefaultConfiguration)
         {
-            AppDomain.CurrentDomain.AssemblyResolve -= OnAssemblyResolve;
-            AppDomain.CurrentDomain.AssemblyResolve += OnAssemblyResolve;
-
+            //XamlReader序列化时保留Binding
+            EditorHelper.Register<BindingExpression, BindingConvertor>();
         }
 
         private void Application_Exit(object sender, ExitEventArgs e)

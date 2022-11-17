@@ -1,0 +1,60 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:toolbox="clr-namespace:Careful.Controls.ToolBoxControl">
+    <Style TargetType="{x:Type toolbox:ToolboxItem}">
+        <Setter Property="Control.Padding" Value="0"/>
+        <Setter Property="ContentControl.HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="ContentControl.VerticalContentAlignment" Value="Stretch"/>
+        <Setter Property="ToolTip" Value="{Binding ToolTip}"/>
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type toolbox:ToolboxItem}" >
+                    <Grid>
+                        <Rectangle Name="Border"
+                       StrokeThickness="1"
+                       StrokeDashArray="2"
+                       Fill="Transparent"
+                       SnapsToDevicePixels="true"/>
+                        <ContentPresenter
+                              Margin="{TemplateBinding Padding}"
+                              SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter TargetName="Border" Property="Stroke" Value="Gray"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style TargetType="{x:Type toolbox:Toolbox}">
+        <Setter Property="SnapsToDevicePixels" Value="true"/>
+        <Setter Property="Focusable" Value="False"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type toolbox:Toolbox}">
+                    <Border BorderThickness="{TemplateBinding Border.BorderThickness}"
+                  Padding="{TemplateBinding Control.Padding}"
+                  BorderBrush="{TemplateBinding Border.BorderBrush}"
+                  Background="{TemplateBinding Panel.Background}"
+                  SnapsToDevicePixels="True">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <ItemsPresenter SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
+                        </ScrollViewer>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <WrapPanel Margin="0,5,0,5"
+                     ItemHeight="{Binding Path=ItemSize.Height, RelativeSource={RelativeSource AncestorType=toolbox:Toolbox}}"
+                     ItemWidth="{Binding Path=ItemSize.Width, RelativeSource={RelativeSource AncestorType=toolbox:Toolbox}}"/>
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
