@@ -42,7 +42,7 @@ namespace Careful.Controls.ToolBoxControl
             {
                 if (!(e.OriginalSource is TextBlock))
                     return;
-                Activity activity = new Activity();
+                IActivity activity = new Activity();
                 activity.ActivityName = (e.OriginalSource as TextBlock).Text;
                 //var sb = new StringBuilder();
                 //var writer = XmlWriter.Create(sb, new XmlWriterSettings
