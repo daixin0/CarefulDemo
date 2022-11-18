@@ -1,5 +1,5 @@
-﻿using Careful.Controls.ActivityControl;
-using Careful.Controls.Common.Activity;
+﻿using Careful.Controls.Common;
+using Careful.Controls.DesignerCanvasControl.ActivityItem;
 using Careful.Core.Extensions;
 using System;
 using System.IO;
@@ -57,7 +57,7 @@ namespace Careful.Controls.ToolBoxControl
                 //XamlWriter.Save(activity, mgr);
                 //Object content = XamlReader.Load(XmlReader.Create(new StringReader(sb.ToString())));
                 DragObject dataObject = new DragObject();
-                dataObject.DesignControl = activity;
+                dataObject.Data = activity;
 
                 WrapPanel panel = VisualTreeHelper.GetParent(this) as WrapPanel;
                 if (panel != null)

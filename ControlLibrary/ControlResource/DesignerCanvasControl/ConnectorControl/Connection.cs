@@ -1,8 +1,10 @@
-﻿using Careful.Controls.DesignerCanvasControl.Base;
+﻿using Careful.Controls.DesignerCanvasControl.ActivityItem;
+using Careful.Controls.DesignerCanvasControl.Base;
 using Careful.Controls.DesignerCanvasControl.Designer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -17,9 +19,63 @@ namespace Careful.Controls.DesignerCanvasControl.ConnectorControl
 
         #region Properties
 
-        public Guid ID { get; set; }
+        public string ID { get; set; }
 
-        // source connector
+        private Activity _inputActivity;
+
+        public Activity InputActivity
+        {
+            get { return _inputActivity; }
+            set { _inputActivity = value; }
+        }
+        private Activity _outputActivity;
+
+        public Activity OutputActivity
+        {
+            get { return _outputActivity; }
+            set { _outputActivity = value; }
+        }
+
+
+        private bool _resolved = false;
+
+        public bool Resolved
+        {
+            get { return _resolved; }
+            internal set { _resolved = value; }
+        }
+        private bool _triggered = true;
+
+        public bool Triggered
+        {
+            get { return _triggered; }
+            internal set { _triggered = value; }
+        }
+        private PortEnd _to;
+
+        public PortEnd To
+        {
+            get { return _to; }
+        }
+        public string Value { get; set; }
+        public bool Resolve()
+        {
+            if (!Resolved)
+            {
+                Activity a = this.To.Activity;
+                if (a == null) return false;
+                Type at = a.GetType();
+                PropertyInfo to = at.GetProperty(this.To.Port);
+                ConstructorInfo tcf = to.PropertyType.GetConstructor(System.Type.EmptyTypes);
+                object port = tcf.Invoke(new Object[0]);
+                PropertyInfo entityInfo = port.GetType().GetProperty("Entity");
+                entityInfo.SetValue(port, Convert.ChangeType(Value, entityInfo.PropertyType), null);
+                to.SetValue(a, port, null);
+                Resolved = true;
+            }
+            return true;
+        }
+
         private Connector source;
         public Connector Source
         {
@@ -36,21 +92,17 @@ namespace Careful.Controls.DesignerCanvasControl.ConnectorControl
                         source.PropertyChanged -= new PropertyChangedEventHandler(OnConnectorPositionChanged);
                         source.Connections.Remove(this);
                     }
-
                     source = value;
-
                     if (source != null)
                     {
                         source.Connections.Add(this);
                         source.PropertyChanged += new PropertyChangedEventHandler(OnConnectorPositionChanged);
                     }
-
                     UpdatePathGeometry();
                 }
             }
         }
 
-        // sink connector
         private Connector sink;
         public Connector Sink
         {
@@ -77,7 +129,6 @@ namespace Careful.Controls.DesignerCanvasControl.ConnectorControl
             }
         }
 
-        // connection path geometry
         private PathGeometry pathGeometry;
         public PathGeometry PathGeometry
         {
@@ -239,12 +290,11 @@ namespace Careful.Controls.DesignerCanvasControl.ConnectorControl
 
         public Connection(Connector source, Connector sink)
         {
-            this.ID = Guid.NewGuid();
+            this.ID = Guid.NewGuid().ToString();
             this.Source = source;
             this.Sink = sink;
             base.Unloaded += new RoutedEventHandler(Connection_Unloaded);
         }
-
 
         protected override void OnMouseDown(System.Windows.Input.MouseButtonEventArgs e)
         {
@@ -352,17 +402,12 @@ namespace Careful.Controls.DesignerCanvasControl.ConnectorControl
 
         void Connection_Unloaded(object sender, RoutedEventArgs e)
         {
-            // do some housekeeping when Connection is unloaded
-
-            // remove event handler
             this.Source = null;
             this.Sink = null;
 
-            // remove adorner
             if (this.connectionAdorner != null)
             {
                 DesignerCanvas designer = VisualTreeHelper.GetParent(this) as DesignerCanvas;
-
                 AdornerLayer adornerLayer = AdornerLayer.GetAdornerLayer(this);
                 if (adornerLayer != null)
                 {

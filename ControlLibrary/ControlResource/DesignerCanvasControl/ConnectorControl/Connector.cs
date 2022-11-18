@@ -1,4 +1,5 @@
-﻿using Careful.Controls.DesignerCanvasControl.Designer;
+﻿using Careful.Controls.DesignerCanvasControl.ActivityItem;
+using Careful.Controls.DesignerCanvasControl.Designer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -46,6 +47,13 @@ namespace Careful.Controls.DesignerCanvasControl.ConnectorControl
                 return parentDesignerItem;
             }
         }
+        private Activity _inputActivity;
+
+        public Activity InputActivity
+        {
+            get { return _inputActivity; }
+            set { _inputActivity = value; }
+        }
 
         // keep track of connections that link to this connector
         private List<Connection> connections;
@@ -82,6 +90,8 @@ namespace Careful.Controls.DesignerCanvasControl.ConnectorControl
             DesignerCanvas canvas = GetDesignerCanvas(this);
             if (canvas != null)
             {
+                InputActivity = (e.Source as Connector).ParentDesignerItem.Content as Activity;
+
                 // position relative to DesignerCanvas
                 this.dragStartPoint = new Point?(e.GetPosition(canvas));
                 e.Handled = true;
@@ -109,6 +119,7 @@ namespace Careful.Controls.DesignerCanvasControl.ConnectorControl
                         ConnectorAdorner adorner = new ConnectorAdorner(canvas, this);
                         if (adorner != null)
                         {
+                            adorner.InputActivity = InputActivity;
                             adornerLayer.Add(adorner);
                             e.Handled = true;
                         }

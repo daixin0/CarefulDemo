@@ -5,7 +5,6 @@
         <ResourceDictionary Source="/Careful.Controls;component/WindowBaseControl/BaseWindowStyle.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/Careful.Controls;component/PropertyGridControl/Themes/VisualStudio.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/Careful.Controls;component/DesignerCanvasControl/Theme.xaml"></ResourceDictionary>
-        <ResourceDictionary Source="/Careful.Controls;component/ActivityControl/ActivityStyle.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/Careful.Controls;component/ToolBoxControl/ToolboxStyle.xaml"></ResourceDictionary>
         
     </ResourceDictionary.MergedDictionaries>

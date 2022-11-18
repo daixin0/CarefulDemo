@@ -10,7 +10,7 @@ using System.Windows.Markup;
 using System.Xml;
 using Careful.Controls.DesignerCanvasControl.Base;
 using Careful.Controls.DesignerCanvasControl.DragControl;
-using Careful.Controls.Common.Activity;
+using Careful.Controls.Common;
 
 namespace Careful.Controls.DesignerCanvasControl.Designer
 {
@@ -89,11 +89,11 @@ namespace Careful.Controls.DesignerCanvasControl.Designer
         {
             base.OnDrop(e);
             DragObject dragObject = e.Data.GetData(typeof(DragObject)) as DragObject;
-            if (dragObject != null && dragObject.DesignControl != null)
+            if (dragObject != null && dragObject.Data != null)
             {
                 DesignerItem newItem = new DesignerItem();
-                newItem.Content = dragObject.DesignControl;
-                SelectedItem = dragObject.DesignControl;
+                newItem.Content = dragObject.Data;
+                SelectedItem = dragObject.Data;
                 Point position = e.GetPosition(this);
 
                 if (dragObject.DesiredSize.HasValue)

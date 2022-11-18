@@ -14,6 +14,7 @@
         <ResourceDictionary Source="/Careful.Controls;component/DesignerCanvasControl/Styles/Shared.xaml" />
         <ResourceDictionary Source="/Careful.Controls;component/DesignerCanvasControl/Styles/Connection.xaml" />
         <ResourceDictionary Source="/Careful.Controls;component/DesignerCanvasControl/Styles/DesignerItem.xaml" />
+        <ResourceDictionary Source="/Careful.Controls;component/DesignerCanvasControl/Styles/ActivityStyle.xaml" />
         <!--<ResourceDictionary Source="/Careful.Controls;component/DesignerCanvasControl/Styles/Expander.xaml" />-->
         <!--<ResourceDictionary Source="/Careful.Controls;component/DesignerCanvasControl/Styles/GroupBox.xaml" />-->
     </ResourceDictionary.MergedDictionaries>

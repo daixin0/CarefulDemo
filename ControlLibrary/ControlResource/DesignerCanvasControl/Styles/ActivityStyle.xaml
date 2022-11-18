@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:activity="clr-namespace:Careful.Controls.ActivityControl">
+                    xmlns:activity="clr-namespace:Careful.Controls.DesignerCanvasControl.ActivityItem">
     <Style TargetType="{x:Type activity:Activity}">
         <Setter Property="Background" Value="Gray" />
         <Setter Property="BorderBrush" Value="Blue" />

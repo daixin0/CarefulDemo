@@ -6,6 +6,7 @@ using System.Windows.Media;
 using System.Windows.Controls;
 using Careful.Controls.DesignerCanvasControl.Designer;
 using Careful.Controls.DesignerCanvasControl.Base;
+using Careful.Controls.DesignerCanvasControl.ActivityItem;
 
 namespace Careful.Controls.DesignerCanvasControl.ConnectorControl
 {
@@ -47,6 +48,14 @@ namespace Careful.Controls.DesignerCanvasControl.ConnectorControl
                 }
             }
         }
+        //private Activity _inputActivity;
+
+        //public Activity InputActivity
+        //{
+        //    get { return _inputActivity; }
+        //    set { _inputActivity = value; }
+        //}
+
 
         public ConnectorAdorner(DesignerCanvas designer, Connector sourceConnector)
             : base(designer)
@@ -65,7 +74,10 @@ namespace Careful.Controls.DesignerCanvasControl.ConnectorControl
                 Connector sourceConnector = this.sourceConnector;
                 Connector sinkConnector = this.HitConnector;
                 Connection newConnection = new Connection(sourceConnector, sinkConnector);
-
+                newConnection.OutputActivity = HitDesignerItem.Content as Activity;
+                newConnection.InputActivity = InputActivity;
+                newConnection.OutputActivity.InputConnection.Add(newConnection);
+                newConnection.InputActivity.OutputConnection.Add(newConnection);
                 Canvas.SetZIndex(newConnection, designerCanvas.Children.Count);
                 this.designerCanvas.Children.Add(newConnection);
                 
@@ -82,6 +94,13 @@ namespace Careful.Controls.DesignerCanvasControl.ConnectorControl
             {
                 adornerLayer.Remove(this);
             }
+        }
+        private Activity _inputActivity;
+
+        public Activity InputActivity
+        {
+            get { return _inputActivity; }
+            set { _inputActivity = value; }
         }
 
         protected override void OnMouseMove(MouseEventArgs e)

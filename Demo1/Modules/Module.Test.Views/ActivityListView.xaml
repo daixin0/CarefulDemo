@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:mvvm="clr-namespace:Careful.Core.Mvvm.ViewModel;assembly=Careful.Core.Mvvm"
-             xmlns:activity="clr-namespace:Careful.Controls.ActivityControl;assembly=Careful.Controls"
+             xmlns:activity="clr-namespace:Careful.Controls.DesignerCanvasControl.ActivityItem;assembly=Careful.Controls"
              xmlns:toolbox="clr-namespace:Careful.Controls.ToolBoxControl;assembly=Careful.Controls"
              xmlns:local="clr-namespace:Module.Test.Views"
              mc:Ignorable="d" mvvm:ViewModelLocator.AutoWireViewModel="True"
