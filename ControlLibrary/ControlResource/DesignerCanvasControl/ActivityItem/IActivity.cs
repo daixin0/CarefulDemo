@@ -17,6 +17,7 @@ namespace Careful.Controls.DesignerCanvasControl.ActivityItem
         bool ValidateData();
         bool ValidateConnection();
         void Execute();
+        void RunProc();
     }
     public enum ActivityState
     {

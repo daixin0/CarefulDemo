@@ -201,6 +201,8 @@
     <Compile Include="CarefulDockControl\NamespaceDoc.cs" />
     <Compile Include="CarefulDockControl\ReferenceEqualityComparer.cs" />
     <Compile Include="ComboBoxExtendControl\ComboBoxExtend.cs" />
+    <Compile Include="DesignerCanvasControl\ActivityItem\ActivityStateEventArgs.cs" />
+    <Compile Include="DesignerCanvasControl\ActivityItem\ActivityVisionAttribute.cs" />
     <Compile Include="DesignerCanvasControl\ActivityItem\IInputData.cs" />
     <Compile Include="DesignerCanvasControl\ActivityItem\InputAttribute.cs" />
     <Compile Include="DesignerCanvasControl\ActivityItem\IOutputData.cs" />
@@ -390,6 +392,10 @@
     <Compile Include="DesignerCanvasControl\WorkFlow\WorkFlow.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="CommonStyle\ToolBarStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="DesignerCanvasControl\Styles\ActivityStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -696,29 +702,7 @@
     <Resource Include="CarefulDockControl\Style\Generic\Images\VTabGroup.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="DesignerCanvasControl\Images\AlignObjectsBottom.png" />
-    <Resource Include="DesignerCanvasControl\Images\AlignObjectsCenteredHorizontal.png" />
-    <Resource Include="DesignerCanvasControl\Images\AlignObjectsCenteredVertical.png" />
-    <Resource Include="DesignerCanvasControl\Images\AlignObjectsLeft.png" />
-    <Resource Include="DesignerCanvasControl\Images\AlignObjectsRight.png" />
-    <Resource Include="DesignerCanvasControl\Images\AlignObjectsTop.png" />
-    <Resource Include="DesignerCanvasControl\Images\BringForward.png" />
-    <Resource Include="DesignerCanvasControl\Images\BringToFront.png" />
-    <Resource Include="DesignerCanvasControl\Images\Copy.png" />
-    <Resource Include="DesignerCanvasControl\Images\Cut.png" />
-    <Resource Include="DesignerCanvasControl\Images\Delete.png" />
-    <Resource Include="DesignerCanvasControl\Images\DistributeObjectsHorizontal.png" />
-    <Resource Include="DesignerCanvasControl\Images\DistributeObjectsVertical.png" />
-    <Resource Include="DesignerCanvasControl\Images\GenericDocument.png" />
-    <Resource Include="DesignerCanvasControl\Images\Group.png" />
-    <Resource Include="DesignerCanvasControl\Images\OpenFolder.png" />
     <Resource Include="DesignerCanvasControl\Images\Paste.png" />
-    <Resource Include="DesignerCanvasControl\Images\PasteBig.png" />
-    <Resource Include="DesignerCanvasControl\Images\Print.png" />
-    <Resource Include="DesignerCanvasControl\Images\Save.png" />
-    <Resource Include="DesignerCanvasControl\Images\SendBackward.png" />
-    <Resource Include="DesignerCanvasControl\Images\SendToBack.png" />
-    <Resource Include="DesignerCanvasControl\Images\Ungroup.png" />
     <Content Include="PropertyGridControl\Themes\Icons\abc.png" />
     <Content Include="PropertyGridControl\Themes\Icons\grouped.png" />
   </ItemGroup>

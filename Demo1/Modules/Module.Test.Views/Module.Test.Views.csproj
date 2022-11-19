@@ -52,6 +52,9 @@
     <Compile Include="ActivityListView.xaml.cs">
       <DependentUpon>ActivityListView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MenuToolView.xaml.cs">
+      <DependentUpon>MenuToolView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestViewMgr.cs" />
   </ItemGroup>
@@ -78,6 +81,77 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MenuToolView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\AlignObjectsBottom.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\AlignObjectsCenteredHorizontal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\AlignObjectsCenteredVertical.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\AlignObjectsLeft.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\AlignObjectsRight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\AlignObjectsTop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\BringForward.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\BringToFront.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Copy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Cut.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\DistributeObjectsHorizontal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\DistributeObjectsVertical.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Group.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\OpenFolder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\GenericDocument.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\PasteBig.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Print.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\SendBackward.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\SendToBack.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Ungroup.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -2,6 +2,7 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/Careful.Controls;component/CarefulDockControl/Style/generic.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/Careful.Controls;component/CommonStyle/ScrollViewerStyle.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/Careful.Controls;component/CommonStyle/ToolBarStyle.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/Careful.Controls;component/WindowBaseControl/BaseWindowStyle.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/Careful.Controls;component/PropertyGridControl/Themes/VisualStudio.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/Careful.Controls;component/DesignerCanvasControl/Theme.xaml"></ResourceDictionary>

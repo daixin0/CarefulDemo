@@ -14,18 +14,14 @@
     <Grid Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="30"></RowDefinition>
-            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="110"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <TextBlock HorizontalAlignment="Left" Margin="10,5,0,0" Text="{Binding Path=Title,ElementName=window}"></TextBlock>
-        <Menu Grid.Row="1">
-            <MenuItem Header="流程">
-                <MenuItem Header="新建"></MenuItem>
-                <MenuItem Header="保存"></MenuItem>
-            </MenuItem>
-            <MenuItem Header="调试"></MenuItem>
-        </Menu>
+        <Grid Grid.Row="1">
+            <uc:MenuToolView></uc:MenuToolView>
+        </Grid>
         <Grid Grid.Row="3">
             <docker:DockingManager x:Name="dockManager">
                 <layout:LayoutRoot>

@@ -52,10 +52,40 @@ namespace Careful.Controls.DesignerCanvasControl.ActivityItem
             get { return _id; }
             set { _id = value; }
         }
+        public event ActivityStateEventHandler StateChanged;
 
-        public virtual void Execute()
+        public void OnStateChanged(ActivityState state, Exception e = null)
         {
-            
+            if (StateChanged != null)
+                StateChanged(this, new ActivityStateEventArgs(state, e));
+        }
+
+        internal void OnStateChanged(ActivityCommand command, ActivityState state, Exception e = null)
+        {
+            if (StateChanged != null)
+                StateChanged(this, new ActivityStateEventArgs(command, state, e));
+        }
+
+        public void Execute()
+        {
+            if (ActivityState == ActivityState.Running) return;
+            if (ActivityState == ActivityState.Finished) return;
+            if (ActivityState == ActivityState.Abort) return;
+
+            try
+            {
+                ActivityState = ActivityState.Running;
+                OnStateChanged(ActivityState.Running, null);
+
+                RunProc();
+                ActivityState = ActivityState.Finished;
+                OnStateChanged(ActivityState.Finished, null);
+            }
+            catch (Exception e)
+            {
+                ActivityState = ActivityState.Abort;
+                OnStateChanged(ActivityState.Abort, e);
+            }
         }
 
         public virtual bool HasInputs()
@@ -102,6 +132,13 @@ namespace Careful.Controls.DesignerCanvasControl.ActivityItem
             }
             return true;
         }
+
+        public virtual void RunProc()
+        {
+            
+        }
+
+
         private List<Connection> _inputConnection = new List<Connection>();
 
         public List<Connection> InputConnection
@@ -114,5 +151,7 @@ namespace Careful.Controls.DesignerCanvasControl.ActivityItem
         {
             get { return _outputConnection; }
         }
+
+        
     }
 }
