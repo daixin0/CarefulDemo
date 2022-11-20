@@ -4,76 +4,18 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:lib="clr-namespace:Careful.Controls.WindowBaseControl;assembly=Careful.Controls"
-        xmlns:docker="clr-namespace:Careful.Controls.CarefulDockControl;assembly=Careful.Controls"
-        xmlns:propertyGrid="clr-namespace:Careful.Controls.PropertyGridControl;assembly=Careful.Controls"
-        xmlns:designer="clr-namespace:Careful.Controls.DesignerCanvasControl.Designer;assembly=Careful.Controls"
-        xmlns:uc="clr-namespace:Module.Test.Views;assembly=Module.Test.Views"
-        xmlns:local="clr-namespace:ModularityIDEDemo" xmlns:layout="clr-namespace:Careful.Controls.CarefulDockControl.Layout;assembly=Careful.Controls"
+        xmlns:region="clr-namespace:Careful.Module.Core.Regions;assembly=Careful.Module.Core"
+        xmlns:local="clr-namespace:ModularityIDEDemo"
         mc:Ignorable="d" x:Name="window" IsResize="True"
-        Title="流程设计器" Height="450" Width="800">
+        Title="流程设计器" Height="650" Width="1000">
     <Grid Background="Transparent">
         <Grid.RowDefinitions>
-            <RowDefinition Height="30"></RowDefinition>
-            <RowDefinition Height="110"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <TextBlock HorizontalAlignment="Left" Margin="10,5,0,0" Text="{Binding Path=Title,ElementName=window}"></TextBlock>
         <Grid Grid.Row="1">
-            <uc:MenuToolView></uc:MenuToolView>
-        </Grid>
-        <Grid Grid.Row="3">
-            <docker:DockingManager x:Name="dockManager">
-                <layout:LayoutRoot>
-                    <layout:LayoutPanel Orientation="Horizontal">
-                        <layout:LayoutAnchorablePane DockWidth="220">
-                            <layout:LayoutAnchorable Title="工作流"
-                            CanClose="False"
-                            CanHide="False">
-                            </layout:LayoutAnchorable>
-                        </layout:LayoutAnchorablePane>
-                        <layout:LayoutDocumentPaneGroup>
-                            <layout:LayoutDocumentPane x:Name="LayoutDocumentPane">
-                                <layout:LayoutDocument
-                                Title="Document 1"
-                                ContentId="document1">
-                                    <Grid>
-                                        <ScrollViewer HorizontalScrollBarVisibility="Auto"
-                      VerticalScrollBarVisibility="Auto">
-                                            <designer:DesignerCanvas x:Name="MyDesigner" Focusable="true"
-                            Background="{DynamicResource WindowBackgroundBrush}"
-                            Margin="10" FocusVisualStyle="{x:Null}">
-                                                <designer:DesignerCanvas.ContextMenu>
-                                                    <ContextMenu>
-                                                        <MenuItem Header="Paste" Command="{x:Static ApplicationCommands.Paste}">
-                                                            <MenuItem.Icon>
-                                                                <Image Source="/Careful.Controls;component/DesignerCanvasControl/Images/Paste.png" Width="16"/>
-                                                            </MenuItem.Icon>
-                                                        </MenuItem>
-                                                        <MenuItem Header="Select All" Command="{x:Static designer:DesignerCanvas.SelectAll}"/>
-                                                    </ContextMenu>
-                                                </designer:DesignerCanvas.ContextMenu>
-                                            </designer:DesignerCanvas>
-                                        </ScrollViewer>
-                                    </Grid>
-                                </layout:LayoutDocument>
-                            </layout:LayoutDocumentPane>
-                        </layout:LayoutDocumentPaneGroup>
-                        <layout:LayoutAnchorablePaneGroup DockWidth="220" Orientation="Vertical">
-                            <layout:LayoutAnchorablePane>
-                                <layout:LayoutAnchorable Title="活动库" CanClose="False" CanHide="False">
-                                    <uc:ActivityListView></uc:ActivityListView>
-                                </layout:LayoutAnchorable>
-                            </layout:LayoutAnchorablePane>
-                            <layout:LayoutAnchorablePane>
-                                <layout:LayoutAnchorable Title="属性" CanClose="False" CanHide="False">
-                                    <propertyGrid:PropertyGrid Instance="{Binding ElementName=MyDesigner,Path=SelectedItem}"></propertyGrid:PropertyGrid>
-                                </layout:LayoutAnchorable>
-                            </layout:LayoutAnchorablePane>
-                        </layout:LayoutAnchorablePaneGroup>
-                    </layout:LayoutPanel>
-                </layout:LayoutRoot>
-            </docker:DockingManager>
+            <ContentControl region:RegionManager.RegionName="ContentRegion"></ContentControl>
         </Grid>
     </Grid>
 </lib:BaseWindow>

@@ -38,19 +38,7 @@ namespace Careful.Core.Ioc
         /// <returns>The <see cref="IContainerRegistry" /> instance</returns>
         public static IContainerRegistry RegisterSingleton(this IContainerRegistry containerRegistry, Type type)
         {
-            return containerRegistry.RegisterSingleton(type, type);
-        }
-
-        /// <summary>
-        /// Registers a Singleton with the given service and mapping to the specified implementation <see cref="Type" />.
-        /// </summary>
-        /// <typeparam name="TFrom">The service <see cref="Type" /></typeparam>
-        /// <typeparam name="TTo">The implementation <see cref="Type" /></typeparam>
-        /// <param name="containerRegistry">The instance of the <see cref="IContainerRegistry" /></param>
-        /// <returns>The <see cref="IContainerRegistry" /> instance</returns>
-        public static IContainerRegistry RegisterSingleton<TFrom, TTo>(this IContainerRegistry containerRegistry) where TTo : TFrom
-        {
-            return containerRegistry.RegisterSingleton(typeof(TFrom), typeof(TTo));
+            return containerRegistry.RegisterSingleton(type);
         }
 
         /// <summary>
@@ -61,9 +49,9 @@ namespace Careful.Core.Ioc
         /// <param name="containerRegistry">The instance of the <see cref="IContainerRegistry" /></param>
         /// <param name="name">The name or key to register the service</param>
         /// <returns>The <see cref="IContainerRegistry" /> instance</returns>
-        public static IContainerRegistry RegisterSingleton<TFrom, TTo>(this IContainerRegistry containerRegistry, string name) where TTo : TFrom
+        public static IContainerRegistry RegisterSingleton<T>(this IContainerRegistry containerRegistry, string name)
         {
-            return containerRegistry.RegisterSingleton(typeof(TFrom), typeof(TTo), name);
+            return containerRegistry.RegisterSingleton(typeof(T), name);
         }
 
         /// <summary>
@@ -122,7 +110,7 @@ namespace Careful.Core.Ioc
         /// <returns>The <see cref="IContainerRegistry" /> instance</returns>
         public static IContainerRegistry Register(this IContainerRegistry containerRegistry, Type type)
         {
-            return containerRegistry.Register(type, type);
+            return containerRegistry.Register(type);
         }
 
         /// <summary>
@@ -145,7 +133,7 @@ namespace Careful.Core.Ioc
         /// <returns>The <see cref="IContainerRegistry" /> instance</returns>
         public static IContainerRegistry Register(this IContainerRegistry containerRegistry, Type type, string name)
         {
-            return containerRegistry.Register(type, type, name);
+            return containerRegistry.Register(type,  name);
         }
 
         /// <summary>
@@ -159,32 +147,6 @@ namespace Careful.Core.Ioc
         {
             return containerRegistry.Register(typeof(T), name);
         }
-
-        /// <summary>
-        /// Registers a Transient with the given service and mapping to the specified implementation <see cref="Type" />.
-        /// </summary>
-        /// <typeparam name="TFrom">The service <see cref="Type" /></typeparam>
-        /// <typeparam name="TTo">The implementation <see cref="Type" /></typeparam>
-        /// <param name="containerRegistry">The instance of the <see cref="IContainerRegistry" /></param>
-        /// <returns>The <see cref="IContainerRegistry" /> instance</returns>
-        public static IContainerRegistry Register<TFrom, TTo>(this IContainerRegistry containerRegistry) where TTo : TFrom
-        {
-            return containerRegistry.Register(typeof(TFrom), typeof(TTo));
-        }
-
-        /// <summary>
-        /// Registers a Transient with the given service and mapping to the specified implementation <see cref="Type" />.
-        /// </summary>
-        /// <typeparam name="TFrom">The service <see cref="Type" /></typeparam>
-        /// <typeparam name="TTo">The implementation <see cref="Type" /></typeparam>
-        /// <param name="containerRegistry">The instance of the <see cref="IContainerRegistry" /></param>
-        /// <param name="name">The name or key to register the service</param>
-        /// <returns>The <see cref="IContainerRegistry" /> instance</returns>
-        public static IContainerRegistry Register<TFrom, TTo>(this IContainerRegistry containerRegistry, string name) where TTo : TFrom
-        {
-            return containerRegistry.Register(typeof(TFrom), typeof(TTo), name);
-        }
-
         /// <summary>
         /// Registers a Transient Service using a delegate method
         /// </summary>

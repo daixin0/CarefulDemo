@@ -16,6 +16,38 @@ namespace Careful.Controls.DesignerCanvasControl.Designer
 {
     public partial class DesignerCanvas : Canvas
     {
+
+        public string FlowName
+        {
+            get { return (string)GetValue(FlowNameProperty); }
+            set { SetValue(FlowNameProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for FlowName.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty FlowNameProperty =
+            DependencyProperty.Register("FlowName", typeof(string), typeof(DesignerCanvas));
+
+        public string FlowID
+        {
+            get { return (string)GetValue(FlowIDProperty); }
+            set { SetValue(FlowIDProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for FlowID.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty FlowIDProperty =
+            DependencyProperty.Register("FlowID", typeof(string), typeof(DesignerCanvas));
+
+        public string FlowFilePath
+        {
+            get { return (string)GetValue(FlowFilePathProperty); }
+            set { SetValue(FlowFilePathProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for FlowFilePath.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty FlowFilePathProperty =
+            DependencyProperty.Register("FlowFilePath", typeof(string), typeof(DesignerCanvas));
+
+
         public object SelectedItem
         {
             get { return (object)GetValue(SelectedItemProperty); }
@@ -25,7 +57,6 @@ namespace Careful.Controls.DesignerCanvasControl.Designer
         // Using a DependencyProperty as the backing store for SelectedItem.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SelectedItemProperty =
             DependencyProperty.Register("SelectedItem", typeof(object), typeof(DesignerCanvas));
-
 
 
         private Point? rubberbandSelectionStartPoint = null;

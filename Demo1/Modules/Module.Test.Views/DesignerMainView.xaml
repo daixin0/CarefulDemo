@@ -1,0 +1,127 @@
+﻿<UserControl x:Class="Module.Test.Views.DesignerMainView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:layout="clr-namespace:Careful.Controls.CarefulDockControl.Layout;assembly=Careful.Controls"
+             xmlns:docker="clr-namespace:Careful.Controls.CarefulDockControl;assembly=Careful.Controls"
+             xmlns:propertyGrid="clr-namespace:Careful.Controls.PropertyGridControl;assembly=Careful.Controls"
+             xmlns:region="clr-namespace:Careful.Module.Core.Regions;assembly=Careful.Module.Core"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+             xmlns:designer="clr-namespace:Careful.Controls.DesignerCanvasControl.Designer;assembly=Careful.Controls"
+             xmlns:mvvm="clr-namespace:Careful.Core.Mvvm.ViewModel;assembly=Careful.Core.Mvvm"
+             xmlns:proxy="clr-namespace:Careful.Core.Proxy;assembly=Careful.Core"
+             xmlns:local="clr-namespace:Module.Test.Views" x:Name="uc"
+             mc:Ignorable="d"  mvvm:ViewModelLocator.AutoWireViewModel="True"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <proxy:BindingProxy x:Key="bp" Data="{Binding}"></proxy:BindingProxy>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="115"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid>
+            <local:MenuToolView>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="NewFlow">
+                        <i:InvokeCommandAction Command="{Binding Data.NewFlowCommand,Source={StaticResource bp}}"></i:InvokeCommandAction>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="SaveFlow">
+                        <i:InvokeCommandAction Command="{Binding Data.SaveFlowCommand,Source={StaticResource bp}}"></i:InvokeCommandAction>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="OpenFlow">
+                        <i:InvokeCommandAction Command="{Binding Data.OpenFlowCommand,Source={StaticResource bp}}"></i:InvokeCommandAction>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </local:MenuToolView>
+            <!--<ContentControl region:RegionManager.RegionName="MenuToolView"></ContentControl>-->
+        </Grid>
+        <Grid Grid.Row="1">
+            <docker:DockingManager x:Name="dockManager">
+                <layout:LayoutRoot>
+                    <layout:LayoutPanel Orientation="Horizontal">
+                        <layout:LayoutAnchorablePane DockWidth="220">
+                            <layout:LayoutAnchorable Title="工作流"
+                            CanClose="False"
+                            CanHide="False">
+                                <ListBox Name="lbFlow" ItemsSource="{Binding FlowItemModels}"
+                                         SelectedItem="{Binding FlowItemSelected,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                        DisplayMemberPath="FlowName" >
+                                    <!--<ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Button Background="Transparent"
+                                                        BorderThickness="0"
+                                                        Content="{Binding FlowName}"
+                                                        CommandTarget="{Binding ElementName=MyDesigner}">
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="Click">
+                                                            <i:InvokeCommandAction Command="{Binding OpenFlowCommand,RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding ElementName=lbFlow,Path=SelectedItem}"></i:InvokeCommandAction>
+                                                            <i:InvokeCommandAction Command="{x:Static ApplicationCommands.Open}" CommandParameter="false"></i:InvokeCommandAction>
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+                                                </Button>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>-->
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="SelectionChanged">
+                                            <i:InvokeCommandAction Command="{Binding OpenFlowCommand}" CommandParameter="{Binding ElementName=lbFlow,Path=SelectedItem}"></i:InvokeCommandAction>
+                                            <ei:CallMethodAction MethodName="OpenXml" TargetObject="{Binding ElementName=MyDesigner}" ></ei:CallMethodAction>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </ListBox>
+                            </layout:LayoutAnchorable>
+                        </layout:LayoutAnchorablePane>
+                        <layout:LayoutDocumentPaneGroup>
+                            <layout:LayoutDocumentPane x:Name="LayoutDocumentPane">
+                                <layout:LayoutDocument
+                                Title="Document 1"
+                                ContentId="document1">
+                                    <Grid>
+                                        <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                      VerticalScrollBarVisibility="Auto">
+                                            <designer:DesignerCanvas x:Name="MyDesigner" Focusable="true"
+                            Background="{DynamicResource WindowBackgroundBrush}"
+                            FlowName="{Binding CurrentFlowItem.FlowName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                            FlowID="{Binding CurrentFlowItem.FlowID,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                            FlowFilePath="{Binding CurrentFlowItem.FlowFilePath,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                            Margin="10" FocusVisualStyle="{x:Null}">
+                                                <designer:DesignerCanvas.ContextMenu>
+                                                    <ContextMenu>
+                                                        <MenuItem Header="Paste" Command="{x:Static ApplicationCommands.Paste}">
+                                                            <MenuItem.Icon>
+                                                                <Image Source="/Careful.Controls;component/DesignerCanvasControl/Images/Paste.png" Width="16"/>
+                                                            </MenuItem.Icon>
+                                                        </MenuItem>
+                                                        <MenuItem Header="Select All" Command="{x:Static designer:DesignerCanvas.SelectAll}"/>
+                                                    </ContextMenu>
+                                                </designer:DesignerCanvas.ContextMenu>
+                                            </designer:DesignerCanvas>
+                                        </ScrollViewer>
+                                    </Grid>
+                                </layout:LayoutDocument>
+                            </layout:LayoutDocumentPane>
+                        </layout:LayoutDocumentPaneGroup>
+                        <layout:LayoutAnchorablePaneGroup DockWidth="220" Orientation="Vertical">
+                            <layout:LayoutAnchorablePane>
+                                <layout:LayoutAnchorable Title="活动库" CanClose="False" CanHide="False">
+                                    <!--<ContentControl region:RegionManager.RegionName="ActivityListView"></ContentControl>-->
+                                    <local:ActivityListView></local:ActivityListView>
+                                </layout:LayoutAnchorable>
+                            </layout:LayoutAnchorablePane>
+                            <layout:LayoutAnchorablePane>
+                                <layout:LayoutAnchorable Title="属性" CanClose="False" CanHide="False">
+                                    <propertyGrid:PropertyGrid Instance="{Binding ElementName=MyDesigner,Path=SelectedItem}"></propertyGrid:PropertyGrid>
+                                </layout:LayoutAnchorable>
+                            </layout:LayoutAnchorablePane>
+                        </layout:LayoutAnchorablePaneGroup>
+                    </layout:LayoutPanel>
+                </layout:LayoutRoot>
+            </docker:DockingManager>
+        </Grid>
+    </Grid>
+</UserControl>

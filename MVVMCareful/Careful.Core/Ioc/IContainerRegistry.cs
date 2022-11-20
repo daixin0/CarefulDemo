@@ -30,7 +30,7 @@ namespace Careful.Core.Ioc
         /// <param name="from">The service <see cref="Type" /></param>
         /// <param name="to">The implementation <see cref="Type" /></param>
         /// <returns>The <see cref="IContainerRegistry" /> instance</returns>
-        IContainerRegistry RegisterSingleton(Type from, Type to);
+        IContainerRegistry RegisterSingleton(Type from);
 
         /// <summary>
         /// Registers a Singleton with the given service and mapping to the specified implementation <see cref="Type" />.
@@ -39,7 +39,7 @@ namespace Careful.Core.Ioc
         /// <param name="to">The implementation <see cref="Type" /></param>
         /// <param name="name">The name or key to register the service</param>
         /// <returns>The <see cref="IContainerRegistry" /> instance</returns>
-        IContainerRegistry RegisterSingleton(Type from, Type to, string name);
+        IContainerRegistry RegisterSingleton(Type from, string name);
 
         /// <summary>
         /// Registers a Singleton with the given service <see cref="Type" /> factory delegate method.
@@ -72,7 +72,7 @@ namespace Careful.Core.Ioc
         /// <param name="from">The service <see cref="Type" /></param>
         /// <param name="to">The implementation <see cref="Type" /></param>
         /// <returns>The <see cref="IContainerRegistry" /> instance</returns>
-        IContainerRegistry Register(Type from, Type to);
+        IContainerRegistry Register(Type from);
 
         /// <summary>
         /// Registers a Transient with the given service and mapping to the specified implementation <see cref="Type" />.
@@ -81,7 +81,7 @@ namespace Careful.Core.Ioc
         /// <param name="to">The implementation <see cref="Type" /></param>
         /// <param name="name">The name or key to register the service</param>
         /// <returns>The <see cref="IContainerRegistry" /> instance</returns>
-        IContainerRegistry Register(Type from, Type to, string name);
+        IContainerRegistry Register(Type from, string name);
 
         /// <summary>
         /// Registers a Transient Service using a delegate method

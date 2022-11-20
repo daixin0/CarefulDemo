@@ -25,7 +25,7 @@ namespace Careful.Core.Ioc
 
         public void FinalizeExtension()
         {
-            throw new NotImplementedException();
+            
         }
 
         public object Resolve(Type type)
@@ -67,7 +67,8 @@ namespace Careful.Core.Ioc
 
         public IContainerRegistry RegisterInstance(Type type, object instance)
         {
-            throw new NotImplementedException();
+            Instance.RegisterInstance<Type>(instance);
+            return this;
         }
 
         public IContainerRegistry RegisterInstance(Type type, object instance, string name)
@@ -75,14 +76,16 @@ namespace Careful.Core.Ioc
             throw new NotImplementedException();
         }
 
-        public IContainerRegistry RegisterSingleton(Type from, Type to)
+        public IContainerRegistry RegisterSingleton(Type from)
         {
-            throw new NotImplementedException();
+            Resolve(from);
+            return this;
         }
 
-        public IContainerRegistry RegisterSingleton(Type from, Type to, string name)
+        public IContainerRegistry RegisterSingleton(Type from, string name)
         {
-            throw new NotImplementedException();
+            Resolve(from, name);
+            return this;
         }
 
         public IContainerRegistry RegisterSingleton(Type type, Func<object> factoryMethod)
@@ -100,12 +103,13 @@ namespace Careful.Core.Ioc
             throw new NotImplementedException();
         }
 
-        public IContainerRegistry Register(Type from, Type to)
+        public IContainerRegistry Register(Type from)
         {
-            throw new NotImplementedException();
+            Instance.Register(from);
+            return this;
         }
 
-        public IContainerRegistry Register(Type from, Type to, string name)
+        public IContainerRegistry Register(Type from, string name)
         {
             throw new NotImplementedException();
         }

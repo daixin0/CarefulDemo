@@ -16,7 +16,6 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid>
-        <Image></Image>
         <toolbox:Toolbox ItemsSource="{Binding ActivityInfoModels}">
             <toolbox:Toolbox.ItemTemplate>
                 <DataTemplate>

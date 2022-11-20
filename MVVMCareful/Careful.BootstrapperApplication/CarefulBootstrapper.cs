@@ -93,7 +93,7 @@ namespace Careful.BootstrapperApplication
 
             this.Logger.Log("adding careful bootstrapper extension to container", LogLevel.Debug, Priority.Low);
             //Container.RegisterInstance<ICarefulIoc>(Container);
-            this.Container.RegisterInstance<IModuleCatalog>(this.ModuleCatalog);
+            Container.RegisterInstance<IModuleCatalog>(this.ModuleCatalog);
             Container.RegisterInstance<ILog>(Logger);
             Container.Register<IDialogService, DialogService>();
 
@@ -102,14 +102,14 @@ namespace Careful.BootstrapperApplication
             Container.Register<IModuleManager, ModuleManager>();
             Container.Register<IEventAggregator, EventAggregator>();
             Container.Register<IContainerExtension, CarefulIocExtension>();
-            //Container.Register<RegionAdapterMappings>(true);
-            //Container.Register<IRegionManager, RegionManager>(true);
-            //Container.Register<IRegionViewRegistry, RegionViewRegistry>(true);
-            //Container.Register<IRegionBehaviorFactory, RegionBehaviorFactory>(true);
-            //Container.Register<IRegionNavigationJournalEntry, RegionNavigationJournalEntry>(false);
-            //Container.Register<IRegionNavigationJournal, RegionNavigationJournal>(false);
-            //Container.Register<IRegionNavigationContentLoader, RegionNavigationContentLoader>(false);
-            //Container.Register<IRegionNavigationService, RegionNavigationService>(false);
+            Container.Register<RegionAdapterMappings>(true);
+            Container.Register<IRegionManager, RegionManager>(true);
+            Container.Register<IRegionViewRegistry, RegionViewRegistry>(true);
+            Container.Register<IRegionBehaviorFactory, RegionBehaviorFactory>(true);
+            Container.Register<IRegionNavigationJournalEntry, RegionNavigationJournalEntry>(false);
+            Container.Register<IRegionNavigationJournal, RegionNavigationJournal>(false);
+            Container.Register<IRegionNavigationContentLoader, RegionNavigationContentLoader>(false);
+            Container.Register<IRegionNavigationService, RegionNavigationService>(false);
         }
 
         /// <summary>
@@ -154,7 +154,6 @@ namespace Careful.BootstrapperApplication
         }
         protected virtual void Initialize()
         {
-
             InitIoc();
             this.Logger = this.CreateLogger();
             if (this.Logger == null)
@@ -194,14 +193,16 @@ namespace Careful.BootstrapperApplication
 
             ContainerExtension = ContainerLocator.Current;
 
-
-            //RegisterRequiredTypes(ContainerExtension);
-            //RegisterTypes(ContainerExtension);
-            //ContainerExtension.FinalizeExtension();
+            RegisterTypes(ContainerExtension);
+            ContainerExtension.FinalizeExtension();
 
             this.Logger.Log("configuring region adapter", LogLevel.Debug, Priority.Low);
-            //this.ConfigureRegionAdapterMappings();
 
+            var regionAdapterMappins = ContainerExtension.Resolve<RegionAdapterMappings>();
+            ConfigureRegionAdapterMappings(regionAdapterMappins);
+
+            var defaultRegionBehaviors = ContainerExtension.Resolve<IRegionBehaviorFactory>();
+            ConfigureDefaultRegionBehaviors(defaultRegionBehaviors);
 
             this.Logger.Log("registering frameworkd excetion type", LogLevel.Debug, Priority.Low);
             this.RegisterFrameworkExceptionTypes();
@@ -212,7 +213,8 @@ namespace Careful.BootstrapperApplication
             if (this.Shell != null)
             {
                 MvvmHelpers.AutowireViewModel(Shell);
-
+                RegionManager.SetRegionManager(Shell, ContainerExtension.Resolve<IRegionManager>());
+                RegionManager.UpdateRegions();
                 this.Logger.Log("initialize shell", LogLevel.Debug, Priority.Low);
                 this.OnInitialized();
             }
@@ -225,39 +227,48 @@ namespace Careful.BootstrapperApplication
 
             this.Logger.Log("bootstrapper sequence completed", LogLevel.Debug, Priority.Low);
 
-
-
-            //var regionAdapterMappins = ContainerExtension.Resolve<RegionAdapterMappings>();
-            //ConfigureRegionAdapterMappings(regionAdapterMappins);
-
-            //var defaultRegionBehaviors = ContainerExtension.Resolve<IRegionBehaviorFactory>();
-            //ConfigureDefaultRegionBehaviors(defaultRegionBehaviors);
-
-            //RegisterFrameworkExceptionTypes();
-        }
-
-
-        /// <summary>
-        /// Registers all types that are required by Prism to function with the container.
-        /// </summary>
-        /// <param name="containerRegistry"></param>
-        protected virtual void RegisterRequiredTypes(IContainerRegistry containerRegistry)
-        {
-            if (ModuleCatalog == null)
-                throw new InvalidOperationException("IModuleCatalog");
-
-            containerRegistry.RegisterInstance(ModuleCatalog);
-            containerRegistry.RegisterSingleton<IDialogService, DialogService>();
-            containerRegistry.RegisterSingleton<IModuleInitializer, ModuleInitializer>();
-            containerRegistry.RegisterSingleton<IModuleManager, ModuleManager>();
-            containerRegistry.RegisterSingleton<IEventAggregator, EventAggregator>();
-            //containerRegistry.Register<IDialogWindow, DialogWindow>(); //default dialog host
+           
         }
         protected virtual void RegisterTypes(IContainerRegistry containerRegistry)
         {
 
         }
 
+        /// <summary>
+        /// Configures the <see cref="IRegionBehaviorFactory"/>. 
+        /// This will be the list of default behaviors that will be added to a region. 
+        /// </summary>
+        protected virtual void ConfigureDefaultRegionBehaviors(IRegionBehaviorFactory regionBehaviors)
+        {
+            RegisterDefaultRegionBehaviors(regionBehaviors);
+        }
+        private void RegisterDefaultRegionBehaviors(IRegionBehaviorFactory regionBehaviors)
+        {
+            regionBehaviors.AddIfMissing<BindRegionContextToDependencyObjectBehavior>(BindRegionContextToDependencyObjectBehavior.BehaviorKey);
+            regionBehaviors.AddIfMissing<RegionActiveAwareBehavior>(RegionActiveAwareBehavior.BehaviorKey);
+            regionBehaviors.AddIfMissing<SyncRegionContextWithHostBehavior>(SyncRegionContextWithHostBehavior.BehaviorKey);
+            regionBehaviors.AddIfMissing<RegionManagerRegistrationBehavior>(RegionManagerRegistrationBehavior.BehaviorKey);
+            regionBehaviors.AddIfMissing<RegionMemberLifetimeBehavior>(RegionMemberLifetimeBehavior.BehaviorKey);
+            regionBehaviors.AddIfMissing<ClearChildViewsRegionBehavior>(ClearChildViewsRegionBehavior.BehaviorKey);
+            regionBehaviors.AddIfMissing<AutoPopulateRegionBehavior>(AutoPopulateRegionBehavior.BehaviorKey);
+            regionBehaviors.AddIfMissing<DestructibleRegionBehavior>(DestructibleRegionBehavior.BehaviorKey);
+        }
+        /// <summary>
+        /// Configures the default region adapter mappings to use in the application, in order
+        /// to adapt UI controls defined in XAML to use a region and register it automatically.
+        /// May be overwritten in a derived class to add specific mappings required by the application.
+        /// </summary>
+        /// <returns>The <see cref="RegionAdapterMappings"/> instance containing all the mappings.</returns>
+        protected virtual void ConfigureRegionAdapterMappings(RegionAdapterMappings regionAdapterMappings)
+        {
+            RegisterDefaultRegionAdapterMappings(regionAdapterMappings);
+        }
+        private void RegisterDefaultRegionAdapterMappings(RegionAdapterMappings regionAdapterMappings)
+        {
+            regionAdapterMappings.RegisterMapping<Selector, SelectorRegionAdapter>();
+            regionAdapterMappings.RegisterMapping<ItemsControl, ItemsControlRegionAdapter>();
+            regionAdapterMappings.RegisterMapping<ContentControl, ContentControlRegionAdapter>();
+        }
         /// <summary>
         /// Registers the <see cref="Type"/>s of the Exceptions that are not considered 
         /// root exceptions by the <see cref="ExceptionExtensions"/>.

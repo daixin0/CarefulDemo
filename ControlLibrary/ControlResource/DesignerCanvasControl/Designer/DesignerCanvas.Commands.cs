@@ -13,6 +13,7 @@ using System.Xml;
 using System.Xml.Linq;
 using Careful.Controls.DesignerCanvasControl.Base;
 using Careful.Controls.DesignerCanvasControl.ConnectorControl;
+using Careful.Core.Mvvm.Command;
 using Microsoft.Win32;
 
 namespace Careful.Controls.DesignerCanvasControl.Designer
@@ -34,6 +35,7 @@ namespace Careful.Controls.DesignerCanvasControl.Designer
         public static RoutedCommand DistributeHorizontal = new RoutedCommand();
         public static RoutedCommand DistributeVertical = new RoutedCommand();
         public static RoutedCommand SelectAll = new RoutedCommand();
+        public static RoutedCommand Execute = new RoutedCommand();
 
         public DesignerCanvas()
         {
@@ -60,35 +62,26 @@ namespace Careful.Controls.DesignerCanvasControl.Designer
             this.CommandBindings.Add(new CommandBinding(DesignerCanvas.DistributeHorizontal, DistributeHorizontal_Executed, Distribute_Enabled));
             this.CommandBindings.Add(new CommandBinding(DesignerCanvas.DistributeVertical, DistributeVertical_Executed, Distribute_Enabled));
             this.CommandBindings.Add(new CommandBinding(DesignerCanvas.SelectAll, SelectAll_Executed));
+            this.CommandBindings.Add(new CommandBinding(DesignerCanvas.Execute, Execute_Executed, Execute_Enabled));
             SelectAll.InputGestures.Add(new KeyGesture(Key.A, ModifierKeys.Control));
-
+            
             this.AllowDrop = true;
             Clipboard.Clear();
         }
 
-        #region New Command
-
-        private void New_Executed(object sender, ExecutedRoutedEventArgs e)
+        public void OpenXml(bool isOpenDialog)
         {
-            this.Children.Clear();
-            this.SelectionService.ClearSelection();
-        }
-
-        #endregion
-
-        #region Open Command
-
-        private void Open_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            XElement root = LoadSerializedDataFromFile();
+            XElement root = LoadSerializedDataFromFile(isOpenDialog);
 
             if (root == null)
                 return;
 
             this.Children.Clear();
             this.SelectionService.ClearSelection();
-
-            IEnumerable<XElement> itemsXML = root.Elements("DesignerItems").Elements("DesignerItem");
+            XElement canvas = root.Element("DesignerCanvas");
+            this.FlowName = canvas.Element("FlowName").Value;
+            this.FlowID = canvas.Element("FlowID").Value;
+            IEnumerable<XElement> itemsXML = canvas.Elements("DesignerItems").Elements("DesignerItem");
             foreach (XElement itemXML in itemsXML)
             {
                 Guid id = new Guid(itemXML.Element("ID").Value);
@@ -116,6 +109,32 @@ namespace Careful.Controls.DesignerCanvasControl.Designer
                 this.Children.Add(connection);
             }
         }
+        public void OpenXml()
+        {
+            OpenXml(false);
+        }
+
+        #region New Command
+
+        private void New_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            this.Children.Clear();
+            this.SelectionService.ClearSelection();
+        }
+
+        #endregion
+
+        #region Open Command
+
+        private void Open_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            bool isOpenDialog = false;
+            if(e.Parameter!=null)
+            {
+                bool result = bool.TryParse(e.Parameter.ToString(), out isOpenDialog);
+            }
+            OpenXml(isOpenDialog);
+        }
 
         #endregion
 
@@ -125,15 +144,38 @@ namespace Careful.Controls.DesignerCanvasControl.Designer
         {
             IEnumerable<DesignerItem> designerItems = this.Children.OfType<DesignerItem>();
             IEnumerable<Connection> connections = this.Children.OfType<Connection>();
-
+            
             XElement designerItemsXML = SerializeDesignerItems(designerItems);
             XElement connectionsXML = SerializeConnections(connections);
-
+            XElement canvasElement = new XElement("DesignerCanvas",
+                new XElement("FlowName",this.FlowName),
+                new XElement("FlowID", this.FlowID));
+            canvasElement.Add(designerItemsXML);
+            canvasElement.Add(connectionsXML);
             XElement root = new XElement("Root");
-            root.Add(designerItemsXML);
-            root.Add(connectionsXML);
-
-            SaveFile(root);
+            root.Add(canvasElement);
+            if (string.IsNullOrWhiteSpace(FlowFilePath))
+            {
+                SaveFileDialog saveFile = new SaveFileDialog();
+                saveFile.Filter = "Files (*.xml)|*.xml|All Files (*.*)|*.*";
+                if (saveFile.ShowDialog() == true)
+                {
+                    try
+                    {
+                        root.Save(saveFile.FileName);
+                        FlowFilePath = saveFile.FileName;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.StackTrace, ex.Message, MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+            }
+            else
+            {
+                root.Save(FlowFilePath);
+            }
+            
         }
 
         #endregion
@@ -748,44 +790,51 @@ namespace Careful.Controls.DesignerCanvasControl.Designer
 
         #endregion
 
+        #region Execute Command
+
+        private void Execute_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            
+        }
+
+        private void Execute_Enabled(object sender, CanExecuteRoutedEventArgs e)
+        {
+            
+        }
+
+        #endregion
+
         #region Helper Methods
 
-        private XElement LoadSerializedDataFromFile()
+        private XElement LoadSerializedDataFromFile(bool isOpenDialog=false)
         {
-            OpenFileDialog openFile = new OpenFileDialog();
-            openFile.Filter = "Designer Files (*.xml)|*.xml|All Files (*.*)|*.*";
-
-            if (openFile.ShowDialog() == true)
+            if (isOpenDialog)
             {
-                try
+                OpenFileDialog openFile = new OpenFileDialog();
+                openFile.Filter = "Designer Files (*.xml)|*.xml|All Files (*.*)|*.*";
+
+                if (openFile.ShowDialog() == true)
                 {
-                    return XElement.Load(openFile.FileName);
+                    try
+                    {
+                        FlowFilePath = openFile.FileName;
+                        return XElement.Load(openFile.FileName);
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show(e.StackTrace, e.Message, MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 }
-                catch (Exception e)
-                {
-                    MessageBox.Show(e.StackTrace, e.Message, MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+            }
+            else
+            {
+                if (!string.IsNullOrWhiteSpace(FlowFilePath))
+                    return XElement.Load(FlowFilePath);
             }
 
             return null;
         }
 
-        void SaveFile(XElement xElement)
-        {
-            SaveFileDialog saveFile = new SaveFileDialog();
-            saveFile.Filter = "Files (*.xml)|*.xml|All Files (*.*)|*.*";
-            if (saveFile.ShowDialog() == true)
-            {
-                try
-                {
-                    xElement.Save(saveFile.FileName);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.StackTrace, ex.Message, MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-        }
 
         private XElement LoadSerializedDataFromClipBoard()
         {

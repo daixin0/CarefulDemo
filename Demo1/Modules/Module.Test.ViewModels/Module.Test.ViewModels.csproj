@@ -32,6 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -43,8 +44,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActivityListViewModel.cs" />
+    <Compile Include="DesignerMainViewModel.cs" />
+    <Compile Include="MenuToolViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestViewModelMgr.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Module.Test.Models\Module.Test.Models.csproj">

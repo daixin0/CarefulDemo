@@ -57,7 +57,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module.Test.ViewModels", "D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module.Test.Views", "Demo1\Modules\Module.Test.Views\Module.Test.Views.csproj", "{DC4BCA77-081D-45DA-A4B4-0B8A4E746E50}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Activities", "Demo1\Modules\Activities\Activities.csproj", "{FB2FD24F-0C95-487D-B7F2-BAACBE6E39A0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Activities", "Demo1\Activities\Activities.csproj", "{FB2FD24F-0C95-487D-B7F2-BAACBE6E39A0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

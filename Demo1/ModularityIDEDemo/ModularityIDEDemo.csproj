@@ -64,21 +64,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Bootstrapper.cs" />
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -121,10 +116,20 @@
       <Project>{9A2640B6-8161-462F-9F58-E8DF8D94FD49}</Project>
       <Name>Careful.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\MVVMCareful\Careful.Module.Core\Careful.Module.Core.csproj">
+      <Project>{a046f60a-8588-47a8-9a72-6adbf9a82cc5}</Project>
+      <Name>Careful.Module.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Modules\Module.Test.Views\Module.Test.Views.csproj">
       <Project>{dc4bca77-081d-45da-a4b4-0b8a4e746e50}</Project>
       <Name>Module.Test.Views</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

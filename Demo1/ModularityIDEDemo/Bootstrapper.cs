@@ -3,7 +3,9 @@ using Careful.Controls.MessageBoxControl;
 using Careful.Core.DialogServices;
 using Careful.Core.Ioc;
 using Careful.Core.Mvvm.BindingExtension;
+using Careful.Module.Core.Modularity;
 using Microsoft.Practices.ServiceLocation;
+using Module.Test.Views;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -36,7 +38,6 @@ namespace ModularityIDEDemo
         }
         protected override DependencyObject CreateShell()
         {
-            
             return new MainWindow() ;
         }
         protected override void InitIoc()
@@ -72,6 +73,11 @@ namespace ModularityIDEDemo
         {
             //XamlReader序列化时保留Binding
             EditorHelper.Register<BindingExpression, BindingConvertor>();
+        }
+
+        protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
+        {
+            moduleCatalog.AddModule(typeof(DesignerModule));
         }
 
         private void Application_Exit(object sender, ExitEventArgs e)

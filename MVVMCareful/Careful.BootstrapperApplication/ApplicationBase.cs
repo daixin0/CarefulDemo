@@ -105,10 +105,10 @@ namespace Careful.BootstrapperApplication
         protected virtual void RegisterRequiredTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterInstance(_moduleCatalog);
-            containerRegistry.RegisterSingleton<IDialogService, DialogService>();
-            containerRegistry.RegisterSingleton<IModuleInitializer, ModuleInitializer>();
-            containerRegistry.RegisterSingleton<IModuleManager, ModuleManager>();
-            containerRegistry.RegisterSingleton<IEventAggregator, EventAggregator>();
+            containerRegistry.RegisterSingleton<IDialogService>();
+            containerRegistry.RegisterSingleton<IModuleInitializer>();
+            containerRegistry.RegisterSingleton<IModuleManager>();
+            containerRegistry.RegisterSingleton<IEventAggregator>();
             //containerRegistry.Register<IDialogWindow, DialogWindow>(); //default dialog host
         }
 

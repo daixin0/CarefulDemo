@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 namespace Activities
 {
     [ActivityVision("ImportImageActivity")]
-    public class ImportImageActivity:Activity
+    public class ImportImageActivity : Activity
     {
         public string ImagePath
         {

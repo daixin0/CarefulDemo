@@ -9,15 +9,16 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Activities</RootNamespace>
     <AssemblyName>Activities</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\Output\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -51,19 +52,19 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\ControlLibrary\ControlResource\Careful.Controls.csproj">
+    <ProjectReference Include="..\..\ControlLibrary\ControlResource\Careful.Controls.csproj">
       <Project>{96e0cf6a-e9cc-470b-8e07-32e1d3250499}</Project>
       <Name>Careful.Controls</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\MVVMCareful\Careful.Core.Mvvm\Careful.Core.Mvvm.csproj">
+    <ProjectReference Include="..\..\MVVMCareful\Careful.Core.Mvvm\Careful.Core.Mvvm.csproj">
       <Project>{32497025-c0ed-4450-a57d-2d8e4aa2fd8b}</Project>
       <Name>Careful.Core.Mvvm</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\MVVMCareful\Careful.Core.Tool\Careful.Core.Tool.csproj">
+    <ProjectReference Include="..\..\MVVMCareful\Careful.Core.Tool\Careful.Core.Tool.csproj">
       <Project>{93a6997c-3d58-43aa-b24f-9ccf8c9630b3}</Project>
       <Name>Careful.Core.Tool</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\MVVMCareful\Careful.Core\Careful.Core.csproj">
+    <ProjectReference Include="..\..\MVVMCareful\Careful.Core\Careful.Core.csproj">
       <Project>{9a2640b6-8161-462f-9f58-e8df8d94fd49}</Project>
       <Name>Careful.Core</Name>
     </ProjectReference>

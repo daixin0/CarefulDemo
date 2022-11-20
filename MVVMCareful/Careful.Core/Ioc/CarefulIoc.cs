@@ -164,7 +164,7 @@ namespace Careful.Core.Ioc
                 Func<object> factory = new Func<object>(() => MakeInstance(type));
                 DoRegister(type, factory, _defaultKey);
 
-                GetInstance(type, _defaultKey);
+                //GetInstance(type, _defaultKey);
             }
         }
         public void Register<TClass>(bool createInstanceImmediately)
