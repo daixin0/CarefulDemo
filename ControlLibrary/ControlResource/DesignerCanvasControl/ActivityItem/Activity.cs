@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Markup;
 
 namespace Careful.Controls.DesignerCanvasControl.ActivityItem
 {
@@ -146,7 +147,7 @@ namespace Careful.Controls.DesignerCanvasControl.ActivityItem
             get { return _inputConnection; }
         }
         private List<Connection> _outputConnection = new List<Connection>();
-
+        
         public List<Connection> OutputConnection
         {
             get { return _outputConnection; }

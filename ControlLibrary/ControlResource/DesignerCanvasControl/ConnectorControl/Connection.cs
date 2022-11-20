@@ -9,10 +9,12 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media;
 
 namespace Careful.Controls.DesignerCanvasControl.ConnectorControl
 {
+    
     public class Connection : Control, ISelectable, INotifyPropertyChanged
     {
         private Adorner connectionAdorner;
@@ -36,44 +38,35 @@ namespace Careful.Controls.DesignerCanvasControl.ConnectorControl
             set { _outputActivity = value; }
         }
 
-
-        private bool _resolved = false;
-
-        public bool Resolved
-        {
-            get { return _resolved; }
-            internal set { _resolved = value; }
-        }
-        private bool _triggered = true;
-
-        public bool Triggered
-        {
-            get { return _triggered; }
-            internal set { _triggered = value; }
-        }
-        private PortEnd _to;
-
-        public PortEnd To
-        {
-            get { return _to; }
-        }
-        public string Value { get; set; }
         public bool Resolve()
         {
-            if (!Resolved)
+            bool isResolve = false;
+            if (InputActivity == null) return false;
+            if (OutputActivity == null) return false;
+            Type input = InputActivity.GetType();
+            PropertyInfo[] propertyInputInfos = input.GetProperties();
+            object inputValue = null;
+            foreach (var inputProperty in propertyInputInfos)
             {
-                Activity a = this.To.Activity;
-                if (a == null) return false;
-                Type at = a.GetType();
-                PropertyInfo to = at.GetProperty(this.To.Port);
-                ConstructorInfo tcf = to.PropertyType.GetConstructor(System.Type.EmptyTypes);
-                object port = tcf.Invoke(new Object[0]);
-                PropertyInfo entityInfo = port.GetType().GetProperty("Entity");
-                entityInfo.SetValue(port, Convert.ChangeType(Value, entityInfo.PropertyType), null);
-                to.SetValue(a, port, null);
-                Resolved = true;
+                object[] attrsInput = inputProperty.GetCustomAttributes(typeof(OutputAttribute), true);
+                if (attrsInput.Length > 0)
+                {
+                    inputValue = inputProperty.GetValue(InputActivity);
+                }
             }
-            return true;
+
+            Type output = OutputActivity.GetType();
+            PropertyInfo[] propertyOutputInfos = output.GetProperties();
+            foreach (var outputProperty in propertyOutputInfos)
+            {
+                object[] attrsOutput = outputProperty.GetCustomAttributes(typeof(InputAttribute), true);
+                if (attrsOutput.Length > 0)
+                {
+                    outputProperty.SetValue(OutputActivity, inputValue);
+                    isResolve = true;
+                }
+            }
+            return isResolve;
         }
 
         private Connector source;
@@ -293,9 +286,13 @@ namespace Careful.Controls.DesignerCanvasControl.ConnectorControl
             this.ID = Guid.NewGuid().ToString();
             this.Source = source;
             this.Sink = sink;
+
             base.Unloaded += new RoutedEventHandler(Connection_Unloaded);
         }
-
+        public Connection()
+        {
+            base.Unloaded += new RoutedEventHandler(Connection_Unloaded);
+        }
         protected override void OnMouseDown(System.Windows.Input.MouseButtonEventArgs e)
         {
             base.OnMouseDown(e);

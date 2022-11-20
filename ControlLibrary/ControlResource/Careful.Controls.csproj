@@ -237,6 +237,7 @@
     <Compile Include="Common\DrawingHelper\GeoHelper.cs" />
     <Compile Include="DesignerCanvasControl\Base\PathFinder.cs" />
     <Compile Include="Common\DragObject.cs" />
+    <Compile Include="DesignerCanvasControl\ConnectorControl\Port.cs" />
     <Compile Include="DesignerCanvasControl\ConnectorControl\PortEnd.cs" />
     <Compile Include="DesignerCanvasControl\DragControl\ResizeThumb.cs" />
     <Compile Include="DesignerCanvasControl\DragControl\RubberbandAdorner.cs" />

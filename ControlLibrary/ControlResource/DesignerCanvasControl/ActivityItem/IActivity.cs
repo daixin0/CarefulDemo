@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Careful.Controls.DesignerCanvasControl.ConnectorControl;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,6 +19,8 @@ namespace Careful.Controls.DesignerCanvasControl.ActivityItem
         bool ValidateConnection();
         void Execute();
         void RunProc();
+        List<Connection> InputConnection { get; }
+        List<Connection> OutputConnection { get; }
     }
     public enum ActivityState
     {

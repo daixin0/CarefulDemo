@@ -1,4 +1,5 @@
 ﻿using Careful.Controls.DesignerCanvasControl.ActivityItem;
+using Careful.Controls.DesignerCanvasControl.ConnectorControl;
 using Careful.Core.Tool;
 using System;
 using System.Collections.Generic;

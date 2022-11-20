@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using System.Xml.Serialization;
 
 namespace Careful.Tool
@@ -23,7 +24,6 @@ namespace Careful.Tool
             Stream.Position = 0;
             StreamReader sr = new StreamReader(Stream);
             string str = sr.ReadToEnd();
-
             sr.Dispose();
             Stream.Dispose();
 

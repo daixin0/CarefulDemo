@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -67,7 +68,7 @@ namespace Careful.Controls.DesignerCanvasControl.Designer
             this.CommandBindings.Add(new CommandBinding(DesignerCanvas.Execute, Execute_Executed, Execute_Enabled));
             this.CommandBindings.Add(new CommandBinding(DesignerCanvas.CheckFlow, CheckFlow_Executed, CheckFlow_Enabled));
             SelectAll.InputGestures.Add(new KeyGesture(Key.A, ModifierKeys.Control));
-            
+
             this.AllowDrop = true;
             Clipboard.Clear();
         }
@@ -81,20 +82,24 @@ namespace Careful.Controls.DesignerCanvasControl.Designer
 
             this.Children.Clear();
             this.SelectionService.ClearSelection();
+
             XElement canvas = root.Element("DesignerCanvas");
+
             this.FlowName = canvas.Element("FlowName").Value;
             this.FlowID = canvas.Element("FlowID").Value;
+
             IEnumerable<XElement> itemsXML = canvas.Elements("DesignerItems").Elements("DesignerItem");
+            List<DesignerItem> tempDesigerItems = new List<DesignerItem>();
+            List<Connection> tempConnections = new List<Connection>();
             foreach (XElement itemXML in itemsXML)
             {
                 Guid id = new Guid(itemXML.Element("ID").Value);
                 DesignerItem item = DeserializeDesignerItem(itemXML, id, 0, 0);
                 this.Children.Add(item);
+                tempDesigerItems.Add(item);
                 SetConnectorDecoratorTemplate(item);
             }
-
             this.InvalidateVisual();
-
             IEnumerable<XElement> connectionsXML = canvas.Elements("Connections").Elements("Connection");
             foreach (XElement connectionXML in connectionsXML)
             {
@@ -108,9 +113,50 @@ namespace Careful.Controls.DesignerCanvasControl.Designer
                 Connector sinkConnector = GetConnector(sinkID, sinkConnectorName);
 
                 Connection connection = new Connection(sourceConnector, sinkConnector);
+                connection.ID = connectionXML.Element("ID").Value;
                 Canvas.SetZIndex(connection, Int32.Parse(connectionXML.Element("zIndex").Value));
                 this.Children.Add(connection);
+                tempConnections.Add(connection);
             }
+            foreach (XElement itemXML in itemsXML)
+            {
+                Object content = XamlReader.Load(XmlReader.Create(new StringReader(itemXML.Element("Content").Value)));
+                IEnumerable<Connection> connections = this.Children.OfType<Connection>();
+                Activity activity = content as Activity;
+                IEnumerable<XElement> inputCons = itemXML.Elements("InputConnection").Elements("Connection");
+                foreach (var input in inputCons)
+                {
+                    Connection con = connections.FirstOrDefault(p => p.ID == input.Value);
+                    activity.InputConnection.Add(con);
+                }
+                IEnumerable<XElement> outputCons = itemXML.Elements("OutputConnection").Elements("Connection");
+                foreach (var output in outputCons)
+                {
+                    Connection con = connections.FirstOrDefault(p => p.ID == output.Value);
+                    activity.OutputConnection.Add(con);
+                }
+                Guid id = new Guid(itemXML.Element("ID").Value);
+                DesignerItem designerItem = tempDesigerItems.FirstOrDefault(p => p.ID == id);
+                designerItem.Content = activity;
+            }
+
+            foreach (var designer in tempDesigerItems)
+            {
+                Connection sourceCon = tempConnections.FirstOrDefault(p => p.Source.ParentDesignerItem.ID == designer.ID);
+                if (sourceCon != null)
+                {
+                    Activity activityInput = designer.Content as Activity;
+                    sourceCon.InputActivity = activityInput;
+                }
+                Connection sinkCon = tempConnections.FirstOrDefault(p => p.Sink.ParentDesignerItem.ID == designer.ID);
+                if (sinkCon != null)
+                {
+                    Activity activityOutput = designer.Content as Activity;
+                    sinkCon.OutputActivity = activityOutput;
+                }
+
+            }
+
         }
         public void OpenXml()
         {
@@ -132,7 +178,7 @@ namespace Careful.Controls.DesignerCanvasControl.Designer
         private void Open_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             bool isOpenDialog = false;
-            if(e.Parameter!=null)
+            if (e.Parameter != null)
             {
                 bool result = bool.TryParse(e.Parameter.ToString(), out isOpenDialog);
             }
@@ -147,11 +193,11 @@ namespace Careful.Controls.DesignerCanvasControl.Designer
         {
             IEnumerable<DesignerItem> designerItems = this.Children.OfType<DesignerItem>();
             IEnumerable<Connection> connections = this.Children.OfType<Connection>();
-            
+
             XElement designerItemsXML = SerializeDesignerItems(designerItems);
             XElement connectionsXML = SerializeConnections(connections);
             XElement canvasElement = new XElement("DesignerCanvas",
-                new XElement("FlowName",this.FlowName),
+                new XElement("FlowName", this.FlowName),
                 new XElement("FlowID", this.FlowID));
             canvasElement.Add(designerItemsXML);
             canvasElement.Add(connectionsXML);
@@ -178,7 +224,7 @@ namespace Careful.Controls.DesignerCanvasControl.Designer
             {
                 root.Save(FlowFilePath);
             }
-            
+
         }
 
         #endregion
@@ -229,7 +275,8 @@ namespace Careful.Controls.DesignerCanvasControl.Designer
 
             double offsetX = Double.Parse(root.Attribute("OffsetX").Value, CultureInfo.InvariantCulture);
             double offsetY = Double.Parse(root.Attribute("OffsetY").Value, CultureInfo.InvariantCulture);
-
+            List<DesignerItem> tempDesigerItems = new List<DesignerItem>();
+            List<Connection> tempConnections = new List<Connection>();
             foreach (XElement itemXML in itemsXML)
             {
                 Guid oldID = new Guid(itemXML.Element("ID").Value);
@@ -239,6 +286,7 @@ namespace Careful.Controls.DesignerCanvasControl.Designer
                 this.Children.Add(item);
                 SetConnectorDecoratorTemplate(item);
                 newItems.Add(item);
+                tempDesigerItems.Add(item);
             }
 
             // update group hierarchy
@@ -279,9 +327,47 @@ namespace Careful.Controls.DesignerCanvasControl.Designer
                     Connection connection = new Connection(sourceConnector, sinkConnector);
                     Canvas.SetZIndex(connection, Int32.Parse(connectionXML.Element("zIndex").Value));
                     this.Children.Add(connection);
-
+                    tempConnections.Add(connection);
                     SelectionService.AddToSelection(connection);
                 }
+            }
+
+            foreach (XElement itemXML in itemsXML)
+            {
+                Object content = XamlReader.Load(XmlReader.Create(new StringReader(itemXML.Element("Content").Value)));
+                IEnumerable<Connection> connections = this.Children.OfType<Connection>();
+                Activity activity = content as Activity;
+                IEnumerable<XElement> inputCons = itemXML.Elements("InputConnection").Elements("Connection");
+                foreach (var input in inputCons)
+                {
+                    Connection con = connections.FirstOrDefault(p => p.ID == input.Value);
+                    activity.InputConnection.Add(con);
+                }
+                IEnumerable<XElement> outputCons = itemXML.Elements("OutputConnection").Elements("Connection");
+                foreach (var output in outputCons)
+                {
+                    Connection con = connections.FirstOrDefault(p => p.ID == output.Value);
+                    activity.OutputConnection.Add(con);
+                }
+                Guid id = new Guid(itemXML.Element("ID").Value);
+                DesignerItem designerItem = tempDesigerItems.FirstOrDefault(p => p.ID == id);
+                designerItem.Content = activity;
+            }
+            foreach (var designer in tempDesigerItems)
+            {
+                Connection sourceCon = tempConnections.FirstOrDefault(p => p.Source.ParentDesignerItem.ID == designer.ID);
+                if (sourceCon != null)
+                {
+                    Activity activityInput = designer.Content as Activity;
+                    sourceCon.InputActivity = activityInput;
+                }
+                Connection sinkCon = tempConnections.FirstOrDefault(p => p.Sink.ParentDesignerItem.ID == designer.ID);
+                if (sinkCon != null)
+                {
+                    Activity activityOutput = designer.Content as Activity;
+                    sinkCon.OutputActivity = activityOutput;
+                }
+
             }
 
             DesignerCanvas.BringToFront.Execute(null, this);
@@ -530,7 +616,7 @@ namespace Careful.Controls.DesignerCanvasControl.Designer
                     Canvas.SetZIndex(item, selectionSorted.Count + i++);
                 }
             }
-        }        
+        }
 
         #endregion
 
@@ -803,9 +889,10 @@ namespace Careful.Controls.DesignerCanvasControl.Designer
             {
                 IActivity activity = item.Content as IActivity;
                 activity.ActivityState = ActivityState.Waiting;
-                bool connection = activity.ValidateConnection();
+                bool isConnection = activity.ValidateConnection();
+
                 bool data = activity.ValidateData();
-                if (!connection || !data)
+                if (!isConnection || !data)
                 {
                     activity.ActivityState = ActivityState.Abort;
                     exceptionActivityNames.Add(activity.ActivityName);
@@ -816,6 +903,30 @@ namespace Careful.Controls.DesignerCanvasControl.Designer
                     activity.ActivityState = ActivityState.Runnable;
                 }
                 activity.Execute();
+                if (activity.HasInputs())
+                {
+                    foreach (var connection in activity.InputConnection)
+                    {
+                        bool isResolve = connection.Resolve();
+                        if (!isResolve)
+                        {
+                            exceptionActivityNames.Add(activity.ActivityName);
+                            break;
+                        }
+                    }
+                }
+                if (activity.HasOutputs())
+                {
+                    foreach (var connection in activity.OutputConnection)
+                    {
+                        bool isResolve = connection.Resolve();
+                        if (!isResolve)
+                        {
+                            exceptionActivityNames.Add(activity.ActivityName);
+                            break;
+                        }
+                    }
+                }
             }
             FlowExecuteResult?.Execute(exceptionActivityNames);
         }
@@ -859,13 +970,29 @@ namespace Careful.Controls.DesignerCanvasControl.Designer
         {
             List<DesignerItem> designerItems = this.Children.OfType<DesignerItem>().ToList();
             List<string> exceptionActivityNames = new List<string>();
-            foreach (var item in designerItems)
+            foreach (var designer in designerItems)
             {
-                IActivity activity = item.Content as IActivity;
+                IActivity activity = designer.Content as IActivity;
                 activity.ActivityState = ActivityState.Waiting;
-                bool connection = activity.ValidateConnection();
+                bool isConnection = activity.ValidateConnection();
+                //if (activity.HasInputs())
+                //{
+                //    foreach (var connection in activity.InputConnection)
+                //    {
+                //        if (!connection.IsResolve)
+                //            connection.Resolve();
+                //    }
+                //}
+                //if (activity.HasOutputs())
+                //{
+                //    foreach (var connection in activity.OutputConnection)
+                //    {
+                //        if (!connection.IsResolve)
+                //            connection.Resolve();
+                //    }
+                //}
                 bool data = activity.ValidateData();
-                if (!connection || !data)
+                if (!isConnection || !data)
                 {
                     activity.ActivityState = ActivityState.Abort;
                     exceptionActivityNames.Add(activity.ActivityName);
@@ -892,7 +1019,7 @@ namespace Careful.Controls.DesignerCanvasControl.Designer
 
         #region Helper Methods
 
-        private XElement LoadSerializedDataFromFile(bool isOpenDialog=false)
+        private XElement LoadSerializedDataFromFile(bool isOpenDialog = false)
         {
             if (isOpenDialog)
             {
@@ -947,8 +1074,16 @@ namespace Careful.Controls.DesignerCanvasControl.Designer
         {
             XElement serializedItems = new XElement("DesignerItems",
                                        from item in designerItems
-                                       let contentXaml = XamlWriter.Save(((DesignerItem)item).Content)
+                                       let contentXaml = XamlWriter.Save(item.Content as Activity)
                                        select new XElement("DesignerItem",
+                                                  new XElement("InputConnection",
+                                                      from con in (item.Content as Activity).InputConnection
+                                                      select new XElement("Connection", con?.ID)
+                                                  ),
+                                                   new XElement("OutputConnection",
+                                                      from con in (item.Content as Activity).OutputConnection
+                                                      select new XElement("Connection", con?.ID)
+                                                  ),
                                                   new XElement("Left", Canvas.GetLeft(item)),
                                                   new XElement("Top", Canvas.GetTop(item)),
                                                   new XElement("Width", item.Width),
@@ -969,6 +1104,7 @@ namespace Careful.Controls.DesignerCanvasControl.Designer
             var serializedConnections = new XElement("Connections",
                            from connection in connections
                            select new XElement("Connection",
+                                        new XElement("ID", connection.ID),
                                       new XElement("SourceID", connection.Source.ParentDesignerItem.ID),
                                       new XElement("SinkID", connection.Sink.ParentDesignerItem.ID),
                                       new XElement("SourceConnectorName", connection.Source.Name),
@@ -982,7 +1118,7 @@ namespace Careful.Controls.DesignerCanvasControl.Designer
             return serializedConnections;
         }
 
-        private static DesignerItem DeserializeDesignerItem(XElement itemXML, Guid id, double OffsetX, double OffsetY)
+        private DesignerItem DeserializeDesignerItem(XElement itemXML, Guid id, double OffsetX, double OffsetY)
         {
             DesignerItem item = new DesignerItem(id);
             item.Width = Double.Parse(itemXML.Element("Width").Value, CultureInfo.InvariantCulture);
@@ -992,8 +1128,7 @@ namespace Careful.Controls.DesignerCanvasControl.Designer
             Canvas.SetLeft(item, Double.Parse(itemXML.Element("Left").Value, CultureInfo.InvariantCulture) + OffsetX);
             Canvas.SetTop(item, Double.Parse(itemXML.Element("Top").Value, CultureInfo.InvariantCulture) + OffsetY);
             Canvas.SetZIndex(item, Int32.Parse(itemXML.Element("zIndex").Value));
-            Object content = XamlReader.Load(XmlReader.Create(new StringReader(itemXML.Element("Content").Value)));
-            item.Content = content;
+
             return item;
         }
 
