@@ -50,23 +50,6 @@
                                 <ListBox Name="lbFlow" ItemsSource="{Binding FlowItemModels}"
                                          SelectedItem="{Binding FlowItemSelected,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                         DisplayMemberPath="FlowName" >
-                                    <!--<ListBox.ItemTemplate>
-                                        <DataTemplate>
-                                            <Grid>
-                                                <Button Background="Transparent"
-                                                        BorderThickness="0"
-                                                        Content="{Binding FlowName}"
-                                                        CommandTarget="{Binding ElementName=MyDesigner}">
-                                                    <i:Interaction.Triggers>
-                                                        <i:EventTrigger EventName="Click">
-                                                            <i:InvokeCommandAction Command="{Binding OpenFlowCommand,RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding ElementName=lbFlow,Path=SelectedItem}"></i:InvokeCommandAction>
-                                                            <i:InvokeCommandAction Command="{x:Static ApplicationCommands.Open}" CommandParameter="false"></i:InvokeCommandAction>
-                                                        </i:EventTrigger>
-                                                    </i:Interaction.Triggers>
-                                                </Button>
-                                            </Grid>
-                                        </DataTemplate>
-                                    </ListBox.ItemTemplate>-->
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="SelectionChanged">
                                             <i:InvokeCommandAction Command="{Binding OpenFlowCommand}" CommandParameter="{Binding ElementName=lbFlow,Path=SelectedItem}"></i:InvokeCommandAction>
@@ -84,7 +67,7 @@
                                     <Grid>
                                         <ScrollViewer HorizontalScrollBarVisibility="Auto"
                       VerticalScrollBarVisibility="Auto">
-                                            <designer:DesignerCanvas x:Name="MyDesigner" Focusable="true"
+                                            <designer:DesignerCanvas x:Name="MyDesigner" Focusable="true" IsEnabled="{Binding DesignerEnabled}"
                             Background="{DynamicResource WindowBackgroundBrush}"
                             FlowName="{Binding CurrentFlowItem.FlowName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                             FlowID="{Binding CurrentFlowItem.FlowID,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"

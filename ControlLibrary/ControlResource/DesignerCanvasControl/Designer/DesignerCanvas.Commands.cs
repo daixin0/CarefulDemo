@@ -42,9 +42,9 @@ namespace Careful.Controls.DesignerCanvasControl.Designer
 
         public DesignerCanvas()
         {
-            this.CommandBindings.Add(new CommandBinding(ApplicationCommands.New, New_Executed));
-            this.CommandBindings.Add(new CommandBinding(ApplicationCommands.Open, Open_Executed));
-            this.CommandBindings.Add(new CommandBinding(ApplicationCommands.Save, Save_Executed));
+            this.CommandBindings.Add(new CommandBinding(ApplicationCommands.New, New_Executed, New_Enabled));
+            this.CommandBindings.Add(new CommandBinding(ApplicationCommands.Open, Open_Executed, Open_Enabled));
+            this.CommandBindings.Add(new CommandBinding(ApplicationCommands.Save, Save_Executed, Save_Enabled));
             this.CommandBindings.Add(new CommandBinding(ApplicationCommands.Print, Print_Executed));
             this.CommandBindings.Add(new CommandBinding(ApplicationCommands.Cut, Cut_Executed, Cut_Enabled));
             this.CommandBindings.Add(new CommandBinding(ApplicationCommands.Copy, Copy_Executed, Copy_Enabled));
@@ -78,8 +78,11 @@ namespace Careful.Controls.DesignerCanvasControl.Designer
             XElement root = LoadSerializedDataFromFile(isOpenDialog);
 
             if (root == null)
+            {
+                this.Children.Clear();
+                this.SelectionService.ClearSelection();
                 return;
-
+            }
             this.Children.Clear();
             this.SelectionService.ClearSelection();
 
@@ -171,6 +174,11 @@ namespace Careful.Controls.DesignerCanvasControl.Designer
             this.SelectionService.ClearSelection();
         }
 
+        private void New_Enabled(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
         #endregion
 
         #region Open Command
@@ -184,7 +192,10 @@ namespace Careful.Controls.DesignerCanvasControl.Designer
             }
             OpenXml(isOpenDialog);
         }
-
+        private void Open_Enabled(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
         #endregion
 
         #region Save Command
@@ -226,7 +237,10 @@ namespace Careful.Controls.DesignerCanvasControl.Designer
             }
 
         }
-
+        private void Save_Enabled(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = IsEnabled;
+        }
         #endregion
 
         #region Print Command
@@ -975,22 +989,6 @@ namespace Careful.Controls.DesignerCanvasControl.Designer
                 IActivity activity = designer.Content as IActivity;
                 activity.ActivityState = ActivityState.Waiting;
                 bool isConnection = activity.ValidateConnection();
-                //if (activity.HasInputs())
-                //{
-                //    foreach (var connection in activity.InputConnection)
-                //    {
-                //        if (!connection.IsResolve)
-                //            connection.Resolve();
-                //    }
-                //}
-                //if (activity.HasOutputs())
-                //{
-                //    foreach (var connection in activity.OutputConnection)
-                //    {
-                //        if (!connection.IsResolve)
-                //            connection.Resolve();
-                //    }
-                //}
                 bool data = activity.ValidateData();
                 if (!isConnection || !data)
                 {

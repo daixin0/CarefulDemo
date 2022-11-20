@@ -50,6 +50,16 @@ namespace Module.Test.ViewModels
             get { return _currentFlowItem; }
             set { Set(ref _currentFlowItem, value); }
         }
+        private bool _designerEnabled;
+
+        /// <summary>
+        /// Get or set DesignerEnabled value
+        /// </summary>
+        public bool DesignerEnabled
+        {
+            get { return _designerEnabled; }
+            set { Set(ref _designerEnabled, value); }
+        }
 
         public ICommand NewFlowCommand
         {
@@ -61,7 +71,7 @@ namespace Module.Test.ViewModels
                     flowItemModel.FlowName = "流程1";
                     FlowItemModels.Add(flowItemModel);
                     FlowItemSelected = flowItemModel;
-
+                    DesignerEnabled = true;
                     CurrentFlowItem = new FlowItemModel();
                     CurrentFlowItem.FlowID = flowItemModel.FlowID;
                     CurrentFlowItem.FlowName = flowItemModel.FlowName;

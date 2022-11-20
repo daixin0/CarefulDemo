@@ -377,12 +377,13 @@
                     <StackPanel Orientation="Horizontal">
                         <Button Margin="3" Width="55" Style="{DynamicResource ToolBarButtonBaseStyle}"
                         HorizontalContentAlignment="Center"
+                        Command="{x:Static designer:DesignerCanvas.Execute}"
                         CommandTarget="{Binding ElementName=MyDesigner}">
-                            <i:Interaction.Triggers>
+                            <!--<i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click">
                                     <i:InvokeCommandAction Command="{x:Static designer:DesignerCanvas.Execute}"></i:InvokeCommandAction>
                                 </i:EventTrigger>
-                            </i:Interaction.Triggers>
+                            </i:Interaction.Triggers>-->
                             <Button.Content>
                                 <Grid>
                                     <Grid.RowDefinitions>
@@ -396,12 +397,13 @@
                         </Button>
                         <Button Margin="3" Width="55" Style="{DynamicResource ToolBarButtonBaseStyle}"
                         HorizontalContentAlignment="Center"
+                        Command="{x:Static designer:DesignerCanvas.CheckFlow}"
                         CommandTarget="{Binding ElementName=MyDesigner}">
-                            <i:Interaction.Triggers>
+                            <!--<i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click">
                                     <i:InvokeCommandAction Command="{x:Static designer:DesignerCanvas.CheckFlow}"></i:InvokeCommandAction>
                                 </i:EventTrigger>
-                            </i:Interaction.Triggers>
+                            </i:Interaction.Triggers>-->
                             <Button.Content>
                                 <Grid>
                                     <Grid.RowDefinitions>
