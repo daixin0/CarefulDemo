@@ -95,7 +95,7 @@ namespace Careful.Controls.DesignerCanvasControl.Designer
 
             this.InvalidateVisual();
 
-            IEnumerable<XElement> connectionsXML = root.Elements("Connections").Elements("Connection");
+            IEnumerable<XElement> connectionsXML = canvas.Elements("Connections").Elements("Connection");
             foreach (XElement connectionXML in connectionsXML)
             {
                 Guid sourceID = new Guid(connectionXML.Element("SourceID").Value);

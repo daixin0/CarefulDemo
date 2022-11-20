@@ -79,7 +79,7 @@
                         <layout:LayoutDocumentPaneGroup>
                             <layout:LayoutDocumentPane x:Name="LayoutDocumentPane">
                                 <layout:LayoutDocument
-                                Title="Document 1"
+                                Title="Document 1" CanClose="False"
                                 ContentId="document1">
                                     <Grid>
                                         <ScrollViewer HorizontalScrollBarVisibility="Auto"
