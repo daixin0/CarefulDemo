@@ -1,4 +1,5 @@
-﻿using Careful.Core.Mvvm.Command;
+﻿using Careful.Core.DialogServices;
+using Careful.Core.Mvvm.Command;
 using Careful.Core.Mvvm.ViewModel;
 using Module.Test.Models;
 using System;
@@ -13,6 +14,12 @@ namespace Module.Test.ViewModels
 {
     public class DesignerMainViewModel: ViewModelBase
     {
+        private IDialogService DialogService { get; set; }
+        public DesignerMainViewModel(IDialogService dialogService)
+        {
+            DialogService = dialogService;
+        }
+
         private ObservableCollection<FlowItemModel> _flowItemModels=new ObservableCollection<FlowItemModel>();
 
         /// <summary>
@@ -105,6 +112,59 @@ namespace Module.Test.ViewModels
                 });
             }
         }
+
+        public ICommand FlowCheckResultCommand
+        {
+            get
+            {
+                return new RelayCommand((p) =>
+                {
+                    if (p == null)
+                        return;
+                    List<string> flowNames = p as List<string>;
+                    if (flowNames.Count > 0)
+                    {
+                        string flowName = "";
+                        foreach (var item in flowNames)
+                        {
+                            flowName += item + ";";
+                        }
+                        DialogService.ShowMessageDialog($"活动：{flowName}异常。");
+                    }
+                    else
+                    {
+                        DialogService.ShowMessageDialog("当前流程检查完成，无异常。");
+                    }
+                });
+            }
+        }
+
+        public ICommand FlowExecuteResultCommand
+        {
+            get
+            {
+                return new RelayCommand((p) =>
+                {
+                    if (p == null)
+                        return;
+                    List<string> flowNames = p as List<string>;
+                    if (flowNames.Count > 0)
+                    {
+                        string flowName = "";
+                        foreach (var item in flowNames)
+                        {
+                            flowName += item + ";";
+                        }
+                        DialogService.ShowMessageDialog($"活动：{flowName}异常。");
+                    }
+                    else
+                    {
+                        DialogService.ShowMessageDialog("当前流程执行完成，无异常。");
+                    }
+                });
+            }
+        }
+
 
 
 

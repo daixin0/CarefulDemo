@@ -89,6 +89,8 @@
                             FlowName="{Binding CurrentFlowItem.FlowName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                             FlowID="{Binding CurrentFlowItem.FlowID,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                             FlowFilePath="{Binding CurrentFlowItem.FlowFilePath,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                            FlowCheckResult="{Binding FlowCheckResultCommand}"
+                            FlowExecuteResult="{Binding FlowExecuteResultCommand}"
                             Margin="10" FocusVisualStyle="{x:Null}">
                                                 <designer:DesignerCanvas.ContextMenu>
                                                     <ContextMenu>

@@ -33,14 +33,17 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActivityListViewModel.cs" />
@@ -49,6 +52,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\ControlLibrary\ControlResource\Careful.Controls.csproj">
+      <Project>{96e0cf6a-e9cc-470b-8e07-32e1d3250499}</Project>
+      <Name>Careful.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Activities\Activities.csproj">
+      <Project>{fb2fd24f-0c95-487d-b7f2-baacbe6e39a0}</Project>
+      <Name>Activities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Module.Test.Models\Module.Test.Models.csproj">
       <Project>{f73a8e49-95b6-4dda-9df8-5a62674df680}</Project>
       <Name>Module.Test.Models</Name>

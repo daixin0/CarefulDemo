@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:lib="clr-namespace:Careful.Controls.WindowBaseControl"
-        xmlns:local="clr-namespace:Careful.Controls.MessageBoxControl" Closing="BaseWindow_Closing"
+        xmlns:local="clr-namespace:Careful.Controls.MessageBoxControl"
         Background="White" WindowStartupLocation="CenterOwner" WindowCornerRadius="3"
 	Width="340" Height="240">
     <Grid>

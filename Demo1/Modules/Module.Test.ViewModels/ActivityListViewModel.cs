@@ -1,4 +1,5 @@
-﻿using Careful.Core.Mvvm.Command;
+﻿using Activities;
+using Careful.Core.Mvvm.Command;
 using Careful.Core.Mvvm.ViewModel;
 using Module.Test.Models;
 using System;
@@ -31,10 +32,9 @@ namespace Module.Test.ViewModels
                 return new RelayCommand((p) =>
                 {
                     ActivityInfoModels = new ObservableCollection<ActivityInfoModel>();
-                    ActivityInfoModels.Add(new ActivityInfoModel() { ActivityName = "测试1" });
-                    ActivityInfoModels.Add(new ActivityInfoModel() { ActivityName = "测试2" });
-                    ActivityInfoModels.Add(new ActivityInfoModel() { ActivityName = "测试3" });
-                    ActivityInfoModels.Add(new ActivityInfoModel() { ActivityName = "测试4" });
+                    ActivityInfoModels.Add(new ActivityInfoModel() { ActivityName = "导入图像", ActivityType = typeof(ImportImageActivity) });
+                    ActivityInfoModels.Add(new ActivityInfoModel() { ActivityName = "图像取反", ActivityType = typeof(InvertImageActivity) });
+                    ActivityInfoModels.Add(new ActivityInfoModel() { ActivityName = "导出图像", ActivityType = typeof(ExportImageActivity) });
                 });
             }
         }

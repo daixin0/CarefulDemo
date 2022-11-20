@@ -47,6 +47,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\ControlLibrary\ControlResource\Careful.Controls.csproj">
+      <Project>{96E0CF6A-E9CC-470B-8E07-32E1D3250499}</Project>
+      <Name>Careful.Controls</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\MVVMCareful\Careful.Core.Mvvm\Careful.Core.Mvvm.csproj">
       <Project>{32497025-c0ed-4450-a57d-2d8e4aa2fd8b}</Project>
       <Name>Careful.Core.Mvvm</Name>

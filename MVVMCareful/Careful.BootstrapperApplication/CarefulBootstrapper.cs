@@ -94,10 +94,9 @@ namespace Careful.BootstrapperApplication
             this.Logger.Log("adding careful bootstrapper extension to container", LogLevel.Debug, Priority.Low);
             //Container.RegisterInstance<ICarefulIoc>(Container);
             Container.RegisterInstance<IModuleCatalog>(this.ModuleCatalog);
-            Container.RegisterInstance<ILog>(Logger);
             Container.Register<IDialogService, DialogService>();
 
-            Container.RegisterInstance<IServiceLocator>(CarefulIoc.Default);
+            //Container.RegisterInstance<IServiceLocator>(CarefulIoc.Default);
             Container.Register<IModuleInitializer, ModuleInitializer>();
             Container.Register<IModuleManager, ModuleManager>();
             Container.Register<IEventAggregator, EventAggregator>();

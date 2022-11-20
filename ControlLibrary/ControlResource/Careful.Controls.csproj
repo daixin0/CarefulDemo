@@ -673,7 +673,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CarefulStyles\" />
-    <Folder Include="ToolBarControl\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="CarefulDockControl\Style\Generic\Images\DockBottom.PNG" />

@@ -7,6 +7,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Careful.Controls;component/Themes/DefaultTheme.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="/Activities;component/ActivitiesStyle.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

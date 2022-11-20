@@ -42,8 +42,9 @@ namespace Careful.Controls.ToolBoxControl
             {
                 if (!(e.OriginalSource is TextBlock))
                     return;
-                IActivity activity = new Activity();
-                activity.ActivityName = (e.OriginalSource as TextBlock).Text;
+                TextBlock dragText = e.OriginalSource as TextBlock;
+                Activity activity = Activator.CreateInstance(dragText.Tag as Type) as Activity;
+                activity.ActivityName = dragText.Text;
                 //var sb = new StringBuilder();
                 //var writer = XmlWriter.Create(sb, new XmlWriterSettings
                 //{

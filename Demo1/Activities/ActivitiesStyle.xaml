@@ -1,0 +1,14 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:activities="clr-namespace:Activities"
+                    xmlns:activity="clr-namespace:Careful.Controls.DesignerCanvasControl.ActivityItem;assembly=Careful.Controls">
+    <Style TargetType="{x:Type activities:ImportImageActivity}" BasedOn="{StaticResource {x:Type activity:Activity}}">
+        
+    </Style>
+    <Style TargetType="{x:Type activities:InvertImageActivity}" BasedOn="{StaticResource {x:Type activity:Activity}}">
+
+    </Style>
+    <Style TargetType="{x:Type activities:ExportImageActivity}" BasedOn="{StaticResource {x:Type activity:Activity}}">
+
+    </Style>
+</ResourceDictionary>

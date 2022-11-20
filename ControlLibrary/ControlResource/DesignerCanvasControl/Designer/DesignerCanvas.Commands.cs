@@ -11,6 +11,7 @@ using System.Windows.Markup;
 using System.Windows.Media;
 using System.Xml;
 using System.Xml.Linq;
+using Careful.Controls.DesignerCanvasControl.ActivityItem;
 using Careful.Controls.DesignerCanvasControl.Base;
 using Careful.Controls.DesignerCanvasControl.ConnectorControl;
 using Careful.Core.Mvvm.Command;
@@ -36,6 +37,7 @@ namespace Careful.Controls.DesignerCanvasControl.Designer
         public static RoutedCommand DistributeVertical = new RoutedCommand();
         public static RoutedCommand SelectAll = new RoutedCommand();
         public static RoutedCommand Execute = new RoutedCommand();
+        public static RoutedCommand CheckFlow = new RoutedCommand();
 
         public DesignerCanvas()
         {
@@ -63,6 +65,7 @@ namespace Careful.Controls.DesignerCanvasControl.Designer
             this.CommandBindings.Add(new CommandBinding(DesignerCanvas.DistributeVertical, DistributeVertical_Executed, Distribute_Enabled));
             this.CommandBindings.Add(new CommandBinding(DesignerCanvas.SelectAll, SelectAll_Executed));
             this.CommandBindings.Add(new CommandBinding(DesignerCanvas.Execute, Execute_Executed, Execute_Enabled));
+            this.CommandBindings.Add(new CommandBinding(DesignerCanvas.CheckFlow, CheckFlow_Executed, CheckFlow_Enabled));
             SelectAll.InputGestures.Add(new KeyGesture(Key.A, ModifierKeys.Control));
             
             this.AllowDrop = true;
@@ -794,12 +797,95 @@ namespace Careful.Controls.DesignerCanvasControl.Designer
 
         private void Execute_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            
+            List<DesignerItem> designerItems = this.Children.OfType<DesignerItem>().ToList();
+            List<string> exceptionActivityNames = new List<string>();
+            foreach (var item in designerItems)
+            {
+                IActivity activity = item.Content as IActivity;
+                activity.ActivityState = ActivityState.Waiting;
+                bool connection = activity.ValidateConnection();
+                bool data = activity.ValidateData();
+                if (!connection || !data)
+                {
+                    activity.ActivityState = ActivityState.Abort;
+                    exceptionActivityNames.Add(activity.ActivityName);
+                    break;
+                }
+                else
+                {
+                    activity.ActivityState = ActivityState.Runnable;
+                }
+                activity.Execute();
+            }
+            FlowExecuteResult?.Execute(exceptionActivityNames);
         }
 
         private void Execute_Enabled(object sender, CanExecuteRoutedEventArgs e)
         {
-            
+            e.CanExecute = true;
+        }
+
+        #endregion
+
+
+
+        public ICommand FlowExecuteResult
+        {
+            get { return (ICommand)GetValue(FlowExecuteResultProperty); }
+            set { SetValue(FlowExecuteResultProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for FlowExecuteResult.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty FlowExecuteResultProperty =
+            DependencyProperty.Register("FlowExecuteResult", typeof(ICommand), typeof(DesignerCanvas));
+
+
+
+        public ICommand FlowCheckResult
+        {
+            get { return (ICommand)GetValue(FlowCheckResultProperty); }
+            set { SetValue(FlowCheckResultProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for FlowCheckResult.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty FlowCheckResultProperty =
+            DependencyProperty.Register("FlowCheckResult", typeof(ICommand), typeof(DesignerCanvas));
+
+
+
+        #region CheckFlow Command
+
+        private void CheckFlow_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            List<DesignerItem> designerItems = this.Children.OfType<DesignerItem>().ToList();
+            List<string> exceptionActivityNames = new List<string>();
+            foreach (var item in designerItems)
+            {
+                IActivity activity = item.Content as IActivity;
+                activity.ActivityState = ActivityState.Waiting;
+                bool connection = activity.ValidateConnection();
+                bool data = activity.ValidateData();
+                if (!connection || !data)
+                {
+                    activity.ActivityState = ActivityState.Abort;
+                    exceptionActivityNames.Add(activity.ActivityName);
+                }
+                else
+                {
+                    activity.ActivityState = ActivityState.Runnable;
+                }
+            }
+            FlowCheckResult?.Execute(exceptionActivityNames);
+            foreach (var item in designerItems)
+            {
+                IActivity activity = item.Content as IActivity;
+                activity.ActivityState = ActivityState.Waiting;
+            }
+        }
+
+        private void CheckFlow_Enabled(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
         }
 
         #endregion
@@ -958,6 +1044,8 @@ namespace Careful.Controls.DesignerCanvasControl.Designer
         {
             foreach (Connection connection in SelectionService.CurrentSelection.OfType<Connection>())
             {
+                connection.OutputActivity.InputConnection.Remove(connection);
+                connection.InputActivity.OutputConnection.Remove(connection);
                 this.Children.Remove(connection);
             }
 

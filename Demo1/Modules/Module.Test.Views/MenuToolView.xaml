@@ -374,7 +374,7 @@
             <!--Execute-->
             <GroupBox Header="Execute" Style="{DynamicResource ToolbarGroup}" Margin="3">
                 <Grid>
-                    <StackPanel>
+                    <StackPanel Orientation="Horizontal">
                         <Button Margin="3" Width="55" Style="{DynamicResource ToolBarButtonBaseStyle}"
                         HorizontalContentAlignment="Center"
                         CommandTarget="{Binding ElementName=MyDesigner}">
@@ -391,6 +391,25 @@
                                     </Grid.RowDefinitions>
                                     <Image Source="Images/GenericDocument.png" Width="45"/>
                                     <TextBlock Grid.Row="1" Text="Execute" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+                                </Grid>
+                            </Button.Content>
+                        </Button>
+                        <Button Margin="3" Width="55" Style="{DynamicResource ToolBarButtonBaseStyle}"
+                        HorizontalContentAlignment="Center"
+                        CommandTarget="{Binding ElementName=MyDesigner}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{x:Static designer:DesignerCanvas.CheckFlow}"></i:InvokeCommandAction>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <Button.Content>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="4*"/>
+                                        <RowDefinition Height="1*"/>
+                                    </Grid.RowDefinitions>
+                                    <Image Source="Images/GenericDocument.png" Width="45"/>
+                                    <TextBlock Grid.Row="1" Text="Inspect" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
                                 </Grid>
                             </Button.Content>
                         </Button>

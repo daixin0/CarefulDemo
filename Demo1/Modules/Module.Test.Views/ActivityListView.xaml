@@ -16,11 +16,11 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid>
-        <toolbox:Toolbox ItemsSource="{Binding ActivityInfoModels}">
+        <toolbox:Toolbox ItemsSource="{Binding ActivityInfoModels}" ItemSize="60,50">
             <toolbox:Toolbox.ItemTemplate>
                 <DataTemplate>
-                    <Grid >
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding ActivityName}"></TextBlock>
+                    <Grid>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding ActivityName}" Tag="{Binding ActivityType}"></TextBlock>
                     </Grid>
                 </DataTemplate>
             </toolbox:Toolbox.ItemTemplate>
