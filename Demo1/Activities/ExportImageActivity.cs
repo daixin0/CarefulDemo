@@ -2,6 +2,7 @@
 using Careful.Controls.DesignerCanvasControl.ConnectorControl;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,7 @@ namespace Activities
     {
         [InputAttribute("输入图像")]
         public Image InputImage { get; set; }
-
+        [Category("活动")]
         public string SavePath { get; set; }
 
         public override void RunProc()

@@ -2,6 +2,7 @@
 using Careful.Controls.DesignerCanvasControl.ConnectorControl;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -14,7 +15,7 @@ namespace Careful.Controls.DesignerCanvasControl.ActivityItem
 {
     public class Activity : Control, IActivity
     {
-
+        [Category("活动")]
         public string ActivityName
         {
             get { return (string)GetValue(ActivityNameProperty); }
@@ -25,7 +26,7 @@ namespace Careful.Controls.DesignerCanvasControl.ActivityItem
         public static readonly DependencyProperty ActivityNameProperty =
             DependencyProperty.Register("ActivityName", typeof(string), typeof(Activity));
 
-
+        [Category("活动")]
         public string Description
         {
             get { return (string)GetValue(DescriptionProperty); }

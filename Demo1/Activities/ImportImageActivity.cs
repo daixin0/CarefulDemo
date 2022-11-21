@@ -2,6 +2,7 @@
 using Careful.Controls.DesignerCanvasControl.ConnectorControl;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -16,6 +17,7 @@ namespace Activities
     [ActivityVision("ImportImageActivity")]
     public class ImportImageActivity : Activity
     {
+        [Category("活动")]
         public string ImagePath
         {
             get { return (string)GetValue(ImagePathProperty); }
