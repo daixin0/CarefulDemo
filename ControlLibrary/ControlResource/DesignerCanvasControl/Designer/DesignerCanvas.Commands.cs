@@ -989,8 +989,8 @@ namespace Careful.Controls.DesignerCanvasControl.Designer
                 IActivity activity = designer.Content as IActivity;
                 activity.ActivityState = ActivityState.Waiting;
                 bool isConnection = activity.ValidateConnection();
-                bool data = activity.ValidateData();
-                if (!isConnection || !data)
+                //bool data = activity.ValidateData();
+                if (!isConnection)
                 {
                     activity.ActivityState = ActivityState.Abort;
                     exceptionActivityNames.Add(activity.ActivityName);

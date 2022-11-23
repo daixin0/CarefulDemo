@@ -54,6 +54,7 @@ namespace ModularityIDEDemo
             {
                 application = new Application();
             }
+            application.ShutdownMode = ShutdownMode.OnMainWindowClose;
             //if (!CarefulIoc.Default.IsRegistered<Application>())
             //{
             //    application.ShutdownMode = ShutdownMode.OnExplicitShutdown;
