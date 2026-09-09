@@ -1,6 +1,6 @@
 # Careful MVVM · CarefulDemo
 
-[简体中文](README.zh.md) | **English**
+[简体中文](README.md) | **English**
 
 A modular desktop application framework and sample project built with **C# / WPF / .NET Framework 4.7.2**. It includes MVVM infrastructure, a custom control library, and a visual workflow designer with docking layouts, property editing, and image processing activities.
 
